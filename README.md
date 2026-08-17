@@ -73,8 +73,19 @@ Run the tests:
 ```bash
 npm i -D playwright && npx playwright install chromium
 node test/scoring.test.js   # 45 checks, no browser needed
-node test/smoke.js          # 39 checks, headless Chromium
+node test/smoke.js          # 50 checks, headless Chromium
+node test/links.js          # external link checker (needs network)
 ```
+
+`links.js` is separate because it needs real network access, unlike the other
+two. Run it after touching `data/certifications.js`, and every few months
+regardless — trade associations reorganise their sites constantly. A
+certification guide whose "verify this" links 404 is worse than no guide.
+
+It distinguishes genuinely dead links from ones that merely block scripts: a
+403 is usually bot-filtering, not a missing page, and is reported as CHECK BY
+HAND rather than broken. It also catches the nastier case of a dead path that
+redirects to a site's own 404 template and answers 200.
 
 84 checks in total, covering query construction, the bond/insurance join,
 expiry logic, SoQL escaping, the scoring curve, calibration, award assignment,
