@@ -192,14 +192,77 @@ function respond(route, body) {
   check('single quotes are escaped in search (SoQL injection guard)',
     searchUrl.includes("O''BRIEN"), searchUrl);
 
+  /* ------------------------------------------------------------ URL state */
+
+  // file:// forbids history.pushState, so URL state is exercised on a data-less
+  // http origin via Playwright's routing instead of the file loads used above.
+  {
+    const u = new URL('http://kcc.test/index.html');
+    await page.route('http://kcc.test/**', async (route) => {
+      const p = new URL(route.request().url()).pathname;
+      const map = { '/index.html': 'index.html', '/assets/app.js': 'assets/app.js',
+        '/assets/scoring.js': 'assets/scoring.js', '/assets/styles.css': 'assets/styles.css',
+        '/data/categories.js': 'data/categories.js', '/data/certifications.js': 'data/certifications.js',
+        '/data/reviews.js': 'data/reviews.js' };
+      if (!map[p]) return route.fulfill({ status: 404, body: '' });
+      const type = p.endsWith('.css') ? 'text/css'
+        : p.endsWith('.js') ? 'text/javascript' : 'text/html';
+      return route.fulfill({ status: 200, contentType: type,
+        body: require('fs').readFileSync(require('path').join(ROOT, map[p]), 'utf8') });
+    });
+
+    await page.goto('http://kcc.test/index.html?trade=tile&city=SEATTLE&sort=name');
+    await page.waitForSelector('.card', { timeout: 10000 });
+
+    check('a shared URL restores the trade filter',
+      (await page.locator('#categorySelect').inputValue()) === 'tile',
+      await page.locator('#categorySelect').inputValue());
+    check('a shared URL restores the city filter',
+      (await page.locator('#citySelect').inputValue()) === 'SEATTLE',
+      await page.locator('#citySelect').inputValue());
+    check('the page title reflects the trade and city, not a generic homepage',
+      (await page.title()).includes('Tile') && (await page.title()).includes('Seattle'),
+      await page.title());
+    check('meta description is rewritten for the view',
+      (await page.getAttribute('meta[name="description"]', 'content')).toLowerCase().includes('seattle'), '');
+    check('a canonical link is present',
+      !!(await page.getAttribute('link[rel="canonical"]', 'href')), '');
+
+    // Changing a filter must be reflected in the address bar.
+    await page.selectOption('#citySelect', 'KENT');
+    await page.waitForTimeout(400);
+    check('changing a filter updates the URL',
+      page.url().includes('city=KENT'), page.url());
+
+    await page.goBack();
+    await page.waitForTimeout(600);
+    check('browser back restores the previous filter',
+      page.url().includes('city=SEATTLE') &&
+      (await page.locator('#citySelect').inputValue()) === 'SEATTLE',
+      page.url() + ' / ' + await page.locator('#citySelect').inputValue());
+
+    await page.unroute('http://kcc.test/**');
+    await page.goto(BASE + '/index.html');
+    await page.selectOption('#categorySelect', 'tile');
+    await page.waitForSelector('.card', { timeout: 10000 });
+  }
+
   /* --------------------------------------------------- external review links */
 
   const alphaLinks = page.locator('.card', { hasText: 'Alpha Tile Works' }).locator('.extlink');
-  check('every listing links out to Google and Yelp',
-    (await alphaLinks.count()) === 2, 'got ' + (await alphaLinks.count()));
+  check('every listing links to a website, Google and Yelp',
+    (await alphaLinks.count()) === 3, 'got ' + (await alphaLinks.count()));
 
-  const gHref = await alphaLinks.nth(0).getAttribute('href');
-  const yHref = await alphaLinks.nth(1).getAttribute('href');
+  const siteHref = await alphaLinks.nth(0).getAttribute('href');
+  const gHref = await alphaLinks.nth(1).getAttribute('href');
+  const yHref = await alphaLinks.nth(2).getAttribute('href');
+
+  check('unverified website falls back to a scoped search',
+    siteHref.startsWith('https://www.google.com/search?q=') &&
+    decodeURIComponent(siteHref).includes('Alpha Tile Works Llc Seattle WA'), siteHref);
+  check('an unconfirmed website is labelled "Find site", never presented as theirs',
+    (await alphaLinks.nth(0).innerText()).trim().toLowerCase().includes('find site'),
+    await alphaLinks.nth(0).innerText());
   check('Google link scopes the search to the business and city',
     gHref.startsWith('https://www.google.com/maps/search/') &&
     decodeURIComponent(gHref).includes('Alpha Tile Works Llc Seattle WA'), gHref);
@@ -207,17 +270,17 @@ function respond(route, body) {
     yHref.startsWith('https://www.yelp.com/search') &&
     decodeURIComponent(yHref).includes('Alpha Tile Works Llc') &&
     decodeURIComponent(yHref).includes('Seattle, WA'), yHref);
-  check('outbound review links open safely in a new tab',
-    (await alphaLinks.nth(0).getAttribute('rel')).includes('noopener') &&
-    (await alphaLinks.nth(0).getAttribute('target')) === '_blank', '');
+  check('outbound links open safely in a new tab',
+    (await alphaLinks.nth(1).getAttribute('rel')).includes('noopener') &&
+    (await alphaLinks.nth(1).getAttribute('target')) === '_blank', '');
   check('ampersands in business names are encoded, not broken',
     decodeURIComponent(await page.locator('.card', { hasText: 'Bravo Tile' })
-      .locator('.extlink').nth(0).getAttribute('href')).includes('Bravo Tile & Stone Inc'), '');
+      .locator('.extlink').nth(1).getAttribute('href')).includes('Bravo Tile & Stone Inc'), '');
   check('unverified links are labelled as a lookup, not a confirmed match',
     (await page.locator('.card', { hasText: 'Alpha Tile Works' })
       .locator('.extlinks__label').innerText()).toLowerCase().includes('look them up'), '');
 
-  /* ------------------------------------------------------ review scores */
+  /* ------------------------------------------------------ review scores */  /* ------------------------------------------------------ review scores */
 
   check('sort control matches the default state',
     (await page.locator('#sortSelect').inputValue()) === 'name',
@@ -278,6 +341,31 @@ function respond(route, body) {
   const guide = await page.locator('.scaleguide').innerText();
   check('the form anchors the scale so 3 reads as a good outcome',
     guide.includes('3 means the contractor did what they promised'), guide.slice(0, 200));
+
+  // Regression: keyboard activation used to record 3.5 when the user meant 4,
+  // because half-star detection read pointer coordinates a keyboard never sends.
+  const kbStar = page.locator('.starrow[data-axis="workmanship"] .star[data-i="4"]');
+  await kbStar.focus();
+  await page.keyboard.press('Enter');
+  check('keyboard Enter records a WHOLE star, not a half',
+    (await page.locator('.starrow[data-axis="workmanship"] .starrow__val').innerText()).trim() === '4.0',
+    await page.locator('.starrow[data-axis="workmanship"] .starrow__val').innerText());
+
+  await page.keyboard.press('ArrowLeft');
+  check('arrow keys give keyboard users the half steps a mouse gets',
+    (await page.locator('.starrow[data-axis="workmanship"] .starrow__val').innerText()).trim() === '3.5',
+    await page.locator('.starrow[data-axis="workmanship"] .starrow__val').innerText());
+
+  await page.keyboard.press('End');
+  check('End jumps to the maximum',
+    (await page.locator('.starrow[data-axis="workmanship"] .starrow__val').innerText()).trim() === '5.0', '');
+
+  check('star buttons expose pressed state to assistive tech',
+    (await page.locator('.starrow[data-axis="workmanship"] .star[data-i="5"]').getAttribute('aria-pressed')) === 'true', '');
+
+  await page.keyboard.press('Delete');
+  check('Delete clears an axis so it can be skipped',
+    (await page.locator('.starrow[data-axis="workmanship"] .starrow__val').innerText()).trim() === 'skipped', '');
 
   // Rating one axis then submitting should save locally and emit a snippet.
   await page.locator('.starrow[data-axis="workmanship"] .star[data-i="4"]').click();
