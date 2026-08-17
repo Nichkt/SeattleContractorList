@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The review form is a tool, not content.
+Disallow: /review.html
+
+Sitemap: https://nichkt.github.io/SeattleContractorList/sitemap.xml

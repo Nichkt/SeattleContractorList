@@ -64,8 +64,13 @@ assets/styles.css       Light + dark theme
 data/categories.js      Trade taxonomy -> L&I specialty codes + license types
 data/certifications.js  Certification registry + per-business overlay
 data/reviews.js         Review store, local layer, backend hook
+sitemap.xml             Per-trade URLs for search engines
+robots.txt              Crawl rules
+worker/                 Cloudflare Worker + D1 review backend (optional)
 test/smoke.js           Headless Playwright test (mocked API)
 test/scoring.test.js    Scoring engine unit tests
+test/worker.test.js     Review API validation tests
+test/links.js           External link checker
 ```
 
 Run the tests:
@@ -73,7 +78,8 @@ Run the tests:
 ```bash
 npm i -D playwright && npx playwright install chromium
 node test/scoring.test.js   # 45 checks, no browser needed
-node test/smoke.js          # 50 checks, headless Chromium
+node test/worker.test.js    # 21 checks, review API validation
+node test/smoke.js          # 84 checks, headless Chromium
 node test/links.js          # external link checker (needs network)
 ```
 
@@ -87,9 +93,10 @@ It distinguishes genuinely dead links from ones that merely block scripts: a
 HAND rather than broken. It also catches the nastier case of a dead path that
 redirects to a site's own 404 template and answers 200.
 
-84 checks in total, covering query construction, the bond/insurance join,
+150 checks in total, covering query construction, the bond/insurance join,
 expiry logic, SoQL escaping, the scoring curve, calibration, award assignment,
-and the end-to-end review flow.
+URL state and history, keyboard accessibility, house style, and the review
+API's input validation.
 
 ---
 
@@ -159,6 +166,29 @@ Only counts and ratings are ever rendered from the overlay — **never review
 text.** Republishing Google or Yelp review content violates both platforms'
 terms; linking to them does not.
 
+### Shareable URLs and SEO
+
+Every filter lives in the query string: `?trade=roofing&city=KENT&sort=score`.
+That makes a search bookmarkable and linkable, drives back/forward through
+`popstate`, and rewrites the title, meta description and canonical tag per
+view. `sitemap.xml` lists a URL per trade; `robots.txt` points at it.
+
+One honest limit: results are rendered client-side, so a crawler that does not
+execute JavaScript sees the page furniture and no listings. Google does execute
+it; several others do not. Fixing that properly means prerendering each trade
+to static HTML at build time, which would be the next real step if search
+traffic matters.
+
+### Websites on listings
+
+L&I publishes 19 fields and a website is not one of them, so a contractor's own
+site cannot be filled in automatically. Listings therefore show either a
+confirmed URL from the overlay (`website: { url, checked }`) rendered as the
+bare domain, or a **Find site** search scoped to the business name and city.
+The label distinguishes them. Never guess a domain from a company name —
+contractor names collide constantly, and sending customers to the wrong
+company's website is worse than sending them nowhere.
+
 ### Storage, and the backend switch
 
 Reviews merge from three sources: the curated `REVIEWS` array in
@@ -166,10 +196,14 @@ Reviews merge from three sources: the curated `REVIEWS` array in
 (localStorage — scores live, but the UI states plainly that nobody else can see
 it), and an optional HTTP backend.
 
-To go live, set `REVIEW_BACKEND.url` and `acceptSubmissions: true` in
-`data/reviews.js`. The endpoint needs `GET /reviews` returning
-`{ reviews: [...] }` and `POST /reviews` accepting one review object, with CORS
-headers for your Pages origin. Nothing else changes.
+A ready-to-deploy backend lives in **`/worker`** — a Cloudflare Worker plus a
+D1 database, with moderation, rate limiting, hashed IPs, a honeypot and an
+allow-listed CORS policy. See `worker/README.md` for the deploy steps and, more
+importantly, for what running it commits you to: every submission needs a human
+decision before it publishes.
+
+Once deployed, set `REVIEW_BACKEND.url` and `acceptSubmissions: true` in
+`data/reviews.js`. Nothing else changes.
 
 Until then the form saves locally and emits a commit-ready JSON snippet.
 

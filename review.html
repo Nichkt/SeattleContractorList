@@ -117,6 +117,12 @@
       <textarea id="body" placeholder="What the job was, how it went, and what the next person should know. Stick to what you saw yourself."></textarea>
     </label>
 
+    <!-- Honeypot. Hidden from people, irresistible to bots. A filled value
+         means the submission is discarded server-side. -->
+    <div class="hp" aria-hidden="true">
+      <label>Website<input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off"></label>
+    </div>
+
     <div>
       <button type="submit" class="btn btn--primary">Save review</button>
       <a class="btn btn--ghost" href="./">Cancel</a>
@@ -186,26 +192,44 @@
   });
 
   /* ------------------------------------------------------------- stars */
-  // Half steps are supported by clicking the left or right half of a star,
-  // which keeps the whole control to five targets instead of ten.
+  // Half steps come from clicking the left or right half of a star, which
+  // keeps the control to five targets instead of ten.
+  //
+  // KEYBOARD. A pointer click carries coordinates. A keyboard activation does
+  // not. Enter on a focused button fires a click reporting clientX 0, which
+  // the half-star maths read as "far left edge", so it recorded 3.5 when the
+  // user meant 4. That is worse than a control that plainly fails: it looked
+  // like it worked and filed the wrong number against a real business.
+  // Pointer clicks are now told apart by event.detail (0 for keyboard), and
+  // arrow keys give keyboard users the half steps a mouse gets from position.
   var values = {};
   var STAR_SVG = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>';
+  var MIN = 1, MAX = 5, STEP = 0.5;
 
   function renderStars() {
     document.getElementById('starfield').innerHTML = SCORING.AXES.map(function (axis) {
       return '<div class="starrow" data-axis="' + esc(axis.key) + '">' +
-        '<span class="starrow__label">' + esc(axis.label) + '</span>' +
-        '<span class="stars">' +
+        '<span class="starrow__label" id="lbl-' + esc(axis.key) + '">' + esc(axis.label) + '</span>' +
+        '<span class="stars" role="group" aria-labelledby="lbl-' + esc(axis.key) + '" ' +
+          'aria-describedby="hlp-' + esc(axis.key) + '">' +
           [1, 2, 3, 4, 5].map(function (i) {
-            return '<button type="button" class="star" data-i="' + i + '" aria-label="' +
-              esc(axis.label) + ' ' + i + '">' + STAR_SVG + '</button>';
+            return '<button type="button" class="star" data-i="' + i + '" ' +
+              'aria-pressed="false" aria-label="' + esc(axis.label) + ': ' + i +
+              ' out of 5. Arrow keys adjust by a half star.">' + STAR_SVG + '</button>';
           }).join('') +
         '</span>' +
-        '<span class="starrow__help">' + esc(axis.help) + '</span>' +
+        '<span class="starrow__val" aria-live="polite">skipped</span>' +
+        '<span class="starrow__help" id="hlp-' + esc(axis.key) + '">' + esc(axis.help) + '</span>' +
         '</div>';
     }).join('');
   }
   renderStars();
+
+  function setValue(row, axis, v) {
+    if (v === undefined || v === null) delete values[axis];
+    else values[axis] = Math.min(MAX, Math.max(MIN, v));
+    paint(row, axis);
+  }
 
   document.getElementById('starfield').addEventListener('click', function (e) {
     var btn = e.target.closest('.star');
@@ -213,28 +237,52 @@
     var row = btn.closest('.starrow');
     var axis = row.dataset.axis;
     var i = parseInt(btn.dataset.i, 10);
-    var rect = btn.getBoundingClientRect();
-    var half = (e.clientX - rect.left) < rect.width / 2;
-    var v = half ? i - 0.5 : i;
-    // Clicking the current value again clears it, so an axis can be skipped.
-    values[axis] = (values[axis] === v) ? undefined : v;
-    if (values[axis] === undefined) delete values[axis];
-    paint(row, axis);
+
+    // event.detail counts pointer clicks and is 0 when a keyboard activated the
+    // button. Only trust coordinates when a pointer actually supplied them.
+    var v;
+    if (e.detail > 0) {
+      var rect = btn.getBoundingClientRect();
+      v = ((e.clientX - rect.left) < rect.width / 2) ? i - 0.5 : i;
+    } else {
+      v = i;
+    }
+    // Choosing the current value again clears it, so an axis can be skipped.
+    setValue(row, axis, values[axis] === v ? undefined : v);
+  });
+
+  document.getElementById('starfield').addEventListener('keydown', function (e) {
+    var btn = e.target.closest('.star');
+    if (!btn) return;
+    var row = btn.closest('.starrow');
+    var axis = row.dataset.axis;
+    var cur = values[axis];
+
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      setValue(row, axis, cur === undefined ? MIN : cur + STEP);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      setValue(row, axis, cur === undefined ? MAX : cur - STEP);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); setValue(row, axis, MIN);
+    } else if (e.key === 'End') {
+      e.preventDefault(); setValue(row, axis, MAX);
+    } else if (e.key === 'Delete' || e.key === 'Backspace') {
+      e.preventDefault(); setValue(row, axis, undefined);
+    }
   });
 
   function paint(row, axis) {
     var v = values[axis];
     Array.prototype.forEach.call(row.querySelectorAll('.star'), function (b) {
       var i = parseInt(b.dataset.i, 10);
-      b.classList.toggle('on', v !== undefined && v >= i - 0.5);
+      var on = v !== undefined && v >= i - 0.5;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
       b.style.opacity = (v !== undefined && v === i - 0.5) ? '.6' : '';
     });
     var out = row.querySelector('.starrow__val');
-    if (!out) {
-      out = document.createElement('span');
-      out.className = 'starrow__val';
-      row.querySelector('.stars').after(out);
-    }
     out.textContent = v === undefined ? 'skipped' : v.toFixed(1);
   }
 
@@ -257,6 +305,7 @@
       visitDate: document.getElementById('visitDate').value,
       evidence: document.getElementById('evidence').value,
       permit: document.getElementById('permit').value.trim() || undefined,
+      website_url: document.getElementById('website_url').value || undefined,
       author: document.getElementById('author').value.trim() || undefined,
       title: document.getElementById('title').value.trim() || undefined,
       body: document.getElementById('body').value.trim() || undefined
