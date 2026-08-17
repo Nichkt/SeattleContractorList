@@ -32,7 +32,7 @@ const CATEGORIES = [
   {
     id: 'general',
     name: 'General Contractors',
-    blurb: 'Whole-home builds, additions, and multi-trade projects.',
+    blurb: 'New houses, additions, and jobs that need several trades.',
     icon: 'M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['01'],
@@ -42,7 +42,7 @@ const CATEGORIES = [
   {
     id: 'remodeling',
     name: 'Kitchen & Bath / Remodeling',
-    blurb: 'Kitchen and bath renovation, cabinetry, and finish work.',
+    blurb: 'Kitchens, baths, cabinets, and finish work.',
     icon: 'M4 4h16v16H4zM4 10h16M10 10v10',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['SB', '02'],
@@ -52,7 +52,7 @@ const CATEGORIES = [
   {
     id: 'roofing',
     name: 'Roofing',
-    blurb: 'Re-roofs, repairs, torch-down, metal, and composition.',
+    blurb: 'Tear-offs, repairs, metal, torch-down, and composition.',
     icon: 'M3 12l9-8 9 8M5 11v9h14v-9',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['CD'],
@@ -62,7 +62,7 @@ const CATEGORIES = [
   {
     id: 'landscaping',
     name: 'Landscaping & Tree Care',
-    blurb: 'Design, install, maintenance, tree work, and irrigation.',
+    blurb: 'Design, planting, upkeep, irrigation, and tree work.',
     icon: 'M12 22V12M12 12a5 5 0 015-5 5 5 0 01-5 5zM12 12a5 5 0 00-5-5 5 5 0 005 5z',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['BW', 'RF', 'BV', '03'],
@@ -73,7 +73,7 @@ const CATEGORIES = [
   {
     id: 'electrical',
     name: 'Electrical',
-    blurb: 'Panel upgrades, rewires, EV chargers, and service work.',
+    blurb: 'Panels, rewires, car chargers, and service calls.',
     icon: 'M13 2L4 14h7l-1 8 9-12h-7z',
     licenseTypes: ['ELECTRICAL CONTRACTOR'],
     specialtyCodes: null, // the license type is itself the filter
@@ -83,7 +83,7 @@ const CATEGORIES = [
   {
     id: 'plumbing',
     name: 'Plumbing',
-    blurb: 'Repipes, water heaters, fixtures, and drain work.',
+    blurb: 'Repipes, water heaters, fixtures, and drains.',
     icon: 'M8 3v6a4 4 0 004 4 4 4 0 014 4v4M4 9h8M16 17h4',
     licenseTypes: ['PLUMBING CONTRACTOR'],
     specialtyCodes: null,
@@ -93,7 +93,7 @@ const CATEGORIES = [
   {
     id: 'hvac',
     name: 'HVAC & Refrigeration',
-    blurb: 'Heat pumps, furnaces, AC, ductwork, and refrigeration.',
+    blurb: 'Heat pumps, furnaces, air conditioning, and ductwork.',
     icon: 'M12 3v18M3 12h18M6 6l12 12M18 6L6 18',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['SM', '6A', '6B', 'AB', 'AC'],
@@ -105,7 +105,7 @@ const CATEGORIES = [
   {
     id: 'tile',
     name: 'Tile, Stone & Masonry Tile',
-    blurb: 'Ceramic, porcelain, mosaic, natural and manufactured stone.',
+    blurb: 'Ceramic, porcelain, mosaic, and stone.',
     icon: 'M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['RE'],
@@ -115,7 +115,7 @@ const CATEGORIES = [
   {
     id: 'flooring',
     name: 'Flooring & Countertops',
-    blurb: 'Hardwood, LVP, carpet, and counter fabrication/install.',
+    blurb: 'Hardwood, vinyl plank, carpet, and countertops.',
     icon: 'M3 6h18M3 12h18M3 18h18',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['SK'],
@@ -135,7 +135,7 @@ const CATEGORIES = [
   {
     id: 'concrete',
     name: 'Concrete, Masonry & Paving',
-    blurb: 'Flatwork, foundations, brick, block, and asphalt.',
+    blurb: 'Driveways, foundations, brick, block, and asphalt.',
     icon: 'M3 8h18v10H3zM3 8l3-4h12l3 4M9 8v10M15 8v10',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['BI', 'BZ', 'SS'],
@@ -145,7 +145,7 @@ const CATEGORIES = [
   {
     id: 'fencing',
     name: 'Fencing & Decking',
-    blurb: 'Wood, vinyl, and metal fencing plus deck construction.',
+    blurb: 'Wood, vinyl, and metal fencing, plus decks.',
     icon: 'M4 8v12M9 8v12M14 8v12M19 8v12M2 11h20M2 15h20',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['BN'],
@@ -155,7 +155,7 @@ const CATEGORIES = [
   {
     id: 'siding',
     name: 'Siding, Gutters & Windows',
-    blurb: 'Siding replacement, gutters, glazing, and window install.',
+    blurb: 'Siding, gutters, glass, and window installation.',
     icon: 'M4 3h16v18H4zM4 9h16M4 15h16M12 3v18',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['SW', 'CV', 'BP', 'RH', 'SA'],
@@ -166,7 +166,7 @@ const CATEGORIES = [
   {
     id: 'carpentry',
     name: 'Carpentry & Framing',
-    blurb: 'Framing, rough carpentry, and structural wood work.',
+    blurb: 'Framing and rough carpentry.',
     icon: 'M3 20l6-6M9 14l4-11 8 8-11 4z',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['SL'],
@@ -176,7 +176,7 @@ const CATEGORIES = [
   {
     id: 'drywall',
     name: 'Drywall, Insulation & Plaster',
-    blurb: 'Hanging, taping, texture, insulation, and acoustics.',
+    blurb: 'Hanging, taping, texture, and insulation.',
     icon: 'M3 4h18v16H3zM3 12h18',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['BK', 'SO', 'SP', 'RA'],
@@ -187,7 +187,7 @@ const CATEGORIES = [
   {
     id: 'handyman',
     name: 'Handyman & Maintenance',
-    blurb: 'Small repairs, punch lists, and general property upkeep.',
+    blurb: 'Small repairs, punch lists, and general upkeep.',
     icon: 'M14 6l4 4-9 9H5v-4zM13 7l4 4',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['HM', '07', '7B', 'RP'],
@@ -208,7 +208,7 @@ const CATEGORIES = [
   {
     id: 'septic',
     name: 'Septic, Sewer & Water',
-    blurb: 'Side sewers, sanitation systems, wells, and backflow.',
+    blurb: 'Side sewers, septic systems, wells, and backflow.',
     icon: 'M12 3c3 5 6 7 6 11a6 6 0 01-12 0c0-4 3-6 6-11z',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['SU', 'WD', '30', '3A', 'RK'],
@@ -219,7 +219,7 @@ const CATEGORIES = [
   {
     id: 'garage-doors',
     name: 'Garage Doors & Gates',
-    blurb: 'Overhead doors, openers, gates, and activating devices.',
+    blurb: 'Overhead doors, openers, and gates.',
     icon: 'M3 21V8l9-5 9 5v13M3 12h18M3 16h18',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['OG', 'SG', '10'],
@@ -230,7 +230,7 @@ const CATEGORIES = [
   {
     id: 'solar-energy',
     name: 'Solar & Low Voltage',
-    blurb: 'Solar PV, battery storage, and limited-energy systems.',
+    blurb: 'Solar panels, batteries, and low-voltage systems.',
     icon: 'M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2M12 8a4 4 0 100 8 4 4 0 000-8z',
     licenseTypes: ['ELECTRICAL CONTRACTOR'],
     specialtyCodes: ['06'],
@@ -240,7 +240,7 @@ const CATEGORIES = [
   {
     id: 'fire-security',
     name: 'Fire Protection & Security',
-    blurb: 'Sprinkler systems, alarms, locks, and security equipment.',
+    blurb: 'Sprinklers, alarms, locks, and security equipment.',
     icon: 'M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['BO', 'SQ'],
@@ -260,7 +260,7 @@ const CATEGORIES = [
   {
     id: 'pools',
     name: 'Pools, Spas & Hot Tubs',
-    blurb: 'Pool and spa construction, service, and renovation.',
+    blurb: 'Pool and spa building, service, and repair.',
     icon: 'M2 18c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M6 14V5a2 2 0 014 0M14 14V5a2 2 0 014 0',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['RB'],
@@ -270,7 +270,7 @@ const CATEGORIES = [
   {
     id: 'abatement',
     name: 'Asbestos, Lead & Pest',
-    blurb: 'Hazardous material abatement and structural pest control.',
+    blurb: 'Asbestos, lead, and pest control.',
     icon: 'M12 3l9 16H3zM12 9v5M12 17h.01',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['XX', 'SZ'],
@@ -280,7 +280,7 @@ const CATEGORIES = [
   {
     id: 'cleanup',
     name: 'Pressure Washing & Cleanup',
-    blurb: 'Exterior cleaning, sandblasting, and site clean-up.',
+    blurb: 'Exterior washing, sandblasting, and site clean-up.',
     icon: 'M6 3v6M6 9c0 4 3 4 3 8v4M18 3v18M14 8h8',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['PW', 'SE', 'ST'],
@@ -301,7 +301,7 @@ const CATEGORIES = [
   {
     id: 'signs',
     name: 'Signs & Awnings',
-    blurb: 'Sign fabrication, installation, and service.',
+    blurb: 'Sign building, installation, and service.',
     icon: 'M4 4h16v10H4zM12 14v6M8 20h8',
     licenseTypes: ['CONSTRUCTION CONTRACTOR'],
     specialtyCodes: ['SX'],

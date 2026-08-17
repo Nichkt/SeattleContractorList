@@ -4,7 +4,7 @@
    TWO separate things live in this file:
 
    1. CERT_PROGRAMS — a reference table of real, independently-verifiable
-      trade certifications, what each one actually means, how hard it is to
+      trade certifications, what each one means, how hard it is to
       get, and the official directory where anyone can confirm a company
       currently holds it. This is factual reference data.
 
@@ -32,7 +32,7 @@ const CERT_PROGRAMS = {
     body: 'Ceramic Tile Education Foundation',
     tier: 'gold',
     trade: 'tile',
-    what: 'A hands-on, proctored test: the installer builds a real installation in a fixed time window and it is graded against ANSI standards. It is one of the few tile credentials in the US that cannot be earned by sitting through a class, and there are only a few thousand CTIs nationwide.',
+    what: 'A hands-on test. The installer builds a real installation under a time limit and it is graded against the national standard. You cannot get it by sitting through a class. There are only a few thousand in the country.',
     verifyUrl: 'https://www.ceramictilefoundation.org/find-certified-tile-installers'
   },
   'act-cert': {
@@ -41,7 +41,7 @@ const CERT_PROGRAMS = {
     body: 'CTEF / TCAA / NTCA / TCNA joint program',
     tier: 'gold',
     trade: 'tile',
-    what: 'Stacked on top of CTI. Separate hands-on modules for large-format tile, membranes, mud floors, mud walls, shower receptors, and grouts. Holding several ACT modules is a strong signal for wet areas and showers.',
+    what: 'Built on top of the CTI, with separate hands-on tests for large tile, membranes, mud floors, mud walls, shower pans, and grouts. Worth asking about for showers and wet areas.',
     verifyUrl: 'https://www.tcaainc.org/act---advanced-certifications-for-tile-installers'
   },
   'ctef-journeyman': {
@@ -50,7 +50,7 @@ const CERT_PROGRAMS = {
     body: 'Ceramic Tile Education Foundation',
     tier: 'silver',
     trade: 'tile',
-    what: 'Entry-level CTEF credential for installers working toward full CTI status.',
+    what: 'The first step toward the full CTI certification.',
     verifyUrl: 'https://www.ceramictilefoundation.org/tile-training-installation-certifications-ctef-overview'
   },
   'ntca-five-star': {
@@ -59,7 +59,7 @@ const CERT_PROGRAMS = {
     body: 'National Tile Contractors Association',
     tier: 'gold',
     trade: 'tile',
-    what: 'Company-level (not individual) recognition requiring certified installers on staff, references, and a standards commitment. Renewed annually.',
+    what: 'A company certification, not an individual one. It requires certified installers on staff, references, and a commitment to the standards. Renewed each year.',
     verifyUrl: 'https://www.tile-assn.com/page/FiveStar'
   },
 
@@ -70,7 +70,7 @@ const CERT_PROGRAMS = {
     body: 'GAF',
     tier: 'gold',
     trade: 'roofing',
-    what: 'GAF caps this at roughly the top few percent of roofers in the country. Requires licensing, insurance, and a track record, and it is what unlocks GAF\'s longest workmanship warranties.',
+    what: 'GAF limits this to about the top few percent of roofers in the country. It requires a license, insurance, and a track record, and it unlocks their longest labor warranty.',
     verifyUrl: 'https://www.gaf.com/en-us/roofing-contractors'
   },
   'certainteed-ssm': {
@@ -79,7 +79,7 @@ const CERT_PROGRAMS = {
     body: 'CertainTeed',
     tier: 'gold',
     trade: 'roofing',
-    what: 'CertainTeed\'s highest credential, requiring a majority of crews to be individually shingle-certified. Unlocks the SureStart PLUS extended warranties.',
+    what: 'CertainTeed\'s highest level. Most of the crew has to be certified individually, not just the owner. It unlocks their extended warranties.',
     verifyUrl: 'https://www.certainteed.com/find-a-pro/'
   },
   'owens-preferred': {
@@ -88,7 +88,7 @@ const CERT_PROGRAMS = {
     body: 'Owens Corning',
     tier: 'silver',
     trade: 'roofing',
-    what: 'Tiered manufacturer program (Preferred, then Platinum) tied to warranty eligibility and periodic review.',
+    what: 'A manufacturer program in two levels, Preferred and Platinum, tied to warranty eligibility.',
     verifyUrl: 'https://www.owenscorning.com/en-us/roofing/contractors'
   },
   'malarkey-emerald': {
@@ -97,7 +97,7 @@ const CERT_PROGRAMS = {
     body: 'Malarkey Roofing Products',
     tier: 'silver',
     trade: 'roofing',
-    what: 'Top tier for Malarkey, a Portland-based manufacturer widely specified in the Pacific Northwest.',
+    what: 'Malarkey\'s top level. They are a Portland manufacturer used widely in the Northwest.',
     verifyUrl: 'https://www.malarkeyroofing.com/contractor-locator'
   },
 
@@ -108,7 +108,7 @@ const CERT_PROGRAMS = {
     body: 'North American Technician Excellence',
     tier: 'gold',
     trade: 'hvac',
-    what: 'The most widely recognized independent HVAC technician certification in the US. Tested per specialty (gas heat, heat pump, air conditioning) rather than granted company-wide, so ask how many of the techs actually hold it.',
+    what: 'The best-known independent test for heating and cooling technicians. Individuals earn it per specialty, not the company. Ask how many of the technicians hold it.',
     verifyUrl: 'https://natex.org/homeowner/find-a-contractor-with-nate-certified-technicians/find-a-contractor-with-nate-certified-technicians'
   },
   'epa-608': {
@@ -117,7 +117,7 @@ const CERT_PROGRAMS = {
     body: 'US Environmental Protection Agency',
     tier: 'baseline',
     trade: 'hvac',
-    what: 'Federally required to purchase or handle refrigerant. Treat this as a floor, not a distinction: any tech touching refrigerant must have it.',
+    what: 'Required by federal law to buy or handle refrigerant. A floor, not a distinction.',
     verifyUrl: 'https://www.epa.gov/section608'
   },
   'bpi-analyst': {
@@ -126,7 +126,7 @@ const CERT_PROGRAMS = {
     body: 'Building Performance Institute',
     tier: 'silver',
     trade: 'hvac',
-    what: 'Whole-house energy diagnostics — blower door, combustion safety, envelope. Relevant for heat pump conversions and weatherization rebates.',
+    what: 'Whole-house energy work: blower door tests, combustion safety, and the building envelope. Useful for heat pump conversions and rebates.',
     verifyUrl: 'https://www.bpi.org/find-a-contractor/'
   },
 
@@ -137,7 +137,7 @@ const CERT_PROGRAMS = {
     body: 'International Society of Arboriculture',
     tier: 'gold',
     trade: 'landscaping',
-    what: 'The standard credential for anyone cutting into a mature tree. Requires three years of experience plus a proctored exam and ongoing CEUs. Seattle\'s tree regulations make this especially worth insisting on.',
+    what: 'The standard credential for cutting into a mature tree. It takes three years of experience, a proctored exam, and continuing education. Seattle\'s tree rules make it worth asking about.',
     verifyUrl: 'https://www.treesaregood.org/findanarborist'
   },
   'isa-trag': {
@@ -146,7 +146,7 @@ const CERT_PROGRAMS = {
     body: 'International Society of Arboriculture',
     tier: 'gold',
     trade: 'landscaping',
-    what: 'Specific qualification for judging whether a tree is a hazard. This is the credential you want behind a removal recommendation or a report for a permit.',
+    what: 'A qualification for judging whether a tree is a hazard. Ask for it behind any removal recommendation or permit report.',
     verifyUrl: 'https://www.treesaregood.org/findanarborist'
   },
   'wsnla-cph': {
@@ -155,7 +155,7 @@ const CERT_PROGRAMS = {
     body: 'Washington State Nursery & Landscape Association',
     tier: 'silver',
     trade: 'landscaping',
-    what: 'Washington-specific horticulture certification covering plant ID, soils, pests, and PNW growing conditions.',
+    what: 'A Washington certification covering plants, soils, pests, and local growing conditions.',
     verifyUrl: 'https://www.wsnla.org/page/CPH'
   },
   'nalp-clt': {
@@ -164,7 +164,7 @@ const CERT_PROGRAMS = {
     body: 'National Association of Landscape Professionals',
     tier: 'silver',
     trade: 'landscaping',
-    what: 'National technician certification with written and hands-on components in installation, maintenance, or irrigation.',
+    what: 'A national certification with written and hands-on parts in installation, maintenance, or irrigation.',
     verifyUrl: 'https://www.landscapeprofessionals.org/'
   },
 
@@ -175,7 +175,7 @@ const CERT_PROGRAMS = {
     body: 'National Association of the Remodeling Industry',
     tier: 'gold',
     trade: 'general',
-    what: 'Requires documented years in the trade, a broad written exam covering business practice and construction technology, and adherence to a code of ethics.',
+    what: 'Requires documented years in the trade, a written exam covering construction and business practice, and a code of ethics.',
     verifyUrl: 'https://nari.org/certify-learn/certifications/'
   },
   'nari-ckbr': {
@@ -184,7 +184,7 @@ const CERT_PROGRAMS = {
     body: 'National Association of the Remodeling Industry',
     tier: 'gold',
     trade: 'remodeling',
-    what: 'NARI\'s kitchen and bath specialization — the most relevant NARI credential for a gut kitchen or bath.',
+    what: 'NARI\'s kitchen and bath specialty. The one to ask about before a full kitchen remodel.',
     verifyUrl: 'https://nari.org/certify-learn/certifications/certified-kitchen-and-bath-remodeler-ckbr/'
   },
   'nkba-cmkbd': {
@@ -193,7 +193,7 @@ const CERT_PROGRAMS = {
     body: 'National Kitchen & Bath Association',
     tier: 'gold',
     trade: 'remodeling',
-    what: 'The senior NKBA design credential, requiring many years of documented design experience plus examination. Design-side rather than build-side.',
+    what: 'The senior design credential from the kitchen and bath association. It covers design work, not construction.',
     verifyUrl: 'https://nkba.org/find-a-pro/'
   },
   'nari-caps': {
@@ -202,7 +202,7 @@ const CERT_PROGRAMS = {
     body: 'NAHB',
     tier: 'silver',
     trade: 'remodeling',
-    what: 'Training in accessible and aging-in-place design — zero-threshold showers, grab blocking, door widths, lighting.',
+    what: 'Training in building for people staying in their homes as they age: walk-in showers, grab bar blocking, wider doors, better lighting.',
     verifyUrl: 'https://www.nahb.org/education-and-events/education/designations/certified-aging-in-place-specialist-caps'
   },
   'nari-cgp': {
@@ -211,7 +211,7 @@ const CERT_PROGRAMS = {
     body: 'NAHB',
     tier: 'silver',
     trade: 'general',
-    what: 'Green building practice — envelope, energy, water, and materials.',
+    what: 'Green building practice, covering the envelope, energy, water, and materials.',
     verifyUrl: 'https://www.nahb.org/education-and-events/education/designations'
   },
 
@@ -222,7 +222,7 @@ const CERT_PROGRAMS = {
     body: 'WA Dept. of Labor & Industries',
     tier: 'gold',
     trade: 'electrical',
-    what: 'The top state electrical credential above journeyman, requiring years at journey level plus examination. Verifiable directly through L&I.',
+    what: 'Washington\'s top electrical credential, above journeyman. It requires years at journey level and an exam. The state can confirm it.',
     verifyUrl: 'https://secure.lni.wa.gov/verify/'
   },
   'nabcep-pv': {
@@ -231,7 +231,7 @@ const CERT_PROGRAMS = {
     body: 'North American Board of Certified Energy Practitioners',
     tier: 'gold',
     trade: 'solar-energy',
-    what: 'The recognized gold standard for solar PV installation, requiring documented installed systems plus a rigorous exam.',
+    what: 'The main credential for solar work. It requires documented installed systems and a hard exam.',
     verifyUrl: 'https://www.nabcep.org/certification/certificant-locator/'
   },
   'wa-journey-plumber': {
@@ -240,7 +240,7 @@ const CERT_PROGRAMS = {
     body: 'WA Dept. of Labor & Industries',
     tier: 'silver',
     trade: 'plumbing',
-    what: 'State plumbing credential requiring documented apprenticeship hours plus examination. Verifiable through L&I.',
+    what: 'Washington\'s plumbing credential, earned through documented apprentice hours and an exam. The state can confirm it.',
     verifyUrl: 'https://secure.lni.wa.gov/verify/'
   },
 
@@ -251,7 +251,7 @@ const CERT_PROGRAMS = {
     body: 'US Environmental Protection Agency',
     tier: 'baseline',
     trade: null,
-    what: 'Legally required for any firm disturbing painted surfaces in housing built before 1978 — which is a very large share of Seattle\'s housing stock. Verify this one specifically for older homes.',
+    what: 'Required by law for any firm disturbing paint in a home built before 1978. That covers much of the housing here. Check this one on an older house.',
     verifyUrl: 'https://www.epa.gov/lead/locate-lead-safe-certified-firm'
   },
   'wa-asbestos-cert': {
@@ -260,7 +260,7 @@ const CERT_PROGRAMS = {
     body: 'WA Dept. of Labor & Industries',
     tier: 'gold',
     trade: 'abatement',
-    what: 'Required for asbestos abatement in Washington, with separate worker and supervisor certifications.',
+    what: 'Required in Washington for asbestos work, with separate certifications for workers and supervisors.',
     verifyUrl: 'https://lni.wa.gov/safety-health/safety-topics/topics/asbestos'
   },
   'osha-30': {
@@ -269,7 +269,7 @@ const CERT_PROGRAMS = {
     body: 'US Dept. of Labor / OSHA',
     tier: 'baseline',
     trade: null,
-    what: 'Thirty-hour construction safety training, typically held by supervisors.',
+    what: 'Thirty hours of construction safety training, usually held by a supervisor.',
     verifyUrl: 'https://www.osha.gov/training/outreach'
   },
   'bbb-accredited': {
@@ -278,7 +278,7 @@ const CERT_PROGRAMS = {
     body: 'Better Business Bureau',
     tier: 'baseline',
     trade: null,
-    what: 'A paid accreditation, not a skills test. Useful mainly as a complaint-history record — read the complaints, not the letter grade.',
+    what: 'A paid membership, not a test of skill. Read the complaints rather than the letter grade.',
     verifyUrl: 'https://www.bbb.org/us/wa/seattle'
   },
   'aws-cwi': {
@@ -287,7 +287,7 @@ const CERT_PROGRAMS = {
     body: 'American Welding Society',
     tier: 'gold',
     trade: 'metal',
-    what: 'Rigorous welding inspection credential requiring experience, a vision exam, and a three-part test.',
+    what: 'A welding inspection credential requiring experience, a vision test, and a three-part exam.',
     verifyUrl: 'https://www.aws.org/certification-and-education/certification/'
   },
   'aisc-certified': {
@@ -296,7 +296,7 @@ const CERT_PROGRAMS = {
     body: 'American Institute of Steel Construction',
     tier: 'gold',
     trade: 'metal',
-    what: 'Facility-level structural steel certification with independent audits.',
+    what: 'A certification of the fabrication shop itself, backed by independent audits.',
     verifyUrl: 'https://www.aisc.org/certification/'
   },
   'aci-flatwork': {
@@ -305,7 +305,7 @@ const CERT_PROGRAMS = {
     body: 'American Concrete Institute',
     tier: 'silver',
     trade: 'concrete',
-    what: 'Written and performance-tested certification for concrete finishing.',
+    what: 'Concrete finishing, tested on paper and by hand.',
     verifyUrl: 'https://www.concrete.org/certification.aspx'
   },
   'mca-certified': {
@@ -314,7 +314,7 @@ const CERT_PROGRAMS = {
     body: 'Mason Contractors Association of America',
     tier: 'silver',
     trade: 'concrete',
-    what: 'Company-level masonry certification covering standards and safety practice.',
+    what: 'A company masonry certification covering standards and safety.',
     verifyUrl: 'https://masoncontractors.org/'
   },
   'nwfa-certified': {
@@ -323,7 +323,7 @@ const CERT_PROGRAMS = {
     body: 'National Wood Flooring Association',
     tier: 'gold',
     trade: 'flooring',
-    what: 'Wood flooring installation, sanding, and finishing certification with hands-on assessment.',
+    what: 'Wood floor installation, sanding, and finishing, with hands-on assessment.',
     verifyUrl: 'https://nwfa.org/find-a-professional/'
   },
   'install-certified': {
@@ -332,7 +332,7 @@ const CERT_PROGRAMS = {
     body: 'International Standards & Training Alliance',
     tier: 'silver',
     trade: 'flooring',
-    what: 'Union-affiliated flooring installation certification, common on commercial work.',
+    what: 'A union-affiliated flooring certification, common on commercial work.',
     verifyUrl: 'https://installfloors.org/'
   },
   'pca-accredited': {
@@ -341,7 +341,7 @@ const CERT_PROGRAMS = {
     body: 'Painting Contractors Association',
     tier: 'silver',
     trade: 'painting',
-    what: 'Company accreditation covering business practice and workmanship standards.',
+    what: 'A company accreditation covering business practice and workmanship standards.',
     verifyUrl: 'https://www.pcapainted.org/'
   },
   'jameshardie-elite': {
@@ -350,7 +350,7 @@ const CERT_PROGRAMS = {
     body: 'James Hardie',
     tier: 'gold',
     trade: 'siding',
-    what: 'Top installer tier for fiber cement siding — the dominant siding product in the Pacific Northwest climate.',
+    what: 'The top installer level for fiber cement siding, which is common throughout the Northwest.',
     verifyUrl: 'https://www.jameshardie.com/find-a-contractor/'
   },
   'certainteed-siding': {
@@ -359,7 +359,7 @@ const CERT_PROGRAMS = {
     body: 'CertainTeed',
     tier: 'silver',
     trade: 'siding',
-    what: 'Siding-specific CertainTeed credential distinct from its roofing programs.',
+    what: 'CertainTeed\'s siding credential, separate from their roofing programs.',
     verifyUrl: 'https://www.certainteed.com/find-a-pro/'
   },
   'installmasters': {
@@ -368,7 +368,7 @@ const CERT_PROGRAMS = {
     body: 'Fenestration & Glazing Industry Alliance',
     tier: 'silver',
     trade: 'siding',
-    what: 'Window and door installation certification — worth asking about, since most window failures are installation failures rather than product failures.',
+    what: 'Window and door installation. Worth asking about, since most window failures come from bad installation.',
     verifyUrl: 'https://fgiaonline.org/'
   },
   'afa-certified': {
@@ -377,7 +377,7 @@ const CERT_PROGRAMS = {
     body: 'American Fence Association',
     tier: 'silver',
     trade: 'fencing',
-    what: 'Fence industry certification covering installation practice and standards.',
+    what: 'A fence industry certification covering installation and standards.',
     verifyUrl: 'https://www.americanfenceassociation.com/'
   },
   'naddi-certified': {
@@ -386,7 +386,7 @@ const CERT_PROGRAMS = {
     body: 'North American Deck & Railing Association',
     tier: 'silver',
     trade: 'fencing',
-    what: 'Deck inspection and construction certification — meaningful given deck collapse risk and code requirements.',
+    what: 'Deck construction and inspection.',
     verifyUrl: 'https://www.nadra.org/'
   },
   'nicet-fire': {
@@ -395,7 +395,7 @@ const CERT_PROGRAMS = {
     body: 'National Institute for Certification in Engineering Technologies',
     tier: 'gold',
     trade: 'fire-security',
-    what: 'Four-level fire protection engineering technology certification, frequently required by AHJs for design work.',
+    what: 'Fire protection engineering technology in four levels. Local officials often require it for design work.',
     verifyUrl: 'https://www.nicet.org/'
   },
   'alco-certified': {
@@ -404,7 +404,7 @@ const CERT_PROGRAMS = {
     body: 'Associated Locksmiths of America',
     tier: 'silver',
     trade: 'fire-security',
-    what: 'Locksmith certification tiers covering security hardware competence.',
+    what: 'Locksmith certification covering security hardware.',
     verifyUrl: 'https://www.aloa.org/'
   },
   'idea-certified': {
@@ -413,7 +413,7 @@ const CERT_PROGRAMS = {
     body: 'Institute of Door Dealer Education and Accreditation',
     tier: 'silver',
     trade: 'garage-doors',
-    what: 'Garage door systems certification — relevant because torsion springs are genuinely dangerous to work on.',
+    what: 'Garage door systems. Torsion springs are dangerous to work on.',
     verifyUrl: 'https://www.dooreducation.com/'
   },
   'phta-cbp': {
@@ -422,7 +422,7 @@ const CERT_PROGRAMS = {
     body: 'Pool & Hot Tub Alliance',
     tier: 'gold',
     trade: 'pools',
-    what: 'Senior pool and spa construction credential.',
+    what: 'The senior credential for pool and spa construction.',
     verifyUrl: 'https://www.phta.org/'
   },
   'phta-cpo': {
@@ -431,7 +431,7 @@ const CERT_PROGRAMS = {
     body: 'Pool & Hot Tub Alliance',
     tier: 'baseline',
     trade: 'pools',
-    what: 'Pool chemistry and operations certification.',
+    what: 'Pool chemistry and daily operations.',
     verifyUrl: 'https://www.phta.org/'
   },
   'wowra-certified': {
@@ -440,7 +440,7 @@ const CERT_PROGRAMS = {
     body: 'WA On-Site Sewage Association',
     tier: 'silver',
     trade: 'septic',
-    what: 'Septic design, installation, and maintenance certification. King County Public Health separately permits on-site sewage work.',
+    what: 'Septic design, installation, and maintenance. King County Public Health permits this work separately.',
     verifyUrl: 'https://kingcounty.gov/en/dept/dph/certificates-permits/onsite-sewage-system'
   },
   'abpa-tester': {
@@ -449,7 +449,7 @@ const CERT_PROGRAMS = {
     body: 'WA Dept. of Health / ABPA',
     tier: 'silver',
     trade: 'septic',
-    what: 'State-recognized certification to test backflow prevention assemblies, required by most local water purveyors.',
+    what: 'State-recognized certification to test backflow assemblies. Most local water utilities require it.',
     verifyUrl: 'https://doh.wa.gov/community-and-environment/drinking-water/water-system-design-and-planning/cross-connection-control'
   },
   'awci-certified': {
@@ -458,7 +458,7 @@ const CERT_PROGRAMS = {
     body: 'Association of the Wall and Ceiling Industry',
     tier: 'silver',
     trade: 'drywall',
-    what: 'Wall and ceiling industry training and finish-level standards competence.',
+    what: 'Wall and ceiling training, including the finish levels.',
     verifyUrl: 'https://www.awci.org/'
   },
   'nde-certified': {
@@ -467,7 +467,7 @@ const CERT_PROGRAMS = {
     body: 'National Demolition Association',
     tier: 'silver',
     trade: 'excavation',
-    what: 'Demolition industry safety and practice certification.',
+    what: 'Demolition industry safety and practice.',
     verifyUrl: 'https://www.demolitionassociation.com/'
   },
   'psa-certified': {
@@ -494,7 +494,7 @@ const CERT_PROGRAMS = {
     body: 'United Association of Mobile Contract Cleaners',
     tier: 'baseline',
     trade: 'cleanup',
-    what: 'Power washing and exterior cleaning industry certification covering surface and environmental practice.',
+    what: 'Power washing and exterior cleaning, covering surfaces and runoff.',
     verifyUrl: 'https://www.uamcc.org/'
   }
 };
