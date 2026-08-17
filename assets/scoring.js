@@ -39,17 +39,17 @@ const SCORING = {
      because warranty behaviour is where most real complaints originate. */
   AXES: [
     { key: 'workmanship',   label: 'Workmanship',    weight: 0.30,
-      help: 'Quality and durability of the finished work.' },
+      help: 'Was the work done right, and will it last?' },
     { key: 'communication', label: 'Communication',  weight: 0.15,
-      help: 'Responsiveness, clarity, and honesty about problems.' },
+      help: 'Did they return calls and tell you straight when something went wrong?' },
     { key: 'schedule',      label: 'Schedule',       weight: 0.15,
-      help: 'Started and finished when they said they would.' },
+      help: 'Did they start and finish when they said they would?' },
     { key: 'value',         label: 'Value',          weight: 0.15,
-      help: 'Fair price for what was delivered — not the same as cheap.' },
+      help: 'A fair price for the work, which is different from a cheap one.' },
     { key: 'conduct',       label: 'Site conduct',   weight: 0.10,
-      help: 'Cleanliness, care for the property, crew professionalism.' },
+      help: 'Did the crew look after your property and clean up?' },
     { key: 'followup',      label: 'Follow-up',      weight: 0.15,
-      help: 'Punch list, callbacks, and honouring the warranty.' }
+      help: 'Did they finish the punch list and stand behind the warranty?' }
   ],
 
   /* Prior. PRIOR_STRENGTH is expressed in units of review-weight: a value of
@@ -71,7 +71,7 @@ const SCORING = {
 
   /* Award tiers.
      These are PERCENTILE-based, not fixed score cutoffs. That mirrors how
-     Tabelog actually works — its Award and Hyakumeiten lists are explicit
+     Tabelog works in practice — its Award and Hyakumeiten lists are explicit
      top-N selections, not "everyone above 3.5". It is also the only stable
      choice here: a fixed cutoff silently becomes unreachable the moment the
      calibration is retuned, which is exactly the bug this replaced.
@@ -87,9 +87,9 @@ const SCORING = {
      into separate scores by default — on sparse data that yields n=1 per
      band, which is worse than no breakdown. See scoreByJobSize(). */
   JOB_SIZES: [
-    { key: 'repair',  label: 'Repair / small job', hint: 'Under ~$5k' },
-    { key: 'midsize', label: 'Mid-size project',   hint: '~$5k–$50k' },
-    { key: 'major',   label: 'Major remodel',      hint: 'Over ~$50k' }
+    { key: 'repair',  label: 'A repair or small job', hint: 'under about $5k' },
+    { key: 'midsize', label: 'A mid-size project',   hint: 'about $5k to $50k' },
+    { key: 'major',   label: 'A major remodel',      hint: 'over about $50k' }
   ],
 
   /* Minimum reviews in a band before a per-band score is shown at all. */
@@ -121,7 +121,7 @@ function clampRating(v) {
 
 /**
  * Composite rating for a single review: the weighted mean of whatever axes
- * the reviewer actually filled in. Axes left blank are excluded rather than
+ * the reviewer filled in. Axes left blank are excluded rather than
  * treated as zero, and the remaining weights are renormalised — otherwise a
  * reviewer who skips one question silently tanks the business.
  */

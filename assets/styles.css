@@ -393,3 +393,20 @@ html.dark .rankrow__score { color: var(--brand); }
   .axis { grid-template-columns: 80px 1fr 34px; }
   .starrow { grid-template-columns: 1fr; }
 }
+
+/* ------------------------------------------------- external review links */
+
+.extlinks { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: .82rem; }
+.extlinks__label {
+  font-size: .7rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-3); font-weight: 600; cursor: help;
+}
+.extlink {
+  display: inline-flex; align-items: center; gap: 5px; text-decoration: none;
+  border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px 3px 8px;
+  color: var(--ink-2); font-weight: 600; background: var(--surface);
+}
+.extlink:hover { border-color: var(--brand); color: var(--brand-ink); }
+html.dark .extlink:hover { color: var(--brand); }
+.extlink svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.extlink__stat { color: var(--ink-3); font-weight: 500; margin-left: 3px; }

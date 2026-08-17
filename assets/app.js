@@ -379,18 +379,16 @@ function ratingHTML(record) {
       <span class="rating__of">/ 5.00</span>
       ${r.tier ? `<span class="award award--${esc(r.tier)}">${esc(TIER_LABEL[r.tier])}</span>` : ''}
       <span class="rating__count">${r.count} review${r.count === 1 ? '' : 's'}</span>
-      ${r.provisional ? '<span class="rating__prov" title="Too few reviews to be reliable. The score is pulled toward the average until more arrive.">provisional</span>' : ''}
+      ${r.provisional ? '<span class="rating__prov" title="Too few reviews to trust yet. The score sits near the middle until more come in.">thin</span>' : ''}
     </div>
     <div class="rating__bar"><span style="width:${scoreBar(r.score)}%"></span></div>
     <details class="rating__more">
       <summary>Score breakdown</summary>
       <div class="axes">${axes}</div>
       <p class="muted small">
-        Unadjusted average ${r.rawMean.toFixed(2)} from ${r.count} review${r.count === 1 ? '' : 's'}.
-        The displayed score is pulled toward the King County average until a
-        business earns enough reviews to move it — which is why a handful of
-        glowing reviews cannot manufacture a high score.
-        <a href="about.html#scoring">How scoring works</a>
+        Raw average ${r.rawMean.toFixed(2)} from ${r.count} review${r.count === 1 ? '' : 's'}.
+        The score above starts near the county average and moves as a business earns it.
+        <a href="about.html#scoring">How the score works</a>
       </p>
       <a class="btn btn--ghost" href="review.html?ubi=${esc(record.ubi)}&name=${encodeURIComponent(titleCase(record.businessname))}">Write a review</a>
     </details>
@@ -412,20 +410,58 @@ function certBadges(record) {
   }).join('') + '</div>';
 }
 
-function reviewLine(record) {
-  const o = record.overlay;
-  if (!o || !o.reviews) return '';
-  const parts = [];
-  if (o.reviews.google && o.reviews.google.count) {
-    parts.push(`<a href="${esc(o.reviews.google.url || '#')}" target="_blank" rel="noopener">
-      Google ${esc(o.reviews.google.rating || '')}★ · ${esc(o.reviews.google.count)} reviews</a>`);
+/**
+ * Links out to Google and Yelp for a contractor.
+ *
+ * These are SEARCH links, not verified deep links. L&I publishes no Google
+ * Place ID or Yelp business ID, and scraping either platform to obtain one
+ * would breach their terms — so the honest thing is a search scoped to the
+ * business name and city, which lands on the right listing in one click but
+ * is not guaranteed to be an exact match. The label says "look up" rather
+ * than "reviews" for exactly that reason.
+ *
+ * If a curated overlay entry carries a confirmed URL, that exact link is used
+ * instead and the verified rating and count are shown alongside it.
+ *
+ * Note also that only counts and ratings are ever displayed — never review
+ * text. Republishing the content of Google or Yelp reviews would violate both
+ * platforms' terms; linking to them does not.
+ */
+function reviewLinks(record) {
+  const name = titleCase(record.businessname);
+  const city = titleCase(record.city || '');
+  const o = record.overlay && record.overlay.reviews ? record.overlay.reviews : null;
+
+  const googleUrl = (o && o.google && o.google.url)
+    ? o.google.url
+    : 'https://www.google.com/maps/search/?api=1&query=' +
+      encodeURIComponent(name + ' ' + city + ' WA');
+
+  const yelpUrl = (o && o.yelp && o.yelp.url)
+    ? o.yelp.url
+    : 'https://www.yelp.com/search?find_desc=' + encodeURIComponent(name) +
+      '&find_loc=' + encodeURIComponent(city + ', WA');
+
+  function stat(src) {
+    if (!src || !src.count) return '';
+    return '<span class="extlink__stat">' +
+      (src.rating ? esc(src.rating) + '\u2605 \u00b7 ' : '') +
+      esc(src.count) + '</span>';
   }
-  if (o.reviews.yelp && o.reviews.yelp.count) {
-    parts.push(`<a href="${esc(o.reviews.yelp.url || '#')}" target="_blank" rel="noopener">
-      Yelp ${esc(o.reviews.yelp.rating || '')}★ · ${esc(o.reviews.yelp.count)} reviews</a>`);
-  }
-  if (!parts.length) return '';
-  return '<div class="reviews">' + parts.join('<span class="sep">·</span>') + '</div>';
+
+  const verified = !!(o && ((o.google && o.google.url) || (o.yelp && o.yelp.url)));
+
+  return `<div class="extlinks">
+    <span class="extlinks__label" title="${esc(verified
+      ? 'These links point to this business.'
+      : 'These are searches by name and city. Check that the result is the right company.')}">${verified ? 'Reviews' : 'Look them up'}</span>
+    <a class="extlink" href="${esc(googleUrl)}" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
+      Google${stat(o && o.google)}</a>
+    <a class="extlink" href="${esc(yelpUrl)}" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v8M12 13l5 4M12 13l-5 4M12 13l7-2M12 13l-7-2"/></svg>
+      Yelp${stat(o && o.yelp)}</a>
+  </div>`;
 }
 
 function cardHTML(record) {
@@ -450,7 +486,7 @@ function cardHTML(record) {
 
     ${ratingHTML(record)}
     ${certBadges(record)}
-    ${reviewLine(record)}
+    ${reviewLinks(record)}
 
     <dl class="card__meta">
       <div><dt>Specialty</dt><dd>${esc(titleCase(record.specialtycode1desc || 'General'))}</dd></div>
@@ -467,29 +503,29 @@ function cardHTML(record) {
     </div>
 
     <details class="card__more">
-      <summary>Bond &amp; insurance detail</summary>
+      <summary>Bond &amp; insurance</summary>
       <div class="detail-grid">
         <div>
-          <h4>Surety bond</h4>
+          <h4>The bond</h4>
           ${b ? `<p>${esc(b.bondfirmname || '—')}<br>
                  Amount ${fmtMoney(b.bondamt)}<br>
                  Effective ${fmtDate(b.bondeffectivedate)}<br>
                  Expires ${fmtDate(b.bondexpirationdate)}</p>`
-              : '<p class="muted">No bond record returned by L&amp;I.</p>'}
+              : '<p class="muted">The state returned no bond record.</p>'}
         </div>
         <div>
-          <h4>Liability insurance</h4>
+          <h4>The insurance</h4>
           ${i ? `<p>${esc(i.insurancecompany || '—')}<br>
                  Coverage ${fmtMoney(i.insuranceamt)}<br>
                  Policy <span class="mono">${esc(i.insurancepolicyno || '—')}</span><br>
                  Expires ${fmtDate(i.expirationdate)}</p>`
-              : '<p class="muted">No insurance record returned by L&amp;I.</p>'}
+              : '<p class="muted">The state returned no insurance record.</p>'}
         </div>
       </div>
       ${record.primaryprincipalname
         ? `<p class="muted">Principal: ${esc(titleCase(record.primaryprincipalname))}</p>` : ''}
       <a class="btn btn--primary" href="${esc(lniVerifyUrl(record))}"
-         target="_blank" rel="noopener">Verify on L&amp;I →</a>
+         target="_blank" rel="noopener">Check it on L&amp;I →</a>
     </details>
   </article>`;
 }
@@ -547,9 +583,8 @@ function syncCertHint() {
         class="hintcert hintcert--${esc(p.tier)}" title="${esc(p.what)}">${esc(p.label)}</a>`);
   box.innerHTML = `<strong>Certifications worth asking about for ${esc(state.category.name.toLowerCase())}:</strong>
     <div class="hintcerts">${items.join('')}</div>
-    <p class="muted small">Click any credential to check it in the certifying body's own directory.
-    L&amp;I registration proves a contractor is legal to hire — it says nothing about craft.
-    These do.</p>`;
+    <p class="muted small">Click any credential to check it in the certifying body's own
+    directory. The state's registration only tells you a contractor is legal to hire.</p>`;
   box.hidden = false;
 }
 
@@ -562,7 +597,7 @@ function setStatus(msg, kind) {
 async function load() {
   const myReq = ++state.reqId;
   state.loading = true;
-  setStatus('Querying the L&amp;I registry…', 'loading');
+  setStatus('Looking it up…', 'loading');
   $('#cards').setAttribute('aria-busy', 'true');
 
   try {
@@ -584,7 +619,7 @@ async function load() {
   } catch (err) {
     if (myReq !== state.reqId) return;
     setStatus(
-      `Could not reach the L&amp;I open-data service. ${esc(err.message)}<br>
+      `We could not reach the state's records. ${esc(err.message)}<br>
        <button class="btn btn--ghost" id="retryBtn">Try again</button>`, 'error');
     $('#cards').innerHTML = '';
     const retry = $('#retryBtn');
@@ -602,8 +637,8 @@ function render() {
   if (!shown.length) {
     cards.innerHTML = '';
     setStatus(state.total === 0
-      ? 'No active registrations match those filters.'
-      : 'Every contractor on this page was filtered out by your bonded/insured/certified filters. Try loosening them or go to the next page.',
+      ? 'No active registrations match that.'
+      : 'Your filters cleared this page. Loosen one, or try the next page.',
       'empty');
   } else {
     cards.innerHTML = shown.map(cardHTML).join('');
@@ -613,7 +648,7 @@ function render() {
       <strong>${state.total.toLocaleString()}</strong> active
       ${state.category ? esc(state.category.name.toLowerCase()) : 'contractors'}
       in ${state.city ? esc(titleCase(state.city)) : 'King County'}
-      · verified live against L&amp;I`);
+      · checked against the state's records just now`);
   }
 
   const maxPage = Math.max(0, Math.ceil((state.total || 0) / PAGE_SIZE) - 1);
