@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>King County Contractor Directory — Licensed, Bonded &amp; Insured</title>
+<meta name="description" content="Every actively registered contractor in King County, Washington — general contractors, roofers, landscapers, tilers, electricians, plumbers and more — verified live against the Washington State L&amp;I registry for active license, current surety bond, and current liability insurance.">
+<meta name="theme-color" content="#0f766e">
+<link rel="preconnect" href="https://data.wa.gov">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+</head>
+<body>
+
+<a class="skip" href="#results">Skip to results</a>
+
+<header class="site">
+  <div class="wrap site__inner">
+    <a class="brand" href="./">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="brand__mark">
+        <path d="M3 21h18M5 21V9l7-6 7 6v12M9.5 21v-6h5v6"/>
+      </svg>
+      <span>
+        <strong>King County Contractors</strong>
+        <em>Licensed · Bonded · Insured</em>
+      </span>
+    </a>
+    <nav class="site__nav">
+      <a href="rankings.html">Rankings</a>
+      <a href="certifications.html">Certification guide</a>
+      <a href="about.html">How this works</a>
+      <button id="themeToggle" class="iconbtn" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Every registered contractor in King County —<br>checked against the state registry, live.</h1>
+    <p class="hero__lede">
+      This directory queries Washington State Labor &amp; Industries' public contractor
+      registry the moment you load the page. A company only shows all three green marks
+      when L&amp;I's own records independently confirm an <strong>active registration</strong>,
+      a <strong>current surety bond</strong>, and <strong>current liability insurance</strong>.
+      Nothing here is a stale copy of a list someone typed up last year.
+    </p>
+
+    <div class="hero__search">
+      <label class="field field--grow">
+        <span class="field__label">Search by business name</span>
+        <input type="search" id="searchInput" placeholder="e.g. Cascade, Emerald, Rainier…" autocomplete="off">
+      </label>
+      <button class="btn btn--primary" id="browseAll">Browse all trades</button>
+    </div>
+
+    <p class="hero__note">
+      Data source: WA L&amp;I open data, read directly from
+      <span class="mono">data.wa.gov</span>. Last loaded <span id="dataDate"></span>.
+    </p>
+  </div>
+</section>
+
+<section class="wrap section">
+  <h2 class="section__title">Pick a trade</h2>
+  <p class="section__sub">
+    Categories map onto L&amp;I's own specialty and license-type codes, so a
+    contractor appears under a trade only if the state actually registered them for it.
+  </p>
+  <div class="catgrid" id="categoryGrid"></div>
+</section>
+
+<section class="wrap section" id="results">
+  <h2 class="section__title">Results</h2>
+
+  <div class="controls">
+    <label class="field">
+      <span class="field__label">Trade</span>
+      <select id="categorySelect"></select>
+    </label>
+    <label class="field">
+      <span class="field__label">City</span>
+      <select id="citySelect"></select>
+    </label>
+    <label class="field">
+      <span class="field__label">Sort</span>
+      <select id="sortSelect">
+        <option value="score">Score (highest first)</option>
+        <option value="name">Business name (A–Z)</option>
+        <option value="certs">Certifications first</option>
+        <option value="reviews">Most reviewed</option>
+        <option value="tenure">Longest registered</option>
+        <option value="city">City</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="toggles">
+    <label class="check"><input type="checkbox" id="fBonded" checked> <span>Current bond required</span></label>
+    <label class="check"><input type="checkbox" id="fInsured" checked> <span>Current insurance required</span></label>
+    <label class="check"><input type="checkbox" id="fCerts"> <span>Only trade-certified</span></label>
+  </div>
+
+  <div class="hint" id="certHint" hidden></div>
+
+  <div class="status" id="status">Choose a trade above, or browse all trades, to query the registry.</div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="pager" id="pager" hidden>
+    <button class="btn btn--ghost" id="prevBtn">← Previous</button>
+    <span id="pageLabel" class="pager__label"></span>
+    <button class="btn btn--ghost" id="nextBtn">Next →</button>
+  </div>
+</section>
+
+<section class="wrap section">
+  <div class="callout">
+    <h2>Before you sign anything</h2>
+    <ol class="steps">
+      <li>
+        <strong>Re-verify on L&amp;I yourself.</strong> Every listing links straight to
+        its official record. Registration and insurance can lapse between your page load
+        and your contract signing, and the state's page is the authority — not this site.
+      </li>
+      <li>
+        <strong>Know what the bond actually covers.</strong> Washington requires only a
+        $12,000 bond for general contractors and $6,000 for specialty contractors. On a
+        $90,000 remodel that is close to symbolic. A larger voluntary bond is a real signal.
+      </li>
+      <li>
+        <strong>Ask for the certificate of insurance directly.</strong> Have the carrier
+        send it to you naming your project. L&amp;I shows a policy exists; it does not
+        show whether your specific job is within its scope.
+      </li>
+      <li>
+        <strong>Check the certifications, not just the license.</strong> Registration is
+        a legal minimum — filing paperwork and posting a bond. It is not a test of skill.
+        The trade certifications in our
+        <a href="certifications.html">certification guide</a> are.
+      </li>
+      <li>
+        <strong>Look up the lawsuit and complaint history.</strong> L&amp;I's detail page
+        shows bond claims and infractions. It is the single most underused field on the page.
+      </li>
+    </ol>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>
+      <strong>Not affiliated with Washington State L&amp;I or King County.</strong>
+      This is an independent front end over public open data. Listings are generated
+      automatically from the state registry and are not endorsements, recommendations,
+      or vetting of any company's work quality.
+    </p>
+    <p class="muted small">
+      Data: <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-General/m8qx-ubtq" target="_blank" rel="noopener">L&amp;I Contractor License Data — General</a>,
+      <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Bond/bzff-4fmt" target="_blank" rel="noopener">Bond</a>, and
+      <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Insurance/ciwg-agsx" target="_blank" rel="noopener">Insurance</a>,
+      published by the Washington State Department of Labor &amp; Industries.
+      Verify any contractor at <a href="https://secure.lni.wa.gov/verify/" target="_blank" rel="noopener">secure.lni.wa.gov/verify</a>.
+      © <span id="year"></span>.
+    </p>
+  </div>
+</footer>
+
+<script src="data/categories.js"></script>
+<script src="data/certifications.js"></script>
+<script src="assets/scoring.js"></script>
+<script src="data/reviews.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

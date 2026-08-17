@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Write a review — King County Contractor Directory</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site__inner">
+    <a class="brand" href="./">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="brand__mark">
+        <path d="M3 21h18M5 21V9l7-6 7 6v12M9.5 21v-6h5v6"/>
+      </svg>
+      <span>
+        <strong>King County Contractors</strong>
+        <em>Licensed · Bonded · Insured</em>
+      </span>
+    </a>
+    <nav class="site__nav">
+      <a href="./">Directory</a>
+      <a href="rankings.html">Rankings</a>
+      <a href="about.html">How this works</a>
+      <button id="themeToggle" class="iconbtn" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1 id="pageTitle">Review a contractor</h1>
+    <p class="hero__lede" id="pageSub">
+      Rate the work on six separate axes. Partial reviews are fine — skip anything
+      you cannot speak to honestly, and it will be excluded rather than counted against them.
+    </p>
+  </div>
+</section>
+
+<section class="wrap section">
+
+  <div class="scaleguide">
+    <strong>Please read this before rating. It is the whole point of the scale.</strong>
+    <p style="margin:8px 0 0">
+      This site uses a deliberately tight scale, like Tabelog's. <strong>3 means the
+      contractor did what they promised</strong> — that is a good outcome and a good
+      score, not a complaint. If every job gets five stars the number stops carrying
+      any information, and the directory becomes useless to the next homeowner.
+    </p>
+    <dl>
+      <dt>5</dt><dd>Exceptional. Genuinely better than the trade's norm. Rare by definition.</dd>
+      <dt>4</dt><dd>Clearly above expectations in a way you would mention to a friend.</dd>
+      <dt>3</dt><dd>Did the job properly, as agreed. A perfectly good result.</dd>
+      <dt>2</dt><dd>Real problems, but ultimately resolved or tolerable.</dd>
+      <dt>1</dt><dd>Serious failure — work you had to have redone or fight about.</dd>
+    </dl>
+  </div>
+
+  <form class="formgrid" id="reviewForm">
+    <label class="field">
+      <span class="field__label">Business name</span>
+      <input type="text" id="businessName" required placeholder="As it appears in the directory">
+    </label>
+
+    <label class="field">
+      <span class="field__label">UBI number <span class="muted">(required — ties the review to the state record)</span></span>
+      <input type="text" id="ubi" required inputmode="numeric" placeholder="e.g. 603320569">
+    </label>
+
+    <label class="field">
+      <span class="field__label">Trade</span>
+      <select id="trade"></select>
+    </label>
+
+    <div class="starfield" id="starfield"></div>
+
+    <label class="field">
+      <span class="field__label">Project size</span>
+      <select id="jobSize"></select>
+    </label>
+
+    <label class="field">
+      <span class="field__label">When was the work done?</span>
+      <input type="date" id="visitDate" required>
+    </label>
+
+    <label class="field">
+      <span class="field__label">Evidence</span>
+      <select id="evidence">
+        <option value="named">I'll give my name — standard weight</option>
+        <option value="verified">I have a permit number, contract, or invoice — counts 1.5×</option>
+        <option value="anonymous">Anonymous — counts 0.7×</option>
+      </select>
+    </label>
+
+    <label class="field" id="permitField" hidden>
+      <span class="field__label">Permit / invoice reference</span>
+      <input type="text" id="permit" placeholder="e.g. BLD2026-01234">
+    </label>
+
+    <label class="field">
+      <span class="field__label">Your name or handle</span>
+      <input type="text" id="author" placeholder="e.g. K. from Ballard">
+    </label>
+
+    <label class="field">
+      <span class="field__label">Headline</span>
+      <input type="text" id="title" placeholder="e.g. Re-roof on a 1926 bungalow">
+    </label>
+
+    <label class="field">
+      <span class="field__label">What happened?</span>
+      <textarea id="body" placeholder="What the job was, how it went, and anything the next homeowner should know. Stick to what you personally experienced."></textarea>
+    </label>
+
+    <div>
+      <button type="submit" class="btn btn--primary">Save review</button>
+      <a class="btn btn--ghost" href="./">Cancel</a>
+    </div>
+  </form>
+
+  <div id="result"></div>
+
+  <div id="localList"></div>
+
+</section>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="muted small">
+      Write only about work you personally paid for and experienced. Reviews of named
+      local businesses carry real consequences for real people — a fabricated or
+      exaggerated review can materially damage a small contractor, and the scoring
+      system is built specifically so that a handful of reviews cannot swing a score
+      anyway. © <span id="year"></span>.
+    </p>
+  </div>
+</footer>
+
+<script src="data/categories.js"></script>
+<script src="assets/scoring.js"></script>
+<script src="data/reviews.js"></script>
+<script>
+(function () {
+  /* theme */
+  try {
+    var saved = localStorage.getItem('kcc-theme');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) document.documentElement.classList.add('dark');
+  } catch (e) {}
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    var dark = document.documentElement.classList.toggle('dark');
+    try { localStorage.setItem('kcc-theme', dark ? 'dark' : 'light'); } catch (e) {}
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  var params = new URLSearchParams(location.search);
+  if (params.get('name')) {
+    document.getElementById('businessName').value = params.get('name');
+    document.getElementById('pageTitle').textContent = 'Review ' + params.get('name');
+  }
+  if (params.get('ubi')) document.getElementById('ubi').value = params.get('ubi');
+
+  /* selects */
+  document.getElementById('trade').innerHTML =
+    '<option value="">— select —</option>' +
+    CATEGORIES.map(function (c) {
+      return '<option value="' + esc(c.id) + '">' + esc(c.name) + '</option>';
+    }).join('');
+  if (params.get('trade')) document.getElementById('trade').value = params.get('trade');
+
+  document.getElementById('jobSize').innerHTML =
+    SCORING.JOB_SIZES.map(function (j) {
+      return '<option value="' + esc(j.key) + '">' + esc(j.label) + ' (' + esc(j.hint) + ')</option>';
+    }).join('');
+
+  document.getElementById('evidence').addEventListener('change', function (e) {
+    document.getElementById('permitField').hidden = e.target.value !== 'verified';
+  });
+
+  /* ------------------------------------------------------------- stars */
+  // Half steps are supported by clicking the left or right half of a star,
+  // which keeps the whole control to five targets instead of ten.
+  var values = {};
+  var STAR_SVG = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>';
+
+  function renderStars() {
+    document.getElementById('starfield').innerHTML = SCORING.AXES.map(function (axis) {
+      return '<div class="starrow" data-axis="' + esc(axis.key) + '">' +
+        '<span class="starrow__label">' + esc(axis.label) + '</span>' +
+        '<span class="stars">' +
+          [1, 2, 3, 4, 5].map(function (i) {
+            return '<button type="button" class="star" data-i="' + i + '" aria-label="' +
+              esc(axis.label) + ' ' + i + '">' + STAR_SVG + '</button>';
+          }).join('') +
+        '</span>' +
+        '<span class="starrow__help">' + esc(axis.help) + '</span>' +
+        '</div>';
+    }).join('');
+  }
+  renderStars();
+
+  document.getElementById('starfield').addEventListener('click', function (e) {
+    var btn = e.target.closest('.star');
+    if (!btn) return;
+    var row = btn.closest('.starrow');
+    var axis = row.dataset.axis;
+    var i = parseInt(btn.dataset.i, 10);
+    var rect = btn.getBoundingClientRect();
+    var half = (e.clientX - rect.left) < rect.width / 2;
+    var v = half ? i - 0.5 : i;
+    // Clicking the current value again clears it, so an axis can be skipped.
+    values[axis] = (values[axis] === v) ? undefined : v;
+    if (values[axis] === undefined) delete values[axis];
+    paint(row, axis);
+  });
+
+  function paint(row, axis) {
+    var v = values[axis];
+    Array.prototype.forEach.call(row.querySelectorAll('.star'), function (b) {
+      var i = parseInt(b.dataset.i, 10);
+      b.classList.toggle('on', v !== undefined && v >= i - 0.5);
+      b.style.opacity = (v !== undefined && v === i - 0.5) ? '.6' : '';
+    });
+    var out = row.querySelector('.starrow__val');
+    if (!out) {
+      out = document.createElement('span');
+      out.className = 'starrow__val';
+      row.querySelector('.stars').after(out);
+    }
+    out.textContent = v === undefined ? 'skipped' : v.toFixed(1);
+  }
+
+  /* ------------------------------------------------------------ submit */
+  document.getElementById('reviewForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var resultEl = document.getElementById('result');
+
+    if (!Object.keys(values).length) {
+      resultEl.innerHTML = '<div class="notice notice--warn">Rate at least one axis before saving.</div>';
+      return;
+    }
+
+    var review = {
+      ubi: document.getElementById('ubi').value.trim(),
+      businessName: document.getElementById('businessName').value.trim(),
+      trade: document.getElementById('trade').value || null,
+      ratings: values,
+      jobSize: document.getElementById('jobSize').value,
+      visitDate: document.getElementById('visitDate').value,
+      evidence: document.getElementById('evidence').value,
+      permit: document.getElementById('permit').value.trim() || undefined,
+      author: document.getElementById('author').value.trim() || undefined,
+      title: document.getElementById('title').value.trim() || undefined,
+      body: document.getElementById('body').value.trim() || undefined
+    };
+
+    try {
+      var res = await submitReview(review);
+      if (res.mode === 'remote') {
+        resultEl.innerHTML = '<div class="notice notice--ok">Submitted for moderation. Thank you.</div>';
+      } else {
+        // Local mode: be explicit that nobody else can see this, and hand
+        // over a commit-ready snippet so it can actually be published.
+        var snippet = JSON.stringify(review, null, 2);
+        resultEl.innerHTML =
+          '<div class="notice notice--warn"><strong>Saved in this browser only.</strong> ' +
+          'No backend is configured, so this review is visible to you and nobody else. ' +
+          'It scores live on the directory so you can see the system working. To publish it, ' +
+          'paste the snippet below into the <span class="mono">REVIEWS</span> array in ' +
+          '<span class="mono">data/reviews.js</span> and commit.</div>' +
+          '<pre class="snippet">' + esc(snippet) + '</pre>' +
+          '<button class="btn btn--ghost" id="copyBtn">Copy snippet</button> ' +
+          '<a class="btn btn--primary" href="./">Back to the directory</a>';
+        document.getElementById('copyBtn').addEventListener('click', function () {
+          navigator.clipboard.writeText(snippet).then(function () {
+            document.getElementById('copyBtn').textContent = 'Copied';
+          });
+        });
+      }
+      renderLocal();
+      document.getElementById('reviewForm').reset();
+      values = {};
+      renderStars();
+    } catch (err) {
+      resultEl.innerHTML = '<div class="notice notice--warn">' + esc(err.message) + '</div>';
+    }
+  });
+
+  /* -------------------------------------------------------- local list */
+  function renderLocal() {
+    var local = loadLocalReviews();
+    var el = document.getElementById('localList');
+    if (!local.length) { el.innerHTML = ''; return; }
+    el.innerHTML = '<div class="prose"><h2>Reviews saved in this browser</h2>' +
+      '<p class="muted small">Only you can see these. They score live on the directory.</p></div>' +
+      '<div class="ranklist">' + local.map(function (r, i) {
+        var composite = reviewComposite(r);
+        return '<div class="rankrow">' +
+          '<span class="rankrow__n">' + (i + 1) + '</span>' +
+          '<span><span class="rankrow__name">' + esc(r.businessName || r.ubi) + '</span><br>' +
+          '<span class="rankrow__meta">' + esc(r.visitDate || '') + ' · ' + esc(r.jobSize || '') + '</span></span>' +
+          '<span><span class="rankrow__score">' + (composite ? composite.toFixed(2) : '—') + '</span> ' +
+          '<button class="btn btn--ghost" data-del="' + i + '" style="padding:4px 10px;font-size:.8rem">Delete</button></span>' +
+          '</div>';
+      }).join('') + '</div>';
+    el.querySelectorAll('[data-del]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        deleteLocalReview(parseInt(b.dataset.del, 10));
+        renderLocal();
+      });
+    });
+  }
+  renderLocal();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How this works — King County Contractor Directory</title>
+<meta name="description" content="How this directory queries the Washington State L&amp;I contractor registry live, what 'licensed, bonded and insured' actually guarantees, and what this site deliberately does not claim.">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site__inner">
+    <a class="brand" href="./">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="brand__mark">
+        <path d="M3 21h18M5 21V9l7-6 7 6v12M9.5 21v-6h5v6"/>
+      </svg>
+      <span>
+        <strong>King County Contractors</strong>
+        <em>Licensed · Bonded · Insured</em>
+      </span>
+    </a>
+    <nav class="site__nav">
+      <a href="./">Directory</a>
+      <a href="rankings.html">Rankings</a>
+      <a href="certifications.html">Certification guide</a>
+      <button id="themeToggle" class="iconbtn" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>How this directory works</h1>
+    <p class="hero__lede">
+      Short version: it does not store a list of contractors. It asks the state for one
+      every time you load the page.
+    </p>
+  </div>
+</section>
+
+<section class="wrap section">
+  <div class="prose">
+
+    <h2>Where the data comes from</h2>
+    <p>
+      The Washington State Department of Labor &amp; Industries publishes its contractor
+      registry as public open data. This site reads three of those datasets directly from
+      your browser:
+    </p>
+    <ul>
+      <li>
+        <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-General/m8qx-ubtq" target="_blank" rel="noopener">General</a>
+        — business name, license number and type, specialty, status, effective and
+        expiration dates, address, phone, UBI, and principal.
+      </li>
+      <li>
+        <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Bond/bzff-4fmt" target="_blank" rel="noopener">Bond</a>
+        — surety company, bond amount, effective and expiration dates.
+      </li>
+      <li>
+        <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Insurance/ciwg-agsx" target="_blank" rel="noopener">Insurance</a>
+        — carrier, policy number, coverage amount, expiration date.
+      </li>
+    </ul>
+    <p>
+      Those three are joined on the contractor's license number at page load. Because the
+      state serves them with open cross-origin access, no server is needed — which is why
+      this can run as a plain static site while still being current to the day.
+    </p>
+
+    <h3>What "Licensed · Bonded · Insured" means here</h3>
+    <p>
+      All three badges turn green only when each dataset independently confirms it:
+    </p>
+    <ul>
+      <li><strong>Licensed</strong> — status is <span class="mono">ACTIVE</span> and the registration expiration date has not passed.</li>
+      <li><strong>Bonded</strong> — a bond record exists whose expiration is in the future or listed as <em>Until Canceled</em>.</li>
+      <li><strong>Insured</strong> — a liability policy exists whose expiration date has not passed.</li>
+    </ul>
+    <p>
+      By default the directory hides anyone missing a current bond or current insurance.
+      You can turn those filters off to see the full registry, including companies whose
+      coverage has lapsed — sometimes useful, but read those listings carefully.
+    </p>
+
+    <h2>What this site deliberately does not do</h2>
+    <p>
+      <strong>It does not rank contractors using state data.</strong> The registry contains
+      no reviews, no ratings, and no measure of workmanship — so any site presenting an
+      official-looking "top 100 best contractors" list derived from it is either selling
+      placement or inventing it. The <a href="rankings.html">rankings here</a> come from
+      one source only: reviews submitted to this site. That is a far smaller sample than
+      the major platforms, and a contractor missing from those lists is almost certainly
+      just unreviewed here rather than judged and found wanting.
+    </p>
+    <p>
+      <strong>It does not invent certifications.</strong> Certification badges only appear
+      for companies whose credentials were confirmed against the certifying body's own
+      directory, with the date and source recorded. Everything else shows no badge — an
+      absent badge means "not verified here," not "not certified." The
+      <a href="certifications.html">certification guide</a> links to every official
+      directory so you can check any company yourself in about a minute.
+    </p>
+    <p>
+      <strong>It is not an endorsement.</strong> Appearing in this directory means the state
+      has an active registration on file. That is all it means. It is not a recommendation,
+      and it is emphatically not a substitute for references, a written contract, and
+      checking the L&amp;I complaint and bond-claim history on the official record.
+    </p>
+
+    <h2 id="scoring">How the score is calculated</h2>
+    <p>
+      The scale is modelled on Tabelog, the Japanese restaurant site. Its defining
+      property is not the 1.00–5.00 range but how hard that range is to climb: most
+      businesses sit between 3.0 and 3.5, a 3.5 is genuinely good, and 4.0+ is roughly the
+      top one percent. That compression is the entire point. A scale where everyone scores
+      4.7 carries no information.
+    </p>
+    <p>Four mechanisms produce it.</p>
+    <ul>
+      <li>
+        <strong>Six separate axes.</strong> Workmanship, communication, schedule, value,
+        site conduct, and follow-up are rated individually and combined, with workmanship
+        weighted heaviest because it is the most expensive thing to get wrong. Any axis a
+        reviewer skips is excluded rather than scored as zero.
+      </li>
+      <li>
+        <strong>Scores are pulled toward the average until they are earned.</strong> A
+        single five-star review produces roughly 3.46 — not 5.00. Reaching 4.0 requires
+        both sustained excellence and volume. This is deliberate: it means a handful of
+        reviews from friends, or from a competitor, cannot meaningfully move a score.
+      </li>
+      <li>
+        <strong>Ratings are recalibrated against the whole population.</strong> Home-services
+        reviews run generous — people rate a contractor they met and shook hands with far
+        more kindly than they would a restaurant. The population is remapped so the typical
+        King County contractor lands near 3.2, which restores meaning to the numbers above
+        it. Both the centre and the spread are rescaled; correcting only the average would
+        squash everyone into an indistinguishable band.
+      </li>
+      <li>
+        <strong>Old reviews fade.</strong> Weight halves every four years. A review from
+        2019 may describe a company that no longer employs any of the same people.
+      </li>
+    </ul>
+    <p>
+      Every listing shows the unadjusted average alongside the adjusted score, so the
+      size of the adjustment is always visible rather than hidden behind a black box.
+      Below three reviews a business is marked <em>provisional</em>: still scored, but
+      excluded from all rankings and ineligible for any award.
+    </p>
+    <p>
+      <strong>Awards are relative, not absolute.</strong> Gold is the top 1% of rated
+      businesses, Silver the top 5%, Bronze the top 15% — mirroring how the Tabelog Award
+      actually works, as an explicit top-N selection rather than a fixed cutoff. A business
+      scored on its own is never given an award, because an award is a statement about
+      where it stands relative to everyone else.
+    </p>
+    <p>
+      One limitation worth being blunt about: <strong>reviewer credibility weighting is not
+      implemented.</strong> Tabelog's main defence against astroturfing is that established
+      reviewers count for more than new accounts — which requires real reviewer identity.
+      Without accounts, that would be theatre. The shrinkage above is what carries the
+      anti-gaming load instead, and it does so by making small numbers of reviews
+      structurally unable to move the needle.
+    </p>
+
+    <h2>Known limitations, stated plainly</h2>
+    <ul>
+      <li>
+        <strong>Geography is approximate.</strong> L&amp;I records a mailing city, not a
+        service area and not a county. This directory filters to King County cities, which
+        means a Tacoma-based roofer who works in Kent every day will not appear, and a
+        Seattle-registered company that only works in Everett will. Filter by trade, then
+        call and ask about service area.
+      </li>
+      <li>
+        <strong>Only the primary specialty is matched.</strong> The dataset can carry more
+        than one specialty code per contractor; category filtering uses the first. A
+        company registered primarily as GENERAL that also does roofing may appear only
+        under General Contractors.
+      </li>
+      <li>
+        <strong>The bond amounts are small.</strong> Washington requires $12,000 for
+        general contractors and $6,000 for specialty contractors. Against a real remodel
+        budget that is close to symbolic, and a bond claim is a queue you may share with
+        other homeowners. A voluntarily larger bond is a genuine signal.
+      </li>
+      <li>
+        <strong>Registry lag exists.</strong> L&amp;I's published extracts refresh
+        periodically rather than instantly, so a very recent lapse or reinstatement may not
+        be reflected. The "Verify on L&amp;I" link on every listing hits the live official
+        record, which is always the tiebreaker.
+      </li>
+      <li>
+        <strong>Business names collide constantly.</strong> Matching is done on UBI and
+        license number, never on name, precisely because a dozen unrelated companies share
+        variations of the same name.
+      </li>
+    </ul>
+
+    <h2>If the results fail to load</h2>
+    <p>
+      The directory depends on <span class="mono">data.wa.gov</span> being reachable from
+      your browser. If the state's service is down or an aggressive ad blocker blocks the
+      request, results will not appear. Nothing is cached locally, by design — a stale
+      cached copy of "who is insured" is exactly the failure mode this site exists to
+      avoid.
+    </p>
+
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="muted small">
+      Independent project. Not affiliated with, endorsed by, or operated by the Washington
+      State Department of Labor &amp; Industries or King County.
+      © <span id="year"></span>.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('kcc-theme');
+    var prefersDark = window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+  } catch (e) {}
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    var dark = document.documentElement.classList.toggle('dark');
+    try { localStorage.setItem('kcc-theme', dark ? 'dark' : 'light'); } catch (e) {}
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

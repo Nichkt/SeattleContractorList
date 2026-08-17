@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certification Guide — King County Contractor Directory</title>
+<meta name="description" content="What each contractor trade certification actually means — CTEF Certified Tile Installer, GAF Master Elite, NATE, ISA Certified Arborist, NARI, NKBA and more — and where to verify that a company genuinely holds it.">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site__inner">
+    <a class="brand" href="./">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="brand__mark">
+        <path d="M3 21h18M5 21V9l7-6 7 6v12M9.5 21v-6h5v6"/>
+      </svg>
+      <span>
+        <strong>King County Contractors</strong>
+        <em>Licensed · Bonded · Insured</em>
+      </span>
+    </a>
+    <nav class="site__nav">
+      <a href="./">Directory</a>
+      <a href="rankings.html">Rankings</a>
+      <a href="about.html">How this works</a>
+      <button id="themeToggle" class="iconbtn" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Certifications are the part that<br>actually measures skill.</h1>
+    <p class="hero__lede">
+      Washington's contractor registration proves a company filed paperwork, posted a
+      bond, and carries insurance. That is a legal floor, and it is worth confirming —
+      but no part of it tests whether someone can build a shower that will not leak in
+      five years. Trade certifications do. This page explains what each credential in
+      this directory means, how hard it is to get, and where to confirm a company
+      genuinely holds it.
+    </p>
+  </div>
+</section>
+
+<section class="wrap section">
+  <div class="prose">
+    <p>
+      <span class="tierkey tierkey--gold"></span><strong>Gold</strong> — rigorous, usually
+      hands-on or heavily experience-gated. Hard to get, meaningful to hold.<br>
+      <span class="tierkey tierkey--silver"></span><strong>Silver</strong> — real training
+      and testing, generally written or program-based.<br>
+      <span class="tierkey tierkey--baseline"></span><strong>Baseline</strong> — required by
+      law, paid for, or otherwise a floor rather than a distinction.
+    </p>
+    <p class="muted small">
+      One warning worth internalizing: many manufacturer programs (roofing and siding
+      especially) are partly commercial relationships. They usually do require real
+      volume, licensing, and insurance — but they also sell product. Treat them as
+      meaningful, not sacred, and always weigh them alongside the workmanship warranty
+      they unlock, which is often the real benefit.
+    </p>
+  </div>
+
+  <div id="certTables"></div>
+</section>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="muted small">
+      Certification descriptions are summaries written for homeowners; each links to the
+      certifying body's own page, which is authoritative. This site is not affiliated with
+      any certifying organization. © <span id="year"></span>.
+    </p>
+  </div>
+</footer>
+
+<script src="data/categories.js"></script>
+<script src="data/certifications.js"></script>
+<script>
+(function () {
+  // Theme (mirrors app.js so the guide pages match the directory).
+  try {
+    var saved = localStorage.getItem('kcc-theme');
+    var prefersDark = window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+  } catch (e) {}
+
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    var dark = document.documentElement.classList.toggle('dark');
+    try { localStorage.setItem('kcc-theme', dark ? 'dark' : 'light'); } catch (e) {}
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // Group the certification registry by the trade category it belongs to,
+  // so the guide reads in the same order as the directory's category grid.
+  var byTrade = {};
+  Object.keys(CERT_PROGRAMS).forEach(function (key) {
+    var p = CERT_PROGRAMS[key];
+    var t = p.trade || '_cross';
+    (byTrade[t] = byTrade[t] || []).push(Object.assign({ key: key }, p));
+  });
+
+  var order = CATEGORIES.map(function (c) { return c.id; });
+  var tierRank = { gold: 0, silver: 1, baseline: 2 };
+
+  var html = '';
+
+  function renderGroup(title, list) {
+    if (!list || !list.length) return '';
+    list.sort(function (a, b) {
+      return (tierRank[a.tier] - tierRank[b.tier]) || a.label.localeCompare(b.label);
+    });
+    var rows = list.map(function (p) {
+      return '<tr>' +
+        '<td><span class="tierkey tierkey--' + esc(p.tier) + '"></span>' + esc(p.short) + '</td>' +
+        '<td><strong>' + esc(p.label) + '</strong><br><span class="muted small">' +
+          esc(p.body) + '</span><p style="margin:6px 0 0">' + esc(p.what) + '</p></td>' +
+        '<td><a href="' + esc(p.verifyUrl) + '" target="_blank" rel="noopener">Verify →</a></td>' +
+      '</tr>';
+    }).join('');
+    return '<div class="prose"><h2>' + esc(title) + '</h2></div>' +
+      '<table class="certtable"><thead><tr>' +
+      '<th>Badge</th><th>Certification</th><th>Check it</th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  order.forEach(function (id) {
+    if (!byTrade[id]) return;
+    var cat = CATEGORIES.find(function (c) { return c.id === id; });
+    html += renderGroup(cat ? cat.name : id, byTrade[id]);
+    delete byTrade[id];
+  });
+
+  // Anything not tied to one trade, plus any trade with no category match.
+  var cross = byTrade._cross;
+  delete byTrade._cross;
+  Object.keys(byTrade).forEach(function (k) {
+    html += renderGroup(k, byTrade[k]);
+  });
+  if (cross) html += renderGroup('Applies across every trade', cross);
+
+  document.getElementById('certTables').innerHTML = html;
+})();
+</script>
+</body>
+</html>
