@@ -178,8 +178,7 @@ check('ranking honours a limit', rankBusinesses(entries, 1).length === 1);
 /* ------------------------------------------------- distribution shape */
 
 // Realistic population: contractor quality is roughly normal, and reviewers
-// rate GENEROUSLY. This simulates the inflated inputs the site will actually
-// receive (mean ~4.5) and checks that calibration keeps the curve tight.
+// rate GENEROUSLY. This simulates the inflated inputs the site will // receive (mean ~4.5) and checks that calibration keeps the curve tight.
 function rnd(seed) { let x = seed; return () => (x = (x * 1103515245 + 12345) % 2147483648) / 2147483648; }
 const rand = rnd(42);
 function normal() { return Math.sqrt(-2 * Math.log(rand() || 1e-9)) * Math.cos(2 * Math.PI * rand()); }

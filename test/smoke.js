@@ -192,6 +192,31 @@ function respond(route, body) {
   check('single quotes are escaped in search (SoQL injection guard)',
     searchUrl.includes("O''BRIEN"), searchUrl);
 
+  /* --------------------------------------------------- external review links */
+
+  const alphaLinks = page.locator('.card', { hasText: 'Alpha Tile Works' }).locator('.extlink');
+  check('every listing links out to Google and Yelp',
+    (await alphaLinks.count()) === 2, 'got ' + (await alphaLinks.count()));
+
+  const gHref = await alphaLinks.nth(0).getAttribute('href');
+  const yHref = await alphaLinks.nth(1).getAttribute('href');
+  check('Google link scopes the search to the business and city',
+    gHref.startsWith('https://www.google.com/maps/search/') &&
+    decodeURIComponent(gHref).includes('Alpha Tile Works Llc Seattle WA'), gHref);
+  check('Yelp link scopes the search to the business and city',
+    yHref.startsWith('https://www.yelp.com/search') &&
+    decodeURIComponent(yHref).includes('Alpha Tile Works Llc') &&
+    decodeURIComponent(yHref).includes('Seattle, WA'), yHref);
+  check('outbound review links open safely in a new tab',
+    (await alphaLinks.nth(0).getAttribute('rel')).includes('noopener') &&
+    (await alphaLinks.nth(0).getAttribute('target')) === '_blank', '');
+  check('ampersands in business names are encoded, not broken',
+    decodeURIComponent(await page.locator('.card', { hasText: 'Bravo Tile' })
+      .locator('.extlink').nth(0).getAttribute('href')).includes('Bravo Tile & Stone Inc'), '');
+  check('unverified links are labelled as a lookup, not a confirmed match',
+    (await page.locator('.card', { hasText: 'Alpha Tile Works' })
+      .locator('.extlinks__label').innerText()).toLowerCase().includes('look them up'), '');
+
   /* ------------------------------------------------------ review scores */
 
   check('sort control matches the default state',
@@ -264,7 +289,7 @@ function respond(route, body) {
     snippet.includes('"ubi"') && snippet.includes('workmanship'), snippet.slice(0, 160));
   const notice = await page.locator('.notice').innerText();
   check('local submission is honest that nobody else can see it',
-    notice.toLowerCase().includes('this browser only'), notice.slice(0, 160));
+    notice.toLowerCase().includes('this browser and nowhere else'), notice.slice(0, 160));
   await page.evaluate(() => localStorage.removeItem('kcc-local-reviews-v1'));
 
   /* ------------------------------------------------------ rankings.html */
@@ -272,12 +297,12 @@ function respond(route, body) {
   await page.waitForSelector('#rankings');
   const rankTxt = await page.locator('#rankings').innerText();
   check('rankings page explains the empty state rather than faking data',
-    rankTxt.includes('No reviews yet'), rankTxt.slice(0, 160));
+    rankTxt.includes('Nobody has written a review yet'), rankTxt.slice(0, 160));
   const rankBody = await page.locator('body').innerText();
   check('rankings page explains why scores look low',
-    rankBody.includes('Why the numbers look low'), '');
+    rankBody.includes('Why these numbers look low'), '');
   check('rankings page states awards are population-relative',
-    rankBody.includes('top 1%'), '');
+    rankBody.includes('top 1 percent'), '');
 
   /* ------------------------------------------------- certifications.html */
   await page.goto(BASE + '/certifications.html');
@@ -290,19 +315,85 @@ function respond(route, body) {
     'rows ' + rowCount);
   const guideText = await page.locator('body').innerText();
   check('guide explains CTEF hands-on testing',
-    guideText.includes('proctored test'), '');
+    guideText.includes('graded against the national standard'), '');
 
   /* ------------------------------------------------------------ about */
   await page.goto(BASE + '/about.html');
   await page.waitForSelector('.prose');
   const aboutText = await page.locator('body').innerText();
   check('about page states the ranking limitation honestly',
-    aboutText.includes('does not rank contractors using state data') &&
-    aboutText.includes('just unreviewed here'), '');
+    aboutText.includes('will not turn state data into a quality ranking') &&
+    aboutText.includes('not been reviewed here'), '');
   check('about page documents the scoring method',
-    aboutText.includes('single five-star review produces roughly 3.46'), '');
+    aboutText.includes('One five-star review gives about 3.46'), '');
   check('about page discloses the missing credibility weighting',
-    aboutText.includes('reviewer credibility weighting is not'), '');
+    aboutText.includes('reviewer credibility weighting'), '');
+
+  /* ------------------------------------------------- house style guard */
+
+  // Phrases and constructions that read as machine-written. Each was found in
+  // an earlier draft of this site and deliberately removed; the test exists so
+  // they do not creep back in.
+  const BANNED = [
+    'actually', 'basically', 'essentially', 'at the end of the day',
+    "here's the thing", 'here is the thing', 'let me be clear',
+    'in other words', 'worth noting', 'it is worth noting',
+    'that said', 'needless to say', 'the whole point',
+    'which is exactly why', 'which is precisely', 'the truth is',
+    'it turns out', 'not just about', "isn't just about",
+    'is not just about', 'when it comes to', 'in today',
+    'delve', 'navigate the', 'a testament to', 'plays a role',
+    'it should be noted', 'furthermore', 'moreover',
+  ];
+
+  const PAGES = ['index.html', 'about.html', 'certifications.html',
+                 'rankings.html', 'review.html'];
+
+  for (const pg of PAGES) {
+    await page.goto(BASE + '/' + pg);
+    await page.waitForSelector('body');
+    const raw = await page.locator('body').innerText();
+    const body = raw.toLowerCase();
+
+    const hits = BANNED.filter((w) => body.includes(w));
+    check('no stock phrases in ' + pg, hits.length === 0, hits.join(', '));
+
+    // Em-dash asides were the other tell. A few are fine; a shower of them is
+    // the machine's favourite way to fake a considered pause.
+    const dashes = (raw.match(/—/g) || []).length;
+    const per1k = (dashes / raw.length) * 1000;
+    check('em-dashes stay sparse in ' + pg + ' (' + dashes + ')', per1k < 1.2,
+      per1k.toFixed(2) + ' per 1000 chars');
+
+    // "Not X, but Y" / "not X — Y" antithesis.
+    const antithesis = raw.match(/\bnot [a-z][^.!?]{0,40}[,—][^.!?]{0,40}\bbut\b/gi) || [];
+    check('no not-X-but-Y antithesis in ' + pg, antithesis.length === 0,
+      antithesis.slice(0, 2).join(' | '));
+
+    // Sentences should stay short and plain. Only prose is measured — form
+    // labels and table cells have no sentence punctuation, so innerText on the
+    // whole body would glue them into one enormous fake sentence.
+    const prose = await page.$$eval(
+      '.hero__lede, .section__sub, .prose p, .prose li, .steps li, .callout p, .scaleguide p, .site-foot p',
+      (els) => els.map((e) => e.innerText));
+    const longOnes = [];
+    prose.forEach((block) => {
+      block.split(/(?<=[.!?])\s+/).forEach((sent) => {
+        const words = sent.trim().split(/\s+/).filter(Boolean);
+        if (words.length > 34) longOnes.push(sent.trim());
+      });
+    });
+    check('no runaway sentences in ' + pg, longOnes.length === 0,
+      (longOnes[0] || '').slice(0, 140));
+
+    // Average sentence length is the real readability lever.
+    const allSents = prose.flatMap((b) => b.split(/(?<=[.!?])\s+/))
+      .map((x) => x.trim().split(/\s+/).filter(Boolean).length)
+      .filter((n) => n > 2);
+    const avg = allSents.reduce((a, b) => a + b, 0) / (allSents.length || 1);
+    check('prose averages under 20 words per sentence in ' + pg +
+      ' (' + avg.toFixed(1) + ')', avg < 20, avg.toFixed(1));
+  }
 
   /* ------------------------------------------------------------ report */
   await browser.close();
