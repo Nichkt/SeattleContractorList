@@ -127,6 +127,27 @@ Tabelog weighs established reviewers more heavily. That needs real reviewer
 identity, and without accounts it would be theatre. The schema carries an inert
 `reviewerWeight` field so it can be switched on the day a backend exists.
 
+### Links out to Google and Yelp
+
+Every listing carries lookup links to both platforms, built from the business
+name and city:
+
+```
+https://www.google.com/maps/search/?api=1&query=<name>+<city>+WA
+https://www.yelp.com/search?find_desc=<name>&find_loc=<city>,+WA
+```
+
+These are **searches, not verified deep links.** L&I publishes no Google Place
+ID or Yelp business ID, and scraping either platform to obtain one would breach
+their terms — so the label reads "Look up reviews" rather than "Reviews", and
+the tooltip says to check the result is the right company. If a curated overlay
+entry carries a confirmed URL, that exact link replaces the search and the label
+switches to "Reviews".
+
+Only counts and ratings are ever rendered from the overlay — **never review
+text.** Republishing Google or Yelp review content violates both platforms'
+terms; linking to them does not.
+
 ### Storage, and the backend switch
 
 Reviews merge from three sources: the curated `REVIEWS` array in
@@ -171,7 +192,7 @@ also constrains `licenseTypes`.
 - **`CERT_PROGRAMS`** — a populated reference table of ~45 real trade
   certifications (CTEF Certified Tile Installer, GAF Master Elite, NATE, ISA
   Certified Arborist, NARI, NKBA, NABCEP, EPA Lead-Safe…), each with what it
-  actually means, a difficulty tier, and the certifying body's official
+  means, a difficulty tier, and the certifying body's official
   verification directory. This drives the certification guide page and the
   per-trade hints.
 

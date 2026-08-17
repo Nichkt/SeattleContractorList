@@ -38,26 +38,25 @@
 
 <section class="hero">
   <div class="wrap">
-    <h1>Every registered contractor in King County —<br>checked against the state registry, live.</h1>
+    <h1>Trust, but verify.<br>Every contractor in King County.</h1>
     <p class="hero__lede">
-      This directory queries Washington State Labor &amp; Industries' public contractor
-      registry the moment you load the page. A company only shows all three green marks
-      when L&amp;I's own records independently confirm an <strong>active registration</strong>,
-      a <strong>current surety bond</strong>, and <strong>current liability insurance</strong>.
-      Nothing here is a stale copy of a list someone typed up last year.
+      Before you hire someone to work on your house, you should know they are licensed,
+      bonded, and insured. This page asks Washington's Department of Labor &amp; Industries
+      for its records every time you open it. Three green marks mean the state confirms all
+      three: an <strong>active registration</strong>, a <strong>current bond</strong>, and
+      <strong>current liability insurance</strong>.
     </p>
 
     <div class="hero__search">
       <label class="field field--grow">
         <span class="field__label">Search by business name</span>
-        <input type="search" id="searchInput" placeholder="e.g. Cascade, Emerald, Rainier…" autocomplete="off">
+        <input type="search" id="searchInput" placeholder="Cascade, Emerald, Rainier…" autocomplete="off">
       </label>
       <button class="btn btn--primary" id="browseAll">Browse all trades</button>
     </div>
 
     <p class="hero__note">
-      Data source: WA L&amp;I open data, read directly from
-      <span class="mono">data.wa.gov</span>. Last loaded <span id="dataDate"></span>.
+      Read from <span class="mono">data.wa.gov</span>. Loaded <span id="dataDate"></span>.
     </p>
   </div>
 </section>
@@ -65,8 +64,9 @@
 <section class="wrap section">
   <h2 class="section__title">Pick a trade</h2>
   <p class="section__sub">
-    Categories map onto L&amp;I's own specialty and license-type codes, so a
-    contractor appears under a trade only if the state actually registered them for it.
+    These categories come from the state's own license and specialty codes. A contractor
+    shows up under a trade only if the state registered him for it. Nobody pays to be
+    listed here.
   </p>
   <div class="catgrid" id="categoryGrid"></div>
 </section>
@@ -104,7 +104,7 @@
 
   <div class="hint" id="certHint" hidden></div>
 
-  <div class="status" id="status">Choose a trade above, or browse all trades, to query the registry.</div>
+  <div class="status" id="status">Pick a trade above and we will look it up.</div>
 
   <div class="cards" id="cards"></div>
 
@@ -117,32 +117,32 @@
 
 <section class="wrap section">
   <div class="callout">
-    <h2>Before you sign anything</h2>
+    <h2>Five things to do before you sign</h2>
     <ol class="steps">
       <li>
-        <strong>Re-verify on L&amp;I yourself.</strong> Every listing links straight to
-        its official record. Registration and insurance can lapse between your page load
-        and your contract signing, and the state's page is the authority — not this site.
+        <strong>Check the state's record yourself.</strong> Every listing links to it. A
+        license can lapse between the day you read this and the day you sign.
       </li>
       <li>
-        <strong>Know what the bond actually covers.</strong> Washington requires only a
-        $12,000 bond for general contractors and $6,000 for specialty contractors. On a
-        $90,000 remodel that is close to symbolic. A larger voluntary bond is a real signal.
+        <strong>Know how small the bond is.</strong> The state asks $12,000 from a general
+        contractor and $6,000 from a specialty contractor. On a $90,000 kitchen that does
+        not go far. If you file a claim, other homeowners may be ahead of you in line. A
+        contractor who posts more than the law requires is worth a second look.
       </li>
       <li>
-        <strong>Ask for the certificate of insurance directly.</strong> Have the carrier
-        send it to you naming your project. L&amp;I shows a policy exists; it does not
-        show whether your specific job is within its scope.
+        <strong>Get the insurance certificate from the carrier.</strong> Ask them to name
+        your job on it. The state can tell you a policy exists. It cannot tell you your
+        work is covered.
       </li>
       <li>
-        <strong>Check the certifications, not just the license.</strong> Registration is
-        a legal minimum — filing paperwork and posting a bond. It is not a test of skill.
-        The trade certifications in our
-        <a href="certifications.html">certification guide</a> are.
+        <strong>A license is not a test of skill.</strong> It means the paperwork is filed
+        and the bond is posted. Nobody from the state watched the work. The credentials in
+        our <a href="certifications.html">certification guide</a> are graded by people who
+        did.
       </li>
       <li>
-        <strong>Look up the lawsuit and complaint history.</strong> L&amp;I's detail page
-        shows bond claims and infractions. It is the single most underused field on the page.
+        <strong>Read the complaint history.</strong> L&amp;I lists bond claims and
+        infractions on the same page. Most people skip it.
       </li>
     </ol>
   </div>
@@ -151,17 +151,17 @@
 <footer class="site-foot">
   <div class="wrap">
     <p>
-      <strong>Not affiliated with Washington State L&amp;I or King County.</strong>
-      This is an independent front end over public open data. Listings are generated
-      automatically from the state registry and are not endorsements, recommendations,
-      or vetting of any company's work quality.
+      <strong>We are not the government and do not speak for it.</strong> This is an
+      independent site built on public records. It is not affiliated with Washington State
+      L&amp;I or King County. Every listing comes straight from the state registry. A
+      listing here is not a recommendation. It means the paperwork is in order.
     </p>
     <p class="muted small">
       Data: <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-General/m8qx-ubtq" target="_blank" rel="noopener">L&amp;I Contractor License Data — General</a>,
       <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Bond/bzff-4fmt" target="_blank" rel="noopener">Bond</a>, and
       <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Insurance/ciwg-agsx" target="_blank" rel="noopener">Insurance</a>,
       published by the Washington State Department of Labor &amp; Industries.
-      Verify any contractor at <a href="https://secure.lni.wa.gov/verify/" target="_blank" rel="noopener">secure.lni.wa.gov/verify</a>.
+      Check any contractor yourself at <a href="https://secure.lni.wa.gov/verify/" target="_blank" rel="noopener">secure.lni.wa.gov/verify</a>.
       © <span id="year"></span>.
     </p>
   </div>

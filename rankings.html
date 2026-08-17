@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rankings &amp; Awards — King County Contractor Directory</title>
-<meta name="description" content="Top-ranked King County contractors by trade, scored on a deliberately tight Tabelog-style curve where a 3.5 is genuinely good and awards are earned against the whole population rather than handed out at a fixed threshold.">
+<meta name="description" content="The top-ranked contractors in King County by trade, scored on a deliberately tight Tabelog-style curve where a 3.5 is good and awards are earned against the whole field.">
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
 </head>
@@ -36,11 +36,9 @@
   <div class="wrap">
     <h1>Rankings &amp; awards</h1>
     <p class="hero__lede">
-      Ranked by weighted score, per trade. The scale is deliberately hard to climb:
-      most contractors land between 3.0 and 3.5, and a 3.5 is genuinely good.
-      Awards are <strong>earned against the whole rated population</strong> — Gold is the
-      top 1%, Silver the top 5%, Bronze the top 15% — rather than handed to
-      everyone who clears a fixed number.
+      Ranked by score, trade by trade. Most contractors land between 3.0 and 3.5, and a 3.5
+      is good work. Awards go to the top of the field: Gold to the top 1 percent, Silver the
+      top 5, Bronze the top 15.
     </p>
   </div>
 </section>
@@ -51,32 +49,29 @@
 
 <section class="wrap section">
   <div class="callout">
-    <h2>Why the numbers look low</h2>
+    <h2>Why these numbers look low</h2>
     <p class="muted">
-      Because a scale where everyone scores 4.7 tells you nothing. Two mechanisms keep
-      this one informative:
+      A scale where everyone scores 4.7 tells you nothing. Four things keep this one
+      useful:
     </p>
     <ol class="steps">
       <li>
-        <strong>Scores are pulled toward the average until they are earned.</strong> One
-        five-star review moves a contractor to about 3.46, not 5.00. Reaching 4.0 takes
-        both excellence and volume — which is also why a handful of reviews from friends
-        cannot manufacture a ranking.
+        <strong>Scores start near the middle.</strong> One five-star review gives about
+        3.46. Getting to 4.0 takes good work over many jobs. A few reviews from friends will
+        not buy a place on this list.
       </li>
       <li>
-        <strong>Ratings are recalibrated against the whole population.</strong> Home-services
-        reviews run generous — people rate a contractor they met and shook hands with far
-        above what they would give a restaurant. The scale is remapped so the typical King
-        County contractor sits near 3.2, which restores the meaning of the numbers above it.
+        <strong>Everyone is measured against everyone else.</strong> People rate
+        contractors generously. We set the typical King County contractor near 3.2 and place
+        the rest around him.
       </li>
       <li>
-        <strong>Old reviews fade.</strong> Weight halves every four years, because a review
-        from 2019 may describe a company that no longer employs any of the same people.
+        <strong>Old reviews fade.</strong> Weight halves every four years. The crew from
+        2019 may be gone.
       </li>
       <li>
-        <strong>Provisional businesses are never ranked or awarded.</strong> Below three
-        reviews, a score is shown but explicitly marked unreliable and excluded from every
-        list on this page.
+        <strong>Thin records are never ranked.</strong> Under three reviews we show a
+        score, mark it as thin, and keep it off every list on this page.
       </li>
     </ol>
   </div>
@@ -85,9 +80,9 @@
 <footer class="site-foot">
   <div class="wrap">
     <p class="muted small">
-      Rankings reflect only reviews submitted to this site, which is a far smaller sample
-      than the major platforms. A contractor absent from these lists is almost certainly
-      just unreviewed here — not judged and found wanting. © <span id="year"></span>.
+      These rankings come from reviews written here and nowhere else. That is a small pool.
+      A contractor missing from a list has probably just not been reviewed yet.
+      © <span id="year"></span>.
     </p>
   </div>
 </footer>
@@ -140,16 +135,13 @@
   if (!entries.length) {
     el.innerHTML =
       '<div class="prose">' +
-      '<h2>No reviews yet</h2>' +
-      '<p>The scoring engine is live and fully wired — it simply has nothing to rank ' +
-      'until reviews exist. Rankings are intentionally not seeded with placeholder data: ' +
-      'invented reviews about real, named local contractors would be both defamatory and ' +
-      'useless, and the engine is designed so that a small number of reviews cannot move ' +
-      'a score much anyway.</p>' +
-      '<p><a class="btn btn--primary" href="review.html">Write the first review</a></p>' +
-      '<p class="muted small">Reviews you write are stored in your own browser until a ' +
-      'backend is configured, but they score live — so you can add a few and watch the ' +
-      'curve, the breakdown, and the award tiers behave.</p>' +
+      '<h2>Nobody has written a review yet</h2>' +
+      '<p>The scoring runs, but there is nothing to rank yet. We will not fill it with ' +
+      'made-up reviews. Inventing praise or complaints about a real business could cost ' +
+      'someone their work, and a few reviews would barely move the score anyway.</p>' +
+      '<p><a class="btn btn--primary" href="review.html">Write the first one</a></p>' +
+      '<p class="muted small">What you write stays in your browser until a backend is set ' +
+      'up. It still scores live, so you can add a few and watch how it works.</p>' +
       '</div>';
     return;
   }
@@ -161,7 +153,7 @@
   html += '<div class="prose"><h2>Overall — top ' + Math.min(TOP_N, ranked.length) + '</h2>' +
     '<p class="muted small">' + entries.length + ' business' + (entries.length === 1 ? '' : 'es') +
     ' reviewed · ' + ranked.length + ' with enough reviews to rank' +
-    (cal.applied ? ' · calibrated against a population mean of ' + cal.mean.toFixed(2) : ' · calibration inactive (small sample)') +
+    (cal.applied ? ' · measured against a field averaging ' + cal.mean.toFixed(2) : ' · too few reviews yet to calibrate') +
     '</p></div>';
   html += renderList(ranked.slice(0, TOP_N));
 
@@ -178,8 +170,8 @@
   var provisional = entries.filter(function (e) { return e.rating && e.rating.provisional; });
   if (provisional.length) {
     html += '<div class="prose"><h2>Not yet rankable</h2>' +
-      '<p class="muted small">Fewer than ' + SCORING.PROVISIONAL_BELOW +
-      ' reviews. Scored, but excluded from every ranking and ineligible for an award.</p></div>';
+      '<p class="muted small">Under ' + SCORING.PROVISIONAL_BELOW +
+      ' reviews. Scored, but kept off every ranking and given no awards.</p></div>';
     html += renderList(provisional, true);
   }
 
@@ -193,9 +185,9 @@
         '<span>' +
           '<span class="rankrow__name">' + esc(e.name) + '</span> ' +
           (r.tier ? '<span class="award award--' + esc(r.tier) + '">' + esc(TIER_LABEL[r.tier]) + '</span>' : '') +
-          (e.local ? ' <span class="rating__prov" title="Saved in your browser only — not published">local</span>' : '') +
+          (e.local ? ' <span class="rating__prov" title="Saved in your browser only — nobody else can see it">yours only</span>' : '') +
           '<br><span class="rankrow__meta">' + r.count + ' review' + (r.count === 1 ? '' : 's') +
-          ' · unadjusted ' + r.rawMean.toFixed(2) +
+          ' · raw ' + r.rawMean.toFixed(2) +
           (e.trade ? ' · ' + esc((CATEGORIES.filter(function (c) { return c.id === e.trade; })[0] || {}).name || '') : '') +
           '</span>' +
         '</span>' +

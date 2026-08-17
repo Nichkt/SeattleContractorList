@@ -36,8 +36,8 @@
   <div class="wrap">
     <h1 id="pageTitle">Review a contractor</h1>
     <p class="hero__lede" id="pageSub">
-      Rate the work on six separate axes. Partial reviews are fine — skip anything
-      you cannot speak to honestly, and it will be excluded rather than counted against them.
+      Six marks, one for each part of the job. Leave anything blank you cannot answer. We
+      will set it aside.
     </p>
   </div>
 </section>
@@ -45,19 +45,18 @@
 <section class="wrap section">
 
   <div class="scaleguide">
-    <strong>Please read this before rating. It is the whole point of the scale.</strong>
+    <strong>Read this first.</strong>
     <p style="margin:8px 0 0">
-      This site uses a deliberately tight scale, like Tabelog's. <strong>3 means the
-      contractor did what they promised</strong> — that is a good outcome and a good
-      score, not a complaint. If every job gets five stars the number stops carrying
-      any information, and the directory becomes useless to the next homeowner.
+      The scale is tight on purpose. <strong>3 means the contractor did what they
+      promised</strong>, and that is a good score. If every job gets five stars, the number
+      tells the next person nothing.
     </p>
     <dl>
-      <dt>5</dt><dd>Exceptional. Genuinely better than the trade's norm. Rare by definition.</dd>
-      <dt>4</dt><dd>Clearly above expectations in a way you would mention to a friend.</dd>
-      <dt>3</dt><dd>Did the job properly, as agreed. A perfectly good result.</dd>
-      <dt>2</dt><dd>Real problems, but ultimately resolved or tolerable.</dd>
-      <dt>1</dt><dd>Serious failure — work you had to have redone or fight about.</dd>
+      <dt>5</dt><dd>Exceptional. Better than the trade expects. Rare.</dd>
+      <dt>4</dt><dd>Better than you hoped for.</dd>
+      <dt>3</dt><dd>Did the job, did it right, did what was agreed.</dd>
+      <dt>2</dt><dd>Real trouble, but it got fixed.</dd>
+      <dt>1</dt><dd>A serious failure. Work you had to redo or fight about.</dd>
     </dl>
   </div>
 
@@ -68,7 +67,7 @@
     </label>
 
     <label class="field">
-      <span class="field__label">UBI number <span class="muted">(required — ties the review to the state record)</span></span>
+      <span class="field__label">UBI number <span class="muted">(required. This ties your review to the state's record.)</span></span>
       <input type="text" id="ubi" required inputmode="numeric" placeholder="e.g. 603320569">
     </label>
 
@@ -85,16 +84,16 @@
     </label>
 
     <label class="field">
-      <span class="field__label">When was the work done?</span>
+      <span class="field__label">When was the work done? <span class="muted">(not today's date)</span></span>
       <input type="date" id="visitDate" required>
     </label>
 
     <label class="field">
       <span class="field__label">Evidence</span>
       <select id="evidence">
-        <option value="named">I'll give my name — standard weight</option>
-        <option value="verified">I have a permit number, contract, or invoice — counts 1.5×</option>
-        <option value="anonymous">Anonymous — counts 0.7×</option>
+        <option value="named">I will put my name to it. Counts as normal.</option>
+        <option value="verified">I have the permit, contract, or invoice. Counts 1.5×.</option>
+        <option value="anonymous">No name. Counts 0.7×.</option>
       </select>
     </label>
 
@@ -115,7 +114,7 @@
 
     <label class="field">
       <span class="field__label">What happened?</span>
-      <textarea id="body" placeholder="What the job was, how it went, and anything the next homeowner should know. Stick to what you personally experienced."></textarea>
+      <textarea id="body" placeholder="What the job was, how it went, and what the next person should know. Stick to what you saw yourself."></textarea>
     </label>
 
     <div>
@@ -133,11 +132,9 @@
 <footer class="site-foot">
   <div class="wrap">
     <p class="muted small">
-      Write only about work you personally paid for and experienced. Reviews of named
-      local businesses carry real consequences for real people — a fabricated or
-      exaggerated review can materially damage a small contractor, and the scoring
-      system is built specifically so that a handful of reviews cannot swing a score
-      anyway. © <span id="year"></span>.
+      Write only about work you paid for and saw yourself. There is a real business on the
+      other end. A made-up or exaggerated review can cost someone their work. Be fair and be
+      accurate. © <span id="year"></span>.
     </p>
   </div>
 </footer>
@@ -268,17 +265,17 @@
     try {
       var res = await submitReview(review);
       if (res.mode === 'remote') {
-        resultEl.innerHTML = '<div class="notice notice--ok">Submitted for moderation. Thank you.</div>';
+        resultEl.innerHTML = '<div class="notice notice--ok">Sent along for review. Much obliged.</div>';
       } else {
         // Local mode: be explicit that nobody else can see this, and hand
-        // over a commit-ready snippet so it can actually be published.
+        // over a commit-ready snippet so it can be published for good.
         var snippet = JSON.stringify(review, null, 2);
         resultEl.innerHTML =
-          '<div class="notice notice--warn"><strong>Saved in this browser only.</strong> ' +
-          'No backend is configured, so this review is visible to you and nobody else. ' +
-          'It scores live on the directory so you can see the system working. To publish it, ' +
-          'paste the snippet below into the <span class="mono">REVIEWS</span> array in ' +
-          '<span class="mono">data/reviews.js</span> and commit.</div>' +
+          '<div class="notice notice--warn"><strong>Saved in this browser and nowhere else.</strong> ' +
+          'No backend is set up yet, so you are the only one who can see this. It still scores ' +
+          'live on the directory. To publish it, paste the snippet below into the ' +
+          '<span class="mono">REVIEWS</span> array in <span class="mono">data/reviews.js</span> ' +
+          'and commit it.</div>' +
           '<pre class="snippet">' + esc(snippet) + '</pre>' +
           '<button class="btn btn--ghost" id="copyBtn">Copy snippet</button> ' +
           '<a class="btn btn--primary" href="./">Back to the directory</a>';
@@ -302,8 +299,8 @@
     var local = loadLocalReviews();
     var el = document.getElementById('localList');
     if (!local.length) { el.innerHTML = ''; return; }
-    el.innerHTML = '<div class="prose"><h2>Reviews saved in this browser</h2>' +
-      '<p class="muted small">Only you can see these. They score live on the directory.</p></div>' +
+    el.innerHTML = '<div class="prose"><h2>Saved in this browser</h2>' +
+      '<p class="muted small">Only you can see these. They still score live on the directory.</p></div>' +
       '<div class="ranklist">' + local.map(function (r, i) {
         var composite = reviewComposite(r);
         return '<div class="rankrow">' +
