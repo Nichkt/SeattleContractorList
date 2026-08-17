@@ -528,6 +528,14 @@ const CERT_PROGRAMS = {
        yelp:   { count: 96,  rating: 4.5, checked: '2026-08-16',
                  url: 'https://...' }
      },
+
+     // The state publishes no website field, so this only ever holds a URL
+     // somebody opened and confirmed belongs to THIS business. Without an
+     // entry here the listing shows a "Find site" search instead. Never guess
+     // a domain from the company name: contractor names collide constantly,
+     // and pointing customers at the wrong company's site is worse than
+     // pointing them at nothing.
+     website: { url: 'https://...', checked: '2026-08-17' },
      notes: 'Optional short editorial note.'
    }
 

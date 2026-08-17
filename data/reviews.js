@@ -30,7 +30,8 @@
 /* --------------------------------------------------------------- backend */
 
 const REVIEW_BACKEND = {
-  /* Set to e.g. 'https://reviews.your-worker.workers.dev' to go live.
+  /* Set to your deployed Worker, e.g. 'https://kcc-reviews.<you>.workers.dev'.
+     A ready-to-deploy Worker lives in /worker — see worker/README.md.
      The endpoint must support:
        GET  {url}/reviews            -> { reviews: [ ...review objects... ] }
        POST {url}/reviews            -> accepts one review object
