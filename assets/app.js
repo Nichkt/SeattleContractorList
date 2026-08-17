@@ -57,6 +57,7 @@ const state = {
   certsOnly: false,
   page: 0,
   total: null,
+  fetched: 0,
   results: [],
   loading: false,
   reqId: 0
@@ -411,34 +412,44 @@ function certBadges(record) {
 }
 
 /**
- * Links out to Google and Yelp for a contractor.
+ * Outbound links for a contractor: their own website, Google, and Yelp.
  *
- * These are SEARCH links, not verified deep links. L&I publishes no Google
- * Place ID or Yelp business ID, and scraping either platform to obtain one
- * would breach their terms — so the honest thing is a search scoped to the
- * business name and city, which lands on the right listing in one click but
- * is not guaranteed to be an exact match. The label says "look up" rather
- * than "reviews" for exactly that reason.
+ * IMPORTANT: none of this comes from the state. L&I's published file has 19
+ * fields and a website is not among them, and neither Google Place IDs nor
+ * Yelp business IDs are in there either. Scraping any of those platforms to
+ * obtain one would breach their terms. So every link here is one of two things:
  *
- * If a curated overlay entry carries a confirmed URL, that exact link is used
- * instead and the verified rating and count are shown alongside it.
+ *   VERIFIED  a URL somebody confirmed by hand and recorded in the overlay,
+ *             rendered as a direct link.
+ *   LOOKUP    a search scoped to the business name and city, which lands on
+ *             the right result in one click but is not a guaranteed match.
  *
- * Note also that only counts and ratings are ever displayed — never review
- * text. Republishing the content of Google or Yelp reviews would violate both
- * platforms' terms; linking to them does not.
+ * The label says which. "Website" and "Reviews" mean confirmed; "Find" and
+ * "Look them up" mean we are handing you a search and you should check the
+ * result is the right company before trusting it. Getting that distinction
+ * wrong would attach one contractor's reputation to another's name.
+ *
+ * Only counts and ratings are ever rendered from the overlay, never review
+ * text. Republishing Google or Yelp review content violates their terms;
+ * linking to them does not.
  */
-function reviewLinks(record) {
+function externalLinks(record) {
   const name = titleCase(record.businessname);
   const city = titleCase(record.city || '');
-  const o = record.overlay && record.overlay.reviews ? record.overlay.reviews : null;
+  const o = record.overlay || {};
+  const rv = o.reviews || null;
+  const scope = encodeURIComponent(name + ' ' + city + ' WA');
 
-  const googleUrl = (o && o.google && o.google.url)
-    ? o.google.url
-    : 'https://www.google.com/maps/search/?api=1&query=' +
-      encodeURIComponent(name + ' ' + city + ' WA');
+  const site = o.website && o.website.url ? o.website : null;
+  const siteUrl = site ? site.url
+    : 'https://www.google.com/search?q=' + scope;
 
-  const yelpUrl = (o && o.yelp && o.yelp.url)
-    ? o.yelp.url
+  const googleUrl = (rv && rv.google && rv.google.url)
+    ? rv.google.url
+    : 'https://www.google.com/maps/search/?api=1&query=' + scope;
+
+  const yelpUrl = (rv && rv.yelp && rv.yelp.url)
+    ? rv.yelp.url
     : 'https://www.yelp.com/search?find_desc=' + encodeURIComponent(name) +
       '&find_loc=' + encodeURIComponent(city + ', WA');
 
@@ -449,18 +460,34 @@ function reviewLinks(record) {
       esc(src.count) + '</span>';
   }
 
-  const verified = !!(o && ((o.google && o.google.url) || (o.yelp && o.yelp.url)));
+  // Strip scheme and any www. so the chip shows a readable domain.
+  function domainOf(url) {
+    return String(url).replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '');
+  }
+
+  const reviewsVerified = !!(rv && ((rv.google && rv.google.url) || (rv.yelp && rv.yelp.url)));
+
+  const siteChip = site
+    ? `<a class="extlink extlink--site" href="${esc(siteUrl)}" target="_blank" rel="noopener noreferrer"
+         title="${esc('Confirmed website' + (site.checked ? ', checked ' + site.checked : '') + '.')}">
+         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
+         ${esc(domainOf(siteUrl))}</a>`
+    : `<a class="extlink" href="${esc(siteUrl)}" target="_blank" rel="noopener noreferrer"
+         title="A web search for this business. We have not confirmed a website for them.">
+         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4-4"/></svg>
+         Find site</a>`;
 
   return `<div class="extlinks">
-    <span class="extlinks__label" title="${esc(verified
-      ? 'These links point to this business.'
-      : 'These are searches by name and city. Check that the result is the right company.')}">${verified ? 'Reviews' : 'Look them up'}</span>
+    <span class="extlinks__label" title="${esc(site || reviewsVerified
+      ? 'Confirmed links appear as the site or platform name. Anything labelled Find or Look up is a search.'
+      : 'These are searches by name and city, not confirmed matches. Check the result is the right company.')}">${site || reviewsVerified ? 'Links' : 'Look them up'}</span>
+    ${siteChip}
     <a class="extlink" href="${esc(googleUrl)}" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
-      Google${stat(o && o.google)}</a>
+      Google${stat(rv && rv.google)}</a>
     <a class="extlink" href="${esc(yelpUrl)}" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v8M12 13l5 4M12 13l-5 4M12 13l7-2M12 13l-7-2"/></svg>
-      Yelp${stat(o && o.yelp)}</a>
+      Yelp${stat(rv && rv.yelp)}</a>
   </div>`;
 }
 
@@ -486,7 +513,7 @@ function cardHTML(record) {
 
     ${ratingHTML(record)}
     ${certBadges(record)}
-    ${reviewLinks(record)}
+    ${externalLinks(record)}
 
     <dl class="card__meta">
       <div><dt>Specialty</dt><dd>${esc(titleCase(record.specialtycode1desc || 'General'))}</dd></div>
@@ -532,6 +559,101 @@ function cardHTML(record) {
 
 /* ------------------------------------------------------------ UI wiring */
 
+/* --------------------------------------------------------------- URL state
+
+   Every filter lives in the query string so a search can be bookmarked,
+   shared, or linked to. It also gives search engines something to crawl:
+   before this, every view of the site was the same URL, so a page listing
+   Kent roofers was indistinguishable from the front page.
+
+   history calls are wrapped because they throw a SecurityError on file://
+   origins, which is how the headless tests load the site.
+   -------------------------------------------------------------------------- */
+
+const URL_KEYS = ['trade', 'city', 'q', 'sort', 'page', 'bonded', 'insured', 'certs'];
+
+function readUrl() {
+  const p = new URLSearchParams(location.search);
+
+  const trade = p.get('trade');
+  if (trade) state.category = CATEGORIES.find((c) => c.id === trade) || null;
+
+  const city = (p.get('city') || '').toUpperCase();
+  if (city && KING_COUNTY_CITIES.indexOf(city) !== -1) state.city = city;
+
+  if (p.get('q')) state.search = p.get('q');
+  if (p.get('sort')) state.sort = p.get('sort');
+
+  const page = parseInt(p.get('page'), 10);
+  if (page > 1) state.page = page - 1;
+
+  // Absent means default (on). Only an explicit "0" turns a filter off.
+  if (p.get('bonded') === '0') state.requireBonded = false;
+  if (p.get('insured') === '0') state.requireInsured = false;
+  if (p.get('certs') === '1') state.certsOnly = true;
+
+  return p.toString().length > 0;
+}
+
+function currentUrl() {
+  const p = new URLSearchParams();
+  if (state.category) p.set('trade', state.category.id);
+  if (state.city) p.set('city', state.city);
+  if (state.search.trim()) p.set('q', state.search.trim());
+  if (state.sort !== 'name') p.set('sort', state.sort);
+  if (state.page > 0) p.set('page', String(state.page + 1));
+  if (!state.requireBonded) p.set('bonded', '0');
+  if (!state.requireInsured) p.set('insured', '0');
+  if (state.certsOnly) p.set('certs', '1');
+  const qs = p.toString();
+  return location.pathname + (qs ? '?' + qs : '');
+}
+
+function syncUrl(push) {
+  const url = currentUrl();
+  try {
+    if (push) history.pushState(null, '', url);
+    else history.replaceState(null, '', url);
+  } catch (e) { /* file:// origin, or a browser that refuses. Not fatal. */ }
+  updateSeo();
+}
+
+/** Title, description and canonical follow the current view. */
+function updateSeo() {
+  const trade = state.category ? state.category.name : 'Contractors';
+  const where = state.city ? titleCase(state.city) : 'King County';
+  const title = state.category
+    ? `${trade} in ${where} — Licensed, Bonded & Insured`
+    : `King County Contractor Directory — Licensed, Bonded & Insured`;
+  document.title = title;
+
+  const desc = state.category
+    ? `Every actively registered ${trade.toLowerCase()} contractor in ${where}, Washington, ` +
+      `checked against the state registry for an active licence, a current bond and ` +
+      `current liability insurance. ${state.category.blurb}`
+    : `Every actively registered contractor in King County, Washington, checked live ` +
+      `against the Washington State L&I registry for licence, bond and insurance.`;
+  let m = document.querySelector('meta[name="description"]');
+  if (m) m.setAttribute('content', desc);
+
+  let link = document.querySelector('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    document.head.appendChild(link);
+  }
+  try {
+    link.setAttribute('href', new URL(currentUrl(), location.href).href.split('#')[0]);
+  } catch (e) {}
+
+  const h1 = $('#heroTitle');
+  if (h1 && state.category) {
+    h1.textContent = trade + ' in ' + where;
+  } else if (h1) {
+    h1.innerHTML = 'Trust, but verify.<br>Every contractor in King County.';
+  }
+}
+
 function renderCategoryGrid() {
   const grid = $('#categoryGrid');
   grid.innerHTML = CATEGORIES.map((c) => `
@@ -546,6 +668,17 @@ function renderCategoryGrid() {
     if (!btn) return;
     selectCategory(btn.dataset.cat);
   });
+}
+
+/** Push the current state back into the form controls. */
+function applyStateToControls() {
+  $('#categorySelect').value = state.category ? state.category.id : '';
+  $('#citySelect').value = state.city || '';
+  $('#sortSelect').value = state.sort;
+  $('#searchInput').value = state.search;
+  $('#fBonded').checked = state.requireBonded;
+  $('#fInsured').checked = state.requireInsured;
+  $('#fCerts').checked = state.certsOnly;
 }
 
 function populateSelects() {
@@ -565,6 +698,7 @@ function selectCategory(id) {
   state.page = 0;
   $('#categorySelect').value = state.category ? state.category.id : '';
   syncCertHint();
+  syncUrl(true);
   document.body.classList.add('is-browsing');
   $('#results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   load();
@@ -614,6 +748,7 @@ async function load() {
     if (myReq !== state.reqId) return;
 
     const decorated = rows.map((r) => decorate(r, coverage));
+    state.fetched = decorated.length;
     state.results = sortRecords(applyClientFilters(decorated));
     render();
   } catch (err) {
@@ -642,10 +777,16 @@ function render() {
       'empty');
   } else {
     cards.innerHTML = shown.map(cardHTML).join('');
-    const start = state.page * PAGE_SIZE + 1;
-    const end = state.page * PAGE_SIZE + shown.length;
-    setStatus(`Showing <strong>${start}–${end}</strong> of
-      <strong>${state.total.toLocaleString()}</strong> active
+    // The total comes from the server; the bonded/insured filters run here, on
+    // the page we fetched. Those two numbers cannot be blended into one honest
+    // "1-24 of 92" range — doing so made later pages appear to skip entries.
+    // So report them as the separate facts they are.
+    const maxPage = Math.max(0, Math.ceil((state.total || 0) / PAGE_SIZE) - 1);
+    const hidden = state.fetched - shown.length;
+    setStatus(`Page <strong>${state.page + 1}</strong> of ${maxPage + 1} ·
+      showing <strong>${shown.length}</strong>
+      ${hidden > 0 ? `(${hidden} on this page lack current bond or insurance)` : ''}
+      · <strong>${state.total.toLocaleString()}</strong> active
       ${state.category ? esc(state.category.name.toLowerCase()) : 'contractors'}
       in ${state.city ? esc(titleCase(state.city)) : 'King County'}
       · checked against the state's records just now`);
@@ -665,17 +806,20 @@ function bindControls() {
     state.category = CATEGORIES.find((c) => c.id === e.target.value) || null;
     state.page = 0;
     syncCertHint();
+    syncUrl(true);
     load();
   });
 
   $('#citySelect').addEventListener('change', (e) => {
     state.city = e.target.value;
     state.page = 0;
+    syncUrl(true);
     load();
   });
 
   $('#sortSelect').addEventListener('change', (e) => {
     state.sort = e.target.value;
+    syncUrl(false);
     state.results = sortRecords(state.results);
     render();
   });
@@ -686,31 +830,34 @@ function bindControls() {
     searchTimer = setTimeout(() => {
       state.search = v;
       state.page = 0;
+      syncUrl(false);
       load();
     }, 350);
   });
 
   $('#fBonded').addEventListener('change', (e) => {
-    state.requireBonded = e.target.checked; state.page = 0; load();
+    state.requireBonded = e.target.checked; state.page = 0; syncUrl(false); load();
   });
   $('#fInsured').addEventListener('change', (e) => {
-    state.requireInsured = e.target.checked; state.page = 0; load();
+    state.requireInsured = e.target.checked; state.page = 0; syncUrl(false); load();
   });
   $('#fCerts').addEventListener('change', (e) => {
-    state.certsOnly = e.target.checked; state.page = 0; load();
+    state.certsOnly = e.target.checked; state.page = 0; syncUrl(false); load();
   });
 
   $('#prevBtn').addEventListener('click', () => {
-    if (state.page > 0) { state.page--; load(); window.scrollTo({ top: $('#results').offsetTop - 20, behavior: 'smooth' }); }
+    if (state.page > 0) { state.page--; syncUrl(false); load(); window.scrollTo({ top: $('#results').offsetTop - 20, behavior: 'smooth' }); }
   });
   $('#nextBtn').addEventListener('click', () => {
-    state.page++; load(); window.scrollTo({ top: $('#results').offsetTop - 20, behavior: 'smooth' });
+    state.page++; syncUrl(false); load(); window.scrollTo({ top: $('#results').offsetTop - 20, behavior: 'smooth' });
   });
 
   $('#browseAll').addEventListener('click', () => {
     state.category = null;
+    state.page = 0;
     $('#categorySelect').value = '';
     syncCertHint();
+    syncUrl(true);
     document.body.classList.add('is-browsing');
     $('#results').scrollIntoView({ behavior: 'smooth' });
     load();
@@ -739,6 +886,28 @@ async function init() {
   renderCategoryGrid();
   populateSelects();
   bindControls();
+
+  // Restore whatever the URL asked for before anything renders.
+  const hadState = readUrl();
+  applyStateToControls();
+  syncCertHint();
+  updateSeo();
+
+  window.addEventListener('popstate', () => {
+    state.category = null; state.city = ''; state.search = '';
+    state.sort = 'name'; state.page = 0;
+    state.requireBonded = true; state.requireInsured = true; state.certsOnly = false;
+    readUrl();
+    applyStateToControls();
+    syncCertHint();
+    updateSeo();
+    load();
+  });
+
+  if (hadState) {
+    document.body.classList.add('is-browsing');
+    load();
+  }
   $('#year').textContent = new Date().getFullYear();
   $('#dataDate').textContent = new Date().toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric'

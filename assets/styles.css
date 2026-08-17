@@ -410,3 +410,9 @@ html.dark .rankrow__score { color: var(--brand); }
 html.dark .extlink:hover { color: var(--brand); }
 .extlink svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.6; }
 .extlink__stat { color: var(--ink-3); font-weight: 500; margin-left: 3px; }
+
+.extlink--site { border-color: color-mix(in srgb, var(--brand) 40%, transparent); color: var(--brand-ink); }
+html.dark .extlink--site { color: var(--brand); }
+
+/* Honeypot: off-screen rather than display:none, which some bots skip. */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
