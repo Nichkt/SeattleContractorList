@@ -60,7 +60,7 @@ const CERT_PROGRAMS = {
     tier: 'gold',
     trade: 'tile',
     what: 'A company certification, not an individual one. It requires certified installers on staff, references, and a commitment to the standards. Renewed each year.',
-    verifyUrl: 'https://www.tile-assn.com/page/FiveStar'
+    verifyUrl: 'https://www.tile-assn.com/page/ntca-five-starsearch'
   },
 
   /* ------------------------------------------------------------- ROOFING */
@@ -98,7 +98,7 @@ const CERT_PROGRAMS = {
     tier: 'silver',
     trade: 'roofing',
     what: 'Malarkey\'s top level. They are a Portland manufacturer used widely in the Northwest.',
-    verifyUrl: 'https://www.malarkeyroofing.com/contractor-locator'
+    verifyUrl: 'https://www.malarkeyroofing.com/homeowners/find-a-contractor/'
   },
 
   /* ------------------------------------------------------------ HVAC */
@@ -127,7 +127,7 @@ const CERT_PROGRAMS = {
     tier: 'silver',
     trade: 'hvac',
     what: 'Whole-house energy work: blower door tests, combustion safety, and the building envelope. Useful for heat pump conversions and rebates.',
-    verifyUrl: 'https://www.bpi.org/find-a-contractor/'
+    verifyUrl: 'https://www.bpi.org/pages/locator/'
   },
 
   /* ------------------------------------------------------ LANDSCAPING */
@@ -194,7 +194,7 @@ const CERT_PROGRAMS = {
     tier: 'gold',
     trade: 'remodeling',
     what: 'The senior design credential from the kitchen and bath association. It covers design work, not construction.',
-    verifyUrl: 'https://nkba.org/find-a-pro/'
+    verifyUrl: 'https://nkba.org/find-a-designer/'
   },
   'nari-caps': {
     label: 'Certified Aging-in-Place Specialist',
@@ -212,7 +212,7 @@ const CERT_PROGRAMS = {
     tier: 'silver',
     trade: 'general',
     what: 'Green building practice, covering the envelope, energy, water, and materials.',
-    verifyUrl: 'https://www.nahb.org/education-and-events/education/designations'
+    verifyUrl: 'https://www.nahb.org/education-and-events/credentials'
   },
 
   /* --------------------------------------------------- ELECTRICAL / PV */
@@ -232,7 +232,7 @@ const CERT_PROGRAMS = {
     tier: 'gold',
     trade: 'solar-energy',
     what: 'The main credential for solar work. It requires documented installed systems and a hard exam.',
-    verifyUrl: 'https://www.nabcep.org/certification/certificant-locator/'
+    verifyUrl: 'https://directories.nabcep.org/'
   },
   'wa-journey-plumber': {
     label: 'WA Journey Level Plumber',
@@ -252,7 +252,7 @@ const CERT_PROGRAMS = {
     tier: 'baseline',
     trade: null,
     what: 'Required by law for any firm disturbing paint in a home built before 1978. That covers much of the housing here. Check this one on an older house.',
-    verifyUrl: 'https://www.epa.gov/lead/locate-lead-safe-certified-firm'
+    verifyUrl: 'https://cdxocsppapps.epa.gov/ocspp-oppt-lead/firm-search'
   },
   'wa-asbestos-cert': {
     label: 'WA Certified Asbestos Contractor',
@@ -288,7 +288,7 @@ const CERT_PROGRAMS = {
     tier: 'gold',
     trade: 'metal',
     what: 'A welding inspection credential requiring experience, a vision test, and a three-part exam.',
-    verifyUrl: 'https://www.aws.org/certification-and-education/certification/'
+    verifyUrl: 'https://www.aws.org/certification-and-education/professional-certification/certified-welding-inspector/'
   },
   'aisc-certified': {
     label: 'AISC Certified Fabricator/Erector',
@@ -324,7 +324,7 @@ const CERT_PROGRAMS = {
     tier: 'gold',
     trade: 'flooring',
     what: 'Wood floor installation, sanding, and finishing, with hands-on assessment.',
-    verifyUrl: 'https://nwfa.org/find-a-professional/'
+    verifyUrl: 'https://nwfa.org/certifications-landing-page/'
   },
   'install-certified': {
     label: 'INSTALL Certified Flooring',
@@ -441,7 +441,7 @@ const CERT_PROGRAMS = {
     tier: 'silver',
     trade: 'septic',
     what: 'Septic design, installation, and maintenance. King County Public Health permits this work separately.',
-    verifyUrl: 'https://kingcounty.gov/en/dept/dph/certificates-permits/onsite-sewage-system'
+    verifyUrl: 'https://kingcounty.gov/en/dept/dph/health-safety/environmental-health/on-site-sewage-systems'
   },
   'abpa-tester': {
     label: 'Backflow Assembly Tester (BAT)',
@@ -450,7 +450,7 @@ const CERT_PROGRAMS = {
     tier: 'silver',
     trade: 'septic',
     what: 'State-recognized certification to test backflow assemblies. Most local water utilities require it.',
-    verifyUrl: 'https://doh.wa.gov/community-and-environment/drinking-water/water-system-design-and-planning/cross-connection-control'
+    verifyUrl: 'https://doh.wa.gov/community-and-environment/drinking-water/water-system-design-and-planning/cross-connection-control-backflow-prevention'
   },
   'awci-certified': {
     label: 'AWCI / Level 5 Finish Certified',
