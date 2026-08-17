@@ -1,0 +1,18 @@
+name = "kcc-reviews"
+main = "index.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+# Comma-separated. Only these origins may call the API from a browser.
+ALLOWED_ORIGIN = "https://nichkt.github.io"
+# Set to "false" to close submissions without taking the Worker down.
+ACCEPT_SUBMISSIONS = "true"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kcc-reviews"
+database_id = "PASTE_YOUR_DATABASE_ID_HERE"
+
+# Secrets are NOT set here. Run these once, and answer the prompt:
+#   wrangler secret put ADMIN_TOKEN
+#   wrangler secret put IP_SALT
