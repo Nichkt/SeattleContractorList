@@ -355,12 +355,22 @@ function scoreBar(value) {
   return pct.toFixed(1);
 }
 
+function reviewHref(record) {
+  return 'review.html?ubi=' + encodeURIComponent(record.ubi || '') +
+    '&name=' + encodeURIComponent(titleCase(record.businessname));
+}
+
 function ratingHTML(record) {
   const r = record.rating;
   if (!r) {
+    // "Not yet rated" only tells you something when SOME contractors are
+    // rated. With an empty review set it is the same non-fact on every card
+    // in the county, so it is suppressed entirely and the invitation to
+    // review lives quietly in the contact row instead.
+    if (!ratings.entries.length) return '';
     return `<div class="rating rating--none">
       <span class="rating__na">Not yet rated</span>
-      <a class="rating__add" href="review.html?ubi=${esc(record.ubi)}&name=${encodeURIComponent(titleCase(record.businessname))}">Write the first review →</a>
+      <a class="rating__add" href="${esc(reviewHref(record))}">Write the first review →</a>
     </div>`;
   }
 
@@ -391,7 +401,7 @@ function ratingHTML(record) {
         The score above starts near the county average and moves as a business earns it.
         <a href="about.html#scoring">How the score works</a>
       </p>
-      <a class="btn btn--ghost" href="review.html?ubi=${esc(record.ubi)}&name=${encodeURIComponent(titleCase(record.businessname))}">Write a review</a>
+      <a class="btn btn--ghost" href="${esc(reviewHref(record))}">Write a review</a>
     </details>
   </div>`;
 }
@@ -527,6 +537,7 @@ function cardHTML(record) {
         ? `<a class="btn btn--ghost" href="tel:${esc(String(record.phonenumber).replace(/\D/g, ''))}">
              ${esc(fmtPhone(record.phonenumber))}</a>` : ''}
       <span class="card__addr">${esc(addr)}</span>
+      <a class="card__review" href="${esc(reviewHref(record))}">Review</a>
     </div>
 
     <details class="card__more">

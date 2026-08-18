@@ -416,3 +416,11 @@ html.dark .extlink--site { color: var(--brand); }
 
 /* Honeypot: off-screen rather than display:none, which some bots skip. */
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Quiet invitation to review, in the contact row. */
+.card__review {
+  margin-left: auto; font-size: .8rem; text-decoration: none;
+  color: var(--ink-3); border-bottom: 1px dotted var(--line);
+}
+.card__review:hover { color: var(--brand-ink); border-bottom-color: var(--brand); }
+html.dark .card__review:hover { color: var(--brand); }
