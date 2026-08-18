@@ -210,7 +210,9 @@ ${R.faqSection(faq)}
     depth: 1,
     html: R.shell({
       title: 'King County contracting by the numbers — registrations, bonds, and insurance',
-      description: `${num(s.active)} active contractor registrations in King County, ${num(s.status.SUSPENDED || 0)} currently suspended, and what the state's bond and insurance files do and do not show. Rebuilt weekly from Washington L&I open data.`,
+      /* Kept well clear of the 200-character ceiling. Six-figure counts are
+         possible here, so the fixed text has to leave room for them. */
+      description: `${num(s.active)} active contractor registrations in King County and ${num(s.status.SUSPENDED || 0)} suspended ones, plus what the state's bond and insurance files leave out. Rebuilt weekly.`,
       canonical: url,
       depth: 1,
       jsonld: [
