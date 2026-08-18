@@ -424,3 +424,228 @@ html.dark .extlink--site { color: var(--brand); }
 }
 .card__review:hover { color: var(--brand-ink); border-bottom-color: var(--brand); }
 html.dark .card__review:hover { color: var(--brand); }
+
+/* ==========================================================================
+   Pre-rendered pages
+   --------------------------------------------------------------------------
+   Everything below serves the static trade, city, and tool pages. Charts
+   follow the house rules: one series each, so no legend is needed and the
+   title names the measure; bars capped at 24px with a 4px rounded data-end
+   sitting square on the baseline; a 2px surface gap doing the separating
+   rather than a border; grid and axis recessive; values direct-labelled.
+   ========================================================================== */
+
+/* ------------------------------------------------------------- breadcrumb */
+
+.crumbs {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .45rem;
+  font-size: .82rem; color: var(--ink-3); margin-bottom: 1rem;
+}
+.crumbs a { color: var(--ink-2); text-decoration: none; }
+.crumbs a:hover { color: var(--brand); text-decoration: underline; }
+.crumbs__sep { color: var(--line); }
+.crumbs [aria-current] { color: var(--ink); font-weight: 600; }
+
+.hero--tight { padding-block: 2.25rem 1.75rem; }
+.hero--tight h1 { margin-top: .25rem; }
+.eyebrow {
+  text-transform: uppercase; letter-spacing: .09em; font-size: .72rem;
+  font-weight: 700; color: var(--brand); margin: 0;
+}
+
+/* -------------------------------------------------------------- city list */
+
+.citylist {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: .5rem;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+}
+.citylist li {
+  display: flex; align-items: baseline; justify-content: space-between; gap: .5rem;
+  padding: .5rem .7rem; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.citylist a { text-decoration: none; font-weight: 600; }
+.citylist a:hover { text-decoration: underline; }
+.citylist__n { color: var(--ink-3); font-size: .8rem; font-variant-numeric: tabular-nums; }
+
+/* --------------------------------------------------------------- category */
+
+.cat { position: relative; }
+.cat__n {
+  position: absolute; top: .7rem; right: .8rem;
+  font-size: .74rem; font-variant-numeric: tabular-nums;
+  color: var(--ink-3); background: var(--surface-2);
+  border-radius: 999px; padding: .1rem .45rem;
+}
+
+/* ----------------------------------------------------------------- promos */
+
+.promos { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.promo {
+  display: block; padding: 1.1rem 1.2rem; text-decoration: none;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  transition: transform .12s ease, border-color .12s ease;
+}
+.promo:hover { transform: translateY(-2px); border-color: var(--brand); }
+.promo h3 { margin: 0 0 .35rem; color: var(--brand); font-size: 1.02rem; }
+.promo p { margin: 0; color: var(--ink-2); font-size: .88rem; line-height: 1.5; }
+
+/* ------------------------------------------------------------------- tiles */
+
+.tiles { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.tile {
+  display: flex; flex-direction: column; gap: .2rem;
+  padding: 1.1rem 1.2rem; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius);
+}
+.tile__n {
+  font-size: 2rem; font-weight: 700; line-height: 1.1;
+  color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.tile__label { font-weight: 600; font-size: .9rem; color: var(--ink); }
+.tile__note { font-size: .78rem; color: var(--ink-3); line-height: 1.4; }
+
+/* ------------------------------------------------------------------ chart */
+
+.chart__title {
+  font-size: .95rem; font-weight: 600; color: var(--ink);
+  margin: 0 0 .8rem;
+}
+.chart { display: grid; gap: 2px; margin-bottom: 1rem; }   /* 2px surface gap */
+.chart__row {
+  display: grid; align-items: center; gap: .7rem;
+  grid-template-columns: minmax(90px, 190px) 1fr minmax(52px, auto);
+  padding: 1px 0;
+}
+.chart__label { font-size: .82rem; color: var(--ink-2); }
+.chart__track {
+  position: relative; height: 18px;            /* under the 24px cap */
+  background: var(--surface-2); border-radius: 3px;
+}
+.chart__bar {
+  position: absolute; inset: 0 auto 0 0;       /* square on the baseline */
+  border-radius: 0 4px 4px 0;                  /* 4px rounded data-end */
+  min-width: 3px;
+  transition: width .3s ease;
+}
+.chart__value {
+  font-size: .8rem; color: var(--ink-2); text-align: right;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.chart__row:hover .chart__label,
+.chart__row:hover .chart__value { color: var(--ink); }
+
+.datatable { margin-top: .5rem; }
+.datatable > summary {
+  cursor: pointer; font-size: .82rem; color: var(--ink-3);
+  padding: .3rem 0;
+}
+.datatable > summary:hover { color: var(--brand); }
+.datatable table { width: 100%; border-collapse: collapse; margin-top: .6rem; font-size: .84rem; }
+.datatable caption { text-align: left; color: var(--ink-3); font-size: .78rem; padding-bottom: .4rem; }
+.datatable th, .datatable td {
+  text-align: left; padding: .4rem .6rem; border-bottom: 1px solid var(--line);
+}
+.datatable td { font-variant-numeric: tabular-nums; }
+.datatable thead th { color: var(--ink-3); font-weight: 600; font-size: .78rem; }
+
+/* ------------------------------------------------------------ calculator */
+
+.calc { display: grid; gap: 1.5rem; grid-template-columns: minmax(230px, 320px) 1fr; align-items: start; }
+@media (max-width: 720px) { .calc { grid-template-columns: 1fr; } }
+.calc__inputs { display: grid; gap: .85rem; }
+.calc__out {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.3rem;
+}
+.calc__hero { display: grid; gap: .15rem; margin-bottom: 1rem; }
+.calc__pctlabel { font-size: .8rem; color: var(--ink-3); }
+.calc__pct { font-size: 2.6rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.calc__hero--good .calc__pct { color: var(--yes); }
+.calc__hero--warn .calc__pct { color: var(--gold); }
+.calc__hero--bad  .calc__pct { color: var(--no); }
+.calc__verdict { font-size: .92rem; color: var(--ink-2); }
+
+.calc__meter {
+  height: 18px; background: var(--surface-2);
+  border-radius: 3px; overflow: hidden; margin-bottom: 1.1rem;
+}
+.calc__fill { display: block; height: 100%; border-radius: 0 4px 4px 0; transition: width .3s ease; }
+.calc__fill--good { background: var(--yes); }
+.calc__fill--warn { background: var(--gold); }
+.calc__fill--bad  { background: var(--no); }
+
+.calc__rows { margin: 0; display: grid; gap: 2px; }
+.calc__row {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: .5rem 0; border-bottom: 1px solid var(--line);
+}
+.calc__row dt { color: var(--ink-2); font-size: .86rem; }
+.calc__row dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.calc__row--bad dd { color: var(--no); }
+.calc__row--good dd { color: var(--yes); }
+.calc__foot { font-size: .82rem; color: var(--ink-3); line-height: 1.55; margin: 1rem 0 0; }
+
+/* -------------------------------------------------------------------- faq */
+
+.faq { display: grid; gap: 2px; }
+.faq__item {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 10px; padding: .2rem .95rem;
+}
+.faq__item > summary {
+  cursor: pointer; padding: .75rem 0; font-weight: 600;
+  color: var(--ink); list-style: none;
+}
+.faq__item > summary::-webkit-details-marker { display: none; }
+.faq__item > summary::before { content: '+ '; color: var(--brand); font-weight: 700; }
+.faq__item[open] > summary::before { content: '\2212 '; }
+.faq__a { padding: 0 0 .85rem; color: var(--ink-2); font-size: .9rem; line-height: 1.6; }
+.faq__a p { margin: 0 0 .6rem; }
+.faq__a p:last-child { margin-bottom: 0; }
+
+/* ------------------------------------------------------------------ flags */
+
+.flag {
+  margin: .6rem 0; padding: .6rem .75rem; border-radius: 9px;
+  font-size: .84rem; line-height: 1.5; border: 1px solid;
+}
+.flag--warn { background: var(--gold-wash);  color: var(--gold);   border-color: var(--gold); }
+.flag--bad  { background: var(--no-wash);    color: var(--no);     border-color: var(--no); }
+.flag--info { background: var(--surface-2);  color: var(--ink-2);  border-color: var(--line); }
+
+.status--warn { color: var(--gold); }
+.status--bad  { color: var(--no); }
+
+/* ----------------------------------------------------------------- lookup */
+
+.lookup { display: flex; gap: .7rem; align-items: flex-end; flex-wrap: wrap; margin-bottom: .4rem; }
+.lookup .field--grow { flex: 1 1 320px; }
+
+/* ------------------------------------------------------------------ prose */
+
+.prose { max-width: 46rem; }
+.prose h2 { margin: 2rem 0 .6rem; font-size: 1.25rem; }
+.prose h2:first-of-type { margin-top: 0; }
+.prose p { color: var(--ink-2); line-height: 1.7; margin: 0 0 1rem; }
+.prose strong { color: var(--ink); }
+
+/* --------------------------------------------------------- static pager */
+
+.pager--static { justify-content: center; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
+.pager__nums { display: flex; align-items: center; gap: .15rem; }
+.pager__nums a, .pager__cur, .pager__gap {
+  min-width: 2rem; padding: .35rem .5rem; text-align: center;
+  border-radius: 8px; font-size: .86rem; font-variant-numeric: tabular-nums;
+}
+.pager__nums a { color: var(--ink-2); text-decoration: none; }
+.pager__nums a:hover { background: var(--surface-2); color: var(--brand); }
+.pager__cur { background: var(--brand); color: #fff; font-weight: 600; }
+html.dark .pager__cur { color: #06201d; }
+.pager__gap { color: var(--ink-3); }
+.btn.is-off { opacity: .38; pointer-events: none; }
+
+/* The icon sprite is defined once per page and referenced by <use>. */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }

@@ -127,8 +127,26 @@ function fmtPhone(value) {
   return value || '';
 }
 
+/* Keep in sync with build/lib/format.js. The pre-rendered pages use that
+   implementation, so any divergence shows up as business names changing when
+   the live lookup replaces the static markup. test/smoke.js asserts they agree. */
+const TC_SMALL = new Set(['and', 'of', 'the', 'for', 'in', 'on', 'at', 'to', 'a', 'an']);
+const TC_KEEP = new Set([
+  'LLC', 'PLLC', 'LLP', 'LP', 'PC', 'PS', 'USA', 'US', 'HVAC', 'PNW',
+  'NW', 'NE', 'SW', 'SE', 'WA', 'DBA', 'II', 'III', 'IV', 'V',
+  'CNC', 'PVC', 'HDPE', 'LED', 'AC', 'TV', 'RV', 'ADU', 'GC'
+]);
+
 function titleCase(str) {
-  return String(str || '').toLowerCase().replace(/\b([a-z])/g, (m) => m.toUpperCase());
+  if (!str) return '';
+  return String(str).toLowerCase().split(/\s+/).map((w, i) => {
+    const up = w.toUpperCase().replace(/[^A-Z]/g, '');
+    if (TC_KEEP.has(up)) return w.toUpperCase();
+    if (i > 0 && TC_SMALL.has(w)) return w;
+    return w.replace(/^[a-z]/, (c) => c.toUpperCase())
+            .replace(/([-/])([a-z])/g, (_, sep, c) => sep + c.toUpperCase())
+            .replace(/'([a-z]{2,})/g, (m, rest) => "'" + rest[0].toUpperCase() + rest.slice(1));
+  }).join(' ');
 }
 
 /* ------------------------------------------------------------ API layer */
@@ -667,17 +685,29 @@ function updateSeo() {
 
 function renderCategoryGrid() {
   const grid = $('#categoryGrid');
-  grid.innerHTML = CATEGORIES.map((c) => `
-    <button class="cat" data-cat="${esc(c.id)}">
-      <svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${esc(c.icon)}"/></svg>
-      <span class="cat__name">${esc(c.name)}</span>
-      <span class="cat__blurb">${esc(c.blurb)}</span>
-    </button>`).join('');
+  if (!grid) return;
 
+  /* The build writes this grid into index.html with real per-trade counts.
+     Leave it alone when it is already there — rewriting it would drop the
+     counts and replace working links with markup that only exists after
+     JavaScript runs. */
+  if (!grid.children.length) {
+    grid.innerHTML = CATEGORIES.map((c) => `
+      <a class="cat" href="${esc(c.id)}/" data-cat="${esc(c.id)}">
+        <svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${esc(c.icon)}"/></svg>
+        <span class="cat__name">${esc(c.name)}</span>
+        <span class="cat__blurb">${esc(c.blurb)}</span>
+      </a>`).join('');
+  }
+
+  /* Plain clicks follow the href to the pre-rendered page. Modified clicks
+     (new tab, new window, download) are left to the browser. */
   grid.addEventListener('click', (e) => {
-    const btn = e.target.closest('.cat');
-    if (!btn) return;
-    selectCategory(btn.dataset.cat);
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const el = e.target.closest('.cat');
+    if (!el) return;
+    if (el.tagName === 'A') return;
+    selectCategory(el.dataset.cat);
   });
 }
 
@@ -919,8 +949,13 @@ async function init() {
     document.body.classList.add('is-browsing');
     load();
   }
-  $('#year').textContent = new Date().getFullYear();
-  $('#dataDate').textContent = new Date().toLocaleDateString('en-US', {
+  /* Both of these are decorative, and the pre-rendered pages fill them in at
+     build time. A missing one must not throw and take the rest of the boot
+     sequence down with it. */
+  const yearEl = $('#year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const dateEl = $('#dataDate');
+  if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric'
   });
 }
