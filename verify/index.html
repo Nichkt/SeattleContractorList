@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Check a contractor — license, bond, and insurance in Washington State</title><meta name="description" content="Type a contractor’s name or license number and see what Washington State L&amp;I says about their registration, surety bond, and liability insurance. Free, live, no sign-up."><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://nichkt.github.io/SeattleContractorList/verify/"><meta property="og:type" content="website"><meta property="og:title" content="Check a contractor — license, bond, and insurance in Washington State"><meta property="og:description" content="Type a contractor’s name or license number and see what Washington State L&amp;I says about their registration, surety bond, and liability insurance. Free, live, no sign-up."><meta property="og:url" content="https://nichkt.github.io/SeattleContractorList/verify/"><meta name="twitter:card" content="summary"><link rel="preconnect" href="https://data.wa.gov"><link rel="stylesheet" href="../assets/styles.css"><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "King County Contractors",
+      "item": "https://nichkt.github.io/SeattleContractorList/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Check a contractor",
+      "item": "https://nichkt.github.io/SeattleContractorList/verify/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does this check?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three things, straight from Washington's Department of Labor &amp; Industries: whether the registration is active, whether a current surety bond is on file, and whether current liability insurance is on file. It reads the state's own published data at the moment you press the button. Nothing is cached."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "It says no current bond. Are they unbonded?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not necessarily, and this matters. The published bond file does not carry a row for every active registration. About 56% of King County's active registrations have no bond row at all. That share is flat for every year back to 2010, which points at the file rather than at the contractors. Washington also lets a contractor file an assigned savings account in place of a surety bond, and that would not show up here. Treat a blank as a question to ask them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I search by license number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Business name, license number, or UBI all work. License numbers are the most reliable, because contractor names collide constantly — there are several businesses in this county with nearly the same name."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the state say something different?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It should not, but if it does, believe the state. This reads the same records L&amp;I publishes, and every result links straight to the official page. If the two disagree, the official page is the one that counts."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Washington Contractor Check",
+  "url": "https://nichkt.github.io/SeattleContractorList/verify/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+</head><body><svg class="sprite" aria-hidden="true" focusable="false"><defs><symbol id="i-yes" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></symbol><symbol id="i-no" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol></defs></svg><a class="skip" href="#main">Skip to content</a><header class="site"><div class="wrap site__inner"><a class="brand" href="../"><svg viewBox="0 0 24 24" aria-hidden="true" class="brand__mark"><path d="M3 21h18M5 21V9l7-6 7 6v12M9.5 21v-6h5v6"/></svg><span><strong>King County Contractors</strong><em>Licensed · Bonded · Insured</em></span></a><nav class="site__nav"><a href="../verify/">Check a contractor</a><a href="../bond-calculator/">Bond calculator</a><a href="../numbers/">The numbers</a><a href="../certifications.html">Certifications</a><a href="../about.html">How this works</a><button id="themeToggle" class="iconbtn" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></button></nav></div></header><main id="main"><section class="hero hero--tight"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="https://nichkt.github.io/SeattleContractorList/">King County Contractors</a><span class="crumbs__sep">/</span><span aria-current="page">Check a contractor</span></nav><h1>Check a contractor</h1><p class="hero__lede">
+      Type a business name, license number, or UBI. We ask the state and tell you what it says:
+      registration, bond, insurance. It takes a second and it is free. Do it before you sign,
+      not after.
+    </p></div></section><section class="wrap section"><form class="lookup" id="lookupForm" role="search"><label class="field field--grow"><span class="field__label">Business name, license number, or UBI</span><input type="search" id="lookupInput" placeholder="Cornerstone Metal Roofing, or CORNEMR790DJ"
+             autocomplete="off" required></label><button class="btn btn--primary" type="submit">Check</button></form><p class="section__sub">Searches all of Washington, not just King County.</p><div class="status" id="lookupStatus" role="status" aria-live="polite"></div><div class="cards" id="lookupResults"></div></section><section class="wrap section"><h2 class="section__title">Questions people ask</h2><div class="faq"><details class="faq__item"><summary>What does this check?</summary><div class="faq__a"><p>Three things, straight from Washington's Department of Labor &amp; Industries:
+          whether the registration is active, whether a current surety bond is on file, and
+          whether current liability insurance is on file. It reads the state's own published
+          data at the moment you press the button. Nothing is cached.</p></div></details><details class="faq__item"><summary>It says no current bond. Are they unbonded?</summary><div class="faq__a"><p>Not necessarily, and this matters. The published bond file does not carry a row
+          for every active registration. About 56% of King County's
+          active registrations have no bond row at all. That share is flat for every year back
+          to 2010, which points at the file rather than at the contractors. Washington also
+          lets a contractor file an assigned savings account in place of a surety bond, and
+          that would not show up here. Treat a blank as a question to ask them.</p></div></details><details class="faq__item"><summary>Can I search by license number?</summary><div class="faq__a"><p>Yes. Business name, license number, or UBI all work. License numbers are the most
+          reliable, because contractor names collide constantly — there are several businesses in
+          this county with nearly the same name.</p></div></details><details class="faq__item"><summary>Why does the state say something different?</summary><div class="faq__a"><p>It should not, but if it does, believe the state. This reads the same records L&amp;I
+          publishes, and every result links straight to the official page. If the two disagree,
+          the official page is the one that counts.</p></div></details></div></section></main><footer class="site-foot"><div class="wrap"><p><strong>We are not the government and do not speak for it.</strong> This is an
+      independent site built on public records. It is not affiliated with Washington State
+      L&amp;I or King County. Every listing comes straight from the state registry. A
+      listing here is not a recommendation. It means the paperwork is in order.
+    </p><p class="muted small">
+      Data: <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-General/m8qx-ubtq" target="_blank" rel="noopener">L&amp;I Contractor License Data — General</a>,
+      <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Bond/bzff-4fmt" target="_blank" rel="noopener">Bond</a>, and
+      <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Insurance/ciwg-agsx" target="_blank" rel="noopener">Insurance</a>,
+      published by the Washington State Department of Labor &amp; Industries.
+      Check any contractor yourself at <a href="https://secure.lni.wa.gov/verify/" target="_blank" rel="noopener">secure.lni.wa.gov/verify</a>.
+      &copy; <span id="year">2026</span>.
+    </p></div></footer>
+<script src="../assets/theme.js"></script>
+<script src="../assets/verify.js"></script>
+</body></html>

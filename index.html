@@ -1,192 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>King County Contractor Directory — Licensed, Bonded &amp; Insured</title>
-<meta name="description" content="Every actively registered contractor in King County, Washington — general contractors, roofers, landscapers, tilers, electricians, plumbers and more — verified live against the Washington State L&amp;I registry for active license, current surety bond, and current liability insurance.">
-<meta name="theme-color" content="#0f766e">
-<link rel="preconnect" href="https://data.wa.gov">
-<link rel="canonical" href="https://nichkt.github.io/SeattleContractorList/">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>King County Contractor Directory — Licensed, Bonded &amp; Insured</title><meta name="description" content="All 17,122 registered contractors in King County, Washington — general, roofing, landscaping, electrical, plumbing and more — checked against the state registry for licence, bond, and insurance."><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://nichkt.github.io/SeattleContractorList/"><meta property="og:type" content="website"><meta property="og:title" content="King County Contractor Directory — Licensed, Bonded &amp; Insured"><meta property="og:description" content="All 17,122 registered contractors in King County, Washington — general, roofing, landscaping, electrical, plumbing and more — checked against the state registry for licence, bond, and insurance."><meta property="og:url" content="https://nichkt.github.io/SeattleContractorList/"><meta name="twitter:card" content="summary"><link rel="preconnect" href="https://data.wa.gov"><link rel="stylesheet" href="assets/styles.css"><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "King County Contractor Directory",
   "url": "https://nichkt.github.io/SeattleContractorList/",
-  "description": "Every actively registered contractor in King County, Washington, checked live against the Washington State L&I registry for licence, bond and insurance.",
-  "publisher": { "@type": "Organization", "name": "King County Contractor Directory" },
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": { "@type": "EntryPoint", "urlTemplate": "https://nichkt.github.io/SeattleContractorList/?q={search_term_string}" },
-    "query-input": "required name=search_term_string"
+  "description": "Every actively registered contractor in King County, Washington, checked against the Washington State L&I registry for licence, bond and insurance.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "King County Contractor Directory"
   }
 }
 </script>
-<link rel="stylesheet" href="assets/styles.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
-</head>
-<body>
-
-<a class="skip" href="#results">Skip to results</a>
-
-<header class="site">
-  <div class="wrap site__inner">
-    <a class="brand" href="./">
-      <svg viewBox="0 0 24 24" aria-hidden="true" class="brand__mark">
-        <path d="M3 21h18M5 21V9l7-6 7 6v12M9.5 21v-6h5v6"/>
-      </svg>
-      <span>
-        <strong>King County Contractors</strong>
-        <em>Licensed · Bonded · Insured</em>
-      </span>
-    </a>
-    <nav class="site__nav">
-      <a href="rankings.html">Rankings</a>
-      <a href="certifications.html">Certification guide</a>
-      <a href="about.html">How this works</a>
-      <button id="themeToggle" class="iconbtn" aria-label="Toggle dark mode" title="Toggle dark mode">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
-      </button>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap">
-    <h1 id="heroTitle">Trust, but verify.<br>Every contractor in King County.</h1>
-    <p class="hero__lede">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many contractors are registered in King County?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "17,122 businesses hold an active Washington contractor registration with a King County address. A further 2,237 are currently suspended and 13,806 have expired — they still turn up in search results, so check before you call."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does this site do that the state site does not?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The state lets you look up one contractor at a time, if you already know who you are looking for. This joins the registry to the bond file and the insurance file and lets you browse — by trade, by city, sorted, filtered. Same records, same source, arranged so you can start from \"I need a roofer\" instead of from a licence number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much is a contractor bond in Washington?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$30,000 for a general contractor and $15,000 for a specialty contractor, since July 1, 2024. Before that they were $12,000 and $6,000 and had not moved in twenty-two years. See what that covers on your job with the bond calculator ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a listing here mean you recommend them?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It means the paperwork is in order. Nobody pays to be listed, nobody is promoted, and no contractor can buy a position. That is the whole arrangement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How current is this?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The pages are rebuilt from the state's files every week — this one on Tue Aug 18 2026 — and the live lookup re-checks against L&amp;I when you open a page. A registration can still lapse between your reading and your signing, which is why every listing links to the state's own record."
+      }
+    }
+  ]
+}
+</script>
+</head><body><svg class="sprite" aria-hidden="true" focusable="false"><defs><symbol id="i-yes" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></symbol><symbol id="i-no" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol></defs></svg><a class="skip" href="#main">Skip to content</a><header class="site"><div class="wrap site__inner"><a class="brand" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" class="brand__mark"><path d="M3 21h18M5 21V9l7-6 7 6v12M9.5 21v-6h5v6"/></svg><span><strong>King County Contractors</strong><em>Licensed · Bonded · Insured</em></span></a><nav class="site__nav"><a href="verify/">Check a contractor</a><a href="bond-calculator/">Bond calculator</a><a href="numbers/">The numbers</a><a href="certifications.html">Certifications</a><a href="about.html">How this works</a><button id="themeToggle" class="iconbtn" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></button></nav></div></header><main id="main"><section class="hero"><div class="wrap"><h1 id="heroTitle">Trust, but verify.<br>Every contractor in King County.</h1><p class="hero__lede">
       Before you hire someone to work on your house, you should know they are licensed,
-      bonded, and insured. This page asks Washington's Department of Labor &amp; Industries
-      for its records every time you open it. Three green marks mean the state confirms all
-      three: an <strong>active registration</strong>, a <strong>current bond</strong>, and
-      <strong>current liability insurance</strong>.
-    </p>
-
-    <div class="hero__search">
-      <label class="field field--grow">
-        <span class="field__label">Search by business name</span>
-        <input type="search" id="searchInput" placeholder="Cascade, Emerald, Rainier…" autocomplete="off">
-      </label>
-      <button class="btn btn--primary" id="browseAll">Browse all trades</button>
-    </div>
-
-    <p class="hero__note">
-      Read from <span class="mono">data.wa.gov</span>. Loaded <span id="dataDate"></span>.
-    </p>
-  </div>
-</section>
-
-<section class="wrap section">
-  <h2 class="section__title">Pick a trade</h2>
-  <p class="section__sub">
+      bonded, and insured. 17,122 businesses hold an active registration here.
+      The state confirms a current bond for 7,551 of them and current liability
+      insurance for 15,992 of the 16,021 it covers. Three green
+      marks mean all three check out.
+    </p><div class="hero__search"><label class="field field--grow"><span class="field__label">Search by business name</span><input type="search" id="searchInput" placeholder="Cascade, Emerald, Rainier…" autocomplete="off"></label><button class="btn btn--primary" id="browseAll">Browse all trades</button></div><p class="hero__note">
+      Read from <span class="mono">data.wa.gov</span>. Pages rebuilt
+      Tue Aug 18 2026. Loaded <span id="dataDate"></span>.
+    </p></div></section><section class="wrap section"><h2 class="section__title">Pick a trade</h2><p class="section__sub">
     These categories come from the state's own license and specialty codes. A contractor
     shows up under a trade only if the state registered him for it. Nobody pays to be
     listed here.
-  </p>
-  <div class="catgrid" id="categoryGrid"></div>
-</section>
-
-<section class="wrap section" id="results">
-  <h2 class="section__title">Results</h2>
-
-  <div class="controls">
-    <label class="field">
-      <span class="field__label">Trade</span>
-      <select id="categorySelect"></select>
-    </label>
-    <label class="field">
-      <span class="field__label">City</span>
-      <select id="citySelect"></select>
-    </label>
-    <label class="field">
-      <span class="field__label">Sort</span>
-      <select id="sortSelect">
-        <option value="score">Score (highest first)</option>
-        <option value="name">Business name (A–Z)</option>
-        <option value="certs">Certifications first</option>
-        <option value="reviews">Most reviewed</option>
-        <option value="tenure">Longest registered</option>
-        <option value="city">City</option>
-      </select>
-    </label>
-  </div>
-
-  <div class="toggles">
-    <label class="check"><input type="checkbox" id="fBonded" checked> <span>Current bond required</span></label>
-    <label class="check"><input type="checkbox" id="fInsured" checked> <span>Current insurance required</span></label>
-    <label class="check"><input type="checkbox" id="fCerts"> <span>Only trade-certified</span></label>
-  </div>
-
-  <div class="hint" id="certHint" hidden></div>
-
-  <div class="status" id="status">Pick a trade above and we will look it up.</div>
-
-  <div class="cards" id="cards"></div>
-
-  <div class="pager" id="pager" hidden>
-    <button class="btn btn--ghost" id="prevBtn">← Previous</button>
-    <span id="pageLabel" class="pager__label"></span>
-    <button class="btn btn--ghost" id="nextBtn">Next →</button>
-  </div>
-</section>
-
-<section class="wrap section">
-  <div class="callout">
-    <h2>Five things to do before you sign</h2>
-    <ol class="steps">
-      <li>
-        <strong>Check the state's record yourself.</strong> Every listing links to it. A
-        license can lapse between the day you read this and the day you sign.
-      </li>
-      <li>
-        <strong>Know how small the bond is.</strong> The state asks $12,000 from a general
-        contractor and $6,000 from a specialty contractor. On a $90,000 kitchen that does
-        not go far. If you file a claim, other homeowners may be ahead of you in line. A
-        contractor who posts more than the law requires is worth a second look.
-      </li>
-      <li>
-        <strong>Get the insurance certificate from the carrier.</strong> Ask them to name
-        your job on it. The state can tell you a policy exists. It cannot tell you your
-        work is covered.
-      </li>
-      <li>
-        <strong>A license is not a test of skill.</strong> It means the paperwork is filed
+  </p><div class="catgrid" id="categoryGrid"><a class="cat" href="general/" data-cat="general"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg><span class="cat__name">General Contractors</span><span class="cat__blurb">New houses, additions, and jobs that need several trades.</span><span class="cat__n">11,751</span></a><a class="cat" href="remodeling/" data-cat="remodeling"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 10h16M10 10v10"/></svg><span class="cat__name">Kitchen &amp; Bath / Remodeling</span><span class="cat__blurb">Kitchens, baths, cabinets, and finish work.</span><span class="cat__n">164</span></a><a class="cat" href="roofing/" data-cat="roofing"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12l9-8 9 8M5 11v9h14v-9"/></svg><span class="cat__name">Roofing</span><span class="cat__blurb">Tear-offs, repairs, metal, torch-down, and composition.</span><span class="cat__n">93</span></a><a class="cat" href="landscaping/" data-cat="landscaping"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22V12M12 12a5 5 0 015-5 5 5 0 01-5 5zM12 12a5 5 0 00-5-5 5 5 0 005 5z"/></svg><span class="cat__name">Landscaping &amp; Tree Care</span><span class="cat__blurb">Design, planting, upkeep, irrigation, and tree work.</span><span class="cat__n">534</span></a><a class="cat" href="electrical/" data-cat="electrical"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><span class="cat__name">Electrical</span><span class="cat__blurb">Panels, rewires, car chargers, and service calls.</span><span class="cat__n">1,081</span></a><a class="cat" href="plumbing/" data-cat="plumbing"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v6a4 4 0 004 4 4 4 0 014 4v4M4 9h8M16 17h4"/></svg><span class="cat__name">Plumbing</span><span class="cat__blurb">Repipes, water heaters, fixtures, and drains.</span><span class="cat__n">449</span></a><a class="cat" href="hvac/" data-cat="hvac"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M6 6l12 12M18 6L6 18"/></svg><span class="cat__name">HVAC &amp; Refrigeration</span><span class="cat__blurb">Heat pumps, furnaces, air conditioning, and ductwork.</span><span class="cat__n">143</span></a><a class="cat" href="tile/" data-cat="tile"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z"/></svg><span class="cat__name">Tile, Stone &amp; Masonry Tile</span><span class="cat__blurb">Ceramic, porcelain, mosaic, and stone.</span><span class="cat__n">356</span></a><a class="cat" href="flooring/" data-cat="flooring"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg><span class="cat__name">Flooring &amp; Countertops</span><span class="cat__blurb">Hardwood, vinyl plank, carpet, and countertops.</span><span class="cat__n">562</span></a><a class="cat" href="painting/" data-cat="painting"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h12v6H4zM10 10v4a2 2 0 002 2h1v5h-4v-5"/></svg><span class="cat__name">Painting &amp; Wallcovering</span><span class="cat__blurb">Interior and exterior painting, staining, and coatings.</span><span class="cat__n">671</span></a><a class="cat" href="concrete/" data-cat="concrete"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18v10H3zM3 8l3-4h12l3 4M9 8v10M15 8v10"/></svg><span class="cat__name">Concrete, Masonry &amp; Paving</span><span class="cat__blurb">Driveways, foundations, brick, block, and asphalt.</span><span class="cat__n">206</span></a><a class="cat" href="fencing/" data-cat="fencing"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8v12M9 8v12M14 8v12M19 8v12M2 11h20M2 15h20"/></svg><span class="cat__name">Fencing &amp; Decking</span><span class="cat__blurb">Wood, vinyl, and metal fencing, plus decks.</span><span class="cat__n">39</span></a><a class="cat" href="siding/" data-cat="siding"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16v18H4zM4 9h16M4 15h16M12 3v18"/></svg><span class="cat__name">Siding, Gutters &amp; Windows</span><span class="cat__blurb">Siding, gutters, glass, and window installation.</span><span class="cat__n">280</span></a><a class="cat" href="carpentry/" data-cat="carpentry"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20l6-6M9 14l4-11 8 8-11 4z"/></svg><span class="cat__name">Carpentry &amp; Framing</span><span class="cat__blurb">Framing and rough carpentry.</span><span class="cat__n">50</span></a><a class="cat" href="drywall/" data-cat="drywall"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v16H3zM3 12h18"/></svg><span class="cat__name">Drywall, Insulation &amp; Plaster</span><span class="cat__blurb">Hanging, taping, texture, and insulation.</span><span class="cat__n">97</span></a><a class="cat" href="handyman/" data-cat="handyman"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 6l4 4-9 9H5v-4zM13 7l4 4"/></svg><span class="cat__name">Handyman &amp; Maintenance</span><span class="cat__blurb">Small repairs, punch lists, and general upkeep.</span><span class="cat__n">111</span></a><a class="cat" href="excavation/" data-cat="excavation"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18M5 18v-4h6v4M11 14l6-6 4 4-4 4"/></svg><span class="cat__name">Excavation &amp; Demolition</span><span class="cat__blurb">Grading, land clearing, demolition, and tank removal.</span><span class="cat__n">55</span></a><a class="cat" href="septic/" data-cat="septic"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 5 6 7 6 11a6 6 0 01-12 0c0-4 3-6 6-11z"/></svg><span class="cat__name">Septic, Sewer &amp; Water</span><span class="cat__blurb">Side sewers, septic systems, wells, and backflow.</span><span class="cat__n">25</span></a><a class="cat" href="garage-doors/" data-cat="garage-doors"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13M3 12h18M3 16h18"/></svg><span class="cat__name">Garage Doors &amp; Gates</span><span class="cat__blurb">Overhead doors, openers, and gates.</span><span class="cat__n">50</span></a><a class="cat" href="solar-energy/" data-cat="solar-energy"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg><span class="cat__name">Solar &amp; Low Voltage</span><span class="cat__blurb">Solar panels, batteries, and low-voltage systems.</span><span class="cat__n">106</span></a><a class="cat" href="fire-security/" data-cat="fire-security"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg><span class="cat__name">Fire Protection &amp; Security</span><span class="cat__blurb">Sprinklers, alarms, locks, and security equipment.</span><span class="cat__n">66</span></a><a class="cat" href="metal/" data-cat="metal"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l8-8M12 12l8-8M8 8l8 8"/></svg><span class="cat__name">Welding &amp; Metal Fabrication</span><span class="cat__blurb">Structural steel, ornamental metal, and fabrication.</span><span class="cat__n">93</span></a><a class="cat" href="pools/" data-cat="pools"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M6 14V5a2 2 0 014 0M14 14V5a2 2 0 014 0"/></svg><span class="cat__name">Pools, Spas &amp; Hot Tubs</span><span class="cat__blurb">Pool and spa building, service, and repair.</span><span class="cat__n">8</span></a><a class="cat" href="abatement/" data-cat="abatement"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3zM12 9v5M12 17h.01"/></svg><span class="cat__name">Asbestos, Lead &amp; Pest</span><span class="cat__blurb">Asbestos, lead, and pest control.</span><span class="cat__n">12</span></a><a class="cat" href="cleanup/" data-cat="cleanup"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v6M6 9c0 4 3 4 3 8v4M18 3v18M14 8h8"/></svg><span class="cat__name">Pressure Washing &amp; Cleanup</span><span class="cat__blurb">Exterior washing, sandblasting, and site clean-up.</span><span class="cat__n">76</span></a><a class="cat" href="appliances/" data-cat="appliances"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM5 9h14M9 6h.01M9 14h.01"/></svg><span class="cat__name">Appliances &amp; Equipment</span><span class="cat__blurb">Appliance installation, repair, and industrial equipment.</span><span class="cat__n">34</span></a><a class="cat" href="signs/" data-cat="signs"><svg class="cat__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v10H4zM12 14v6M8 20h8"/></svg><span class="cat__name">Signs &amp; Awnings</span><span class="cat__blurb">Sign building, installation, and service.</span><span class="cat__n">39</span></a></div></section><section class="wrap section"><h2 class="section__title">Start somewhere useful</h2><div class="promos"><a class="promo" href="verify/"><h3>Check one contractor</h3><p>You have a name and a quote in your hand. Type it in and see what the state says
+         about their registration, bond, and insurance.</p></a><a class="promo" href="bond-calculator/"><h3>See what the bond covers</h3><p>"Bonded" sounds like protection. On a $90,000 kitchen a
+         $30,000 bond covers a third of it, and you may be sharing.</p></a><a class="promo" href="numbers/"><h3>The county's numbers</h3><p>2,237 suspended registrations, 100% carrying
+         insurance, and what the state's files do not tell you.</p></a></div></section><section class="wrap section" id="results"><h2 class="section__title">Search the whole county</h2><div class="controls"><label class="field"><span class="field__label">Trade</span><select id="categorySelect"></select></label><label class="field"><span class="field__label">City</span><select id="citySelect"></select></label><label class="field"><span class="field__label">Sort</span><select id="sortSelect"><option value="score">Score (highest first)</option><option value="name">Business name (A–Z)</option><option value="certs">Certifications first</option><option value="reviews">Most reviewed</option><option value="tenure">Longest registered</option><option value="city">City</option></select></label></div><div class="toggles"><label class="check"><input type="checkbox" id="fBonded" checked> <span>Current bond required</span></label><label class="check"><input type="checkbox" id="fInsured" checked> <span>Current insurance required</span></label><label class="check"><input type="checkbox" id="fCerts"> <span>Only trade-certified</span></label></div><div class="hint" id="certHint" hidden></div><div class="status" id="status">Pick a trade above and we will look it up.</div><div class="cards" id="cards"></div><div class="pager" id="pager" hidden><button class="btn btn--ghost" id="prevBtn">← Previous</button><span id="pageLabel" class="pager__label"></span><button class="btn btn--ghost" id="nextBtn">Next →</button></div></section><section class="wrap section"><div class="callout"><h2>Five things to do before you sign</h2><ol class="steps"><li><strong>Check the state's record yourself.</strong> Every listing links to it. A
+        license can lapse between the day you read this and the day you sign.</li><li><strong>Know how small the bond is.</strong> The state asks $30,000
+        from a general contractor and $15,000 from a specialty contractor,
+        raised on July 1, 2024 from $12,000 and $6,000. On a
+        $90,000 kitchen that does not go far, and if you file a claim other
+        homeowners may be ahead of you in line. A contractor who posts more than the law
+        requires is worth a second look.</li><li><strong>Get the insurance certificate from the carrier.</strong> Ask them to name
+        your job on it. The state can tell you a policy exists. It cannot tell you your work
+        is covered.</li><li><strong>A license is not a test of skill.</strong> It means the paperwork is filed
         and the bond is posted. Nobody from the state watched the work. The credentials in
         our <a href="certifications.html">certification guide</a> are graded by people who
-        did.
-      </li>
-      <li>
-        <strong>Read the complaint history.</strong> L&amp;I lists bond claims and
-        infractions on the same page. Most people skip it.
-      </li>
-    </ol>
-  </div>
-</section>
-
-<footer class="site-foot">
-  <div class="wrap">
-    <p>
-      <strong>We are not the government and do not speak for it.</strong> This is an
+        did.</li><li><strong>Read the complaint history.</strong> L&amp;I lists bond claims and
+        infractions on its own pages. Most people skip it.</li></ol></div></section><section class="wrap section"><h2 class="section__title">Questions people ask</h2><div class="faq"><details class="faq__item"><summary>How many contractors are registered in King County?</summary><div class="faq__a"><p>17,122 businesses hold an active Washington contractor registration with
+          a King County address. A further 2,237 are currently
+          suspended and 13,806 have expired — they still turn up in
+          search results, so check before you call.</p></div></details><details class="faq__item"><summary>What does this site do that the state site does not?</summary><div class="faq__a"><p>The state lets you look up one contractor at a time, if you already know who you
+          are looking for. This joins the registry to the bond file and the insurance file and
+          lets you browse — by trade, by city, sorted, filtered. Same records, same source,
+          arranged so you can start from "I need a roofer" instead of from a licence number.</p></div></details><details class="faq__item"><summary>How much is a contractor bond in Washington?</summary><div class="faq__a"><p>$30,000 for a general contractor and $15,000
+          for a specialty contractor, since July 1, 2024. Before that they were
+          $12,000 and $6,000 and had not moved in twenty-two years.
+          See what that covers on your job with the
+          <a href="bond-calculator/">bond calculator</a>.</p></div></details><details class="faq__item"><summary>Does a listing here mean you recommend them?</summary><div class="faq__a"><p>No. It means the paperwork is in order. Nobody pays to be listed, nobody is
+          promoted, and no contractor can buy a position. That is the whole arrangement.</p></div></details><details class="faq__item"><summary>How current is this?</summary><div class="faq__a"><p>The pages are rebuilt from the state's files every week — this one on
+          Tue Aug 18 2026 — and the live lookup re-checks against
+          L&amp;I when you open a page. A registration can still lapse between your reading
+          and your signing, which is why every listing links to the state's own record.</p></div></details></div></section></main><footer class="site-foot"><div class="wrap"><p><strong>We are not the government and do not speak for it.</strong> This is an
       independent site built on public records. It is not affiliated with Washington State
       L&amp;I or King County. Every listing comes straight from the state registry. A
       listing here is not a recommendation. It means the paperwork is in order.
-    </p>
-    <p class="muted small">
+    </p><p class="muted small">
       Data: <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-General/m8qx-ubtq" target="_blank" rel="noopener">L&amp;I Contractor License Data — General</a>,
       <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Bond/bzff-4fmt" target="_blank" rel="noopener">Bond</a>, and
       <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Insurance/ciwg-agsx" target="_blank" rel="noopener">Insurance</a>,
       published by the Washington State Department of Labor &amp; Industries.
       Check any contractor yourself at <a href="https://secure.lni.wa.gov/verify/" target="_blank" rel="noopener">secure.lni.wa.gov/verify</a>.
-      © <span id="year"></span>.
-    </p>
-  </div>
-</footer>
-
+      &copy; <span id="year">2026</span>.
+    </p></div></footer>
+<script src="assets/theme.js"></script>
 <script src="data/categories.js"></script>
 <script src="data/certifications.js"></script>
 <script src="assets/scoring.js"></script>
 <script src="data/reviews.js"></script>
 <script src="assets/app.js"></script>
-</body>
-</html>
+</body></html>

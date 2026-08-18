@@ -1,0 +1,561 @@
+{
+  "generatedAt": "2026-08-18T04:20:22.223Z",
+  "active": 17122,
+  "status": {
+    "ACTIVE": 17127,
+    "EXPIRED": 13806,
+    "SUSPENDED": 2237,
+    "RE-LICENSED": 2021,
+    "OUT OF BUSINESS": 997,
+    "INACTIVE": 36,
+    "SUPERCEDED": 14,
+    "PASSED AWAY": 2,
+    "REVOKED DUE DEPT ERR": 1,
+    "RESTORED FROM ARCHIVED": 1
+  },
+  "totalOnFile": 36242,
+  "bonded": 7551,
+  "bondedPct": 44.101156406961806,
+  "noBondRow": 9563,
+  "noBondRowPct": 55.852120079429966,
+  "insured": 15992,
+  "insuranceScope": 16021,
+  "insuredPct": 99.81898757880282,
+  "impairedBonds": 116,
+  "impairedInCounty": 26,
+  "bondMedian": 30000,
+  "bondP25": 15000,
+  "bondP75": 30000,
+  "bondMax": 150000,
+  "aboveMinimum": 120,
+  "aboveMinimumPct": 1.5891934843067144,
+  "byYear": [
+    [
+      "2000",
+      144
+    ],
+    [
+      "2001",
+      156
+    ],
+    [
+      "2002",
+      123
+    ],
+    [
+      "2003",
+      140
+    ],
+    [
+      "2004",
+      211
+    ],
+    [
+      "2005",
+      196
+    ],
+    [
+      "2006",
+      234
+    ],
+    [
+      "2007",
+      253
+    ],
+    [
+      "2008",
+      286
+    ],
+    [
+      "2009",
+      260
+    ],
+    [
+      "2010",
+      312
+    ],
+    [
+      "2011",
+      286
+    ],
+    [
+      "2012",
+      290
+    ],
+    [
+      "2013",
+      331
+    ],
+    [
+      "2014",
+      406
+    ],
+    [
+      "2015",
+      468
+    ],
+    [
+      "2016",
+      528
+    ],
+    [
+      "2017",
+      580
+    ],
+    [
+      "2018",
+      758
+    ],
+    [
+      "2019",
+      806
+    ],
+    [
+      "2020",
+      663
+    ],
+    [
+      "2021",
+      1005
+    ],
+    [
+      "2022",
+      1163
+    ],
+    [
+      "2023",
+      1355
+    ],
+    [
+      "2024",
+      1503
+    ],
+    [
+      "2025",
+      1954
+    ],
+    [
+      "2026",
+      1618
+    ]
+  ],
+  "trades": [
+    {
+      "id": "general",
+      "name": "General Contractors",
+      "count": 11751,
+      "bonded": 5190,
+      "insured": 11731,
+      "insuranceScope": 11751,
+      "medianBond": 30000
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical",
+      "count": 1081,
+      "bonded": 503,
+      "insured": 0,
+      "insuranceScope": 0,
+      "medianBond": 4000
+    },
+    {
+      "id": "painting",
+      "name": "Painting & Wallcovering",
+      "count": 671,
+      "bonded": 290,
+      "insured": 671,
+      "insuranceScope": 671,
+      "medianBond": 15000
+    },
+    {
+      "id": "flooring",
+      "name": "Flooring & Countertops",
+      "count": 562,
+      "bonded": 249,
+      "insured": 560,
+      "insuranceScope": 562,
+      "medianBond": 15000
+    },
+    {
+      "id": "landscaping",
+      "name": "Landscaping & Tree Care",
+      "count": 534,
+      "bonded": 230,
+      "insured": 532,
+      "insuranceScope": 534,
+      "medianBond": 15000
+    },
+    {
+      "id": "plumbing",
+      "name": "Plumbing",
+      "count": 449,
+      "bonded": 205,
+      "insured": 447,
+      "insuranceScope": 449,
+      "medianBond": 6000
+    },
+    {
+      "id": "tile",
+      "name": "Tile, Stone & Masonry Tile",
+      "count": 356,
+      "bonded": 124,
+      "insured": 356,
+      "insuranceScope": 356,
+      "medianBond": 15000
+    },
+    {
+      "id": "siding",
+      "name": "Siding, Gutters & Windows",
+      "count": 280,
+      "bonded": 117,
+      "insured": 280,
+      "insuranceScope": 280,
+      "medianBond": 15000
+    },
+    {
+      "id": "concrete",
+      "name": "Concrete, Masonry & Paving",
+      "count": 206,
+      "bonded": 104,
+      "insured": 206,
+      "insuranceScope": 206,
+      "medianBond": 15000
+    },
+    {
+      "id": "remodeling",
+      "name": "Kitchen & Bath / Remodeling",
+      "count": 164,
+      "bonded": 59,
+      "insured": 163,
+      "insuranceScope": 164,
+      "medianBond": 15000
+    },
+    {
+      "id": "hvac",
+      "name": "HVAC & Refrigeration",
+      "count": 143,
+      "bonded": 78,
+      "insured": 143,
+      "insuranceScope": 143,
+      "medianBond": 15000
+    },
+    {
+      "id": "handyman",
+      "name": "Handyman & Maintenance",
+      "count": 111,
+      "bonded": 52,
+      "insured": 111,
+      "insuranceScope": 111,
+      "medianBond": 15000
+    },
+    {
+      "id": "solar-energy",
+      "name": "Solar & Low Voltage",
+      "count": 106,
+      "bonded": 49,
+      "insured": 0,
+      "insuranceScope": 0,
+      "medianBond": 4000
+    },
+    {
+      "id": "drywall",
+      "name": "Drywall, Insulation & Plaster",
+      "count": 97,
+      "bonded": 45,
+      "insured": 97,
+      "insuranceScope": 97,
+      "medianBond": 15000
+    },
+    {
+      "id": "roofing",
+      "name": "Roofing",
+      "count": 93,
+      "bonded": 41,
+      "insured": 93,
+      "insuranceScope": 93,
+      "medianBond": 15000
+    },
+    {
+      "id": "metal",
+      "name": "Welding & Metal Fabrication",
+      "count": 93,
+      "bonded": 30,
+      "insured": 92,
+      "insuranceScope": 93,
+      "medianBond": 15000
+    },
+    {
+      "id": "cleanup",
+      "name": "Pressure Washing & Cleanup",
+      "count": 76,
+      "bonded": 31,
+      "insured": 76,
+      "insuranceScope": 76,
+      "medianBond": 15000
+    },
+    {
+      "id": "fire-security",
+      "name": "Fire Protection & Security",
+      "count": 66,
+      "bonded": 34,
+      "insured": 66,
+      "insuranceScope": 66,
+      "medianBond": 15000
+    },
+    {
+      "id": "excavation",
+      "name": "Excavation & Demolition",
+      "count": 55,
+      "bonded": 24,
+      "insured": 55,
+      "insuranceScope": 55,
+      "medianBond": 15000
+    },
+    {
+      "id": "carpentry",
+      "name": "Carpentry & Framing",
+      "count": 50,
+      "bonded": 20,
+      "insured": 49,
+      "insuranceScope": 50,
+      "medianBond": 15000
+    },
+    {
+      "id": "garage-doors",
+      "name": "Garage Doors & Gates",
+      "count": 50,
+      "bonded": 29,
+      "insured": 50,
+      "insuranceScope": 50,
+      "medianBond": 15000
+    },
+    {
+      "id": "fencing",
+      "name": "Fencing & Decking",
+      "count": 39,
+      "bonded": 18,
+      "insured": 39,
+      "insuranceScope": 39,
+      "medianBond": 15000
+    },
+    {
+      "id": "signs",
+      "name": "Signs & Awnings",
+      "count": 39,
+      "bonded": 15,
+      "insured": 39,
+      "insuranceScope": 39,
+      "medianBond": 15000
+    },
+    {
+      "id": "appliances",
+      "name": "Appliances & Equipment",
+      "count": 34,
+      "bonded": 20,
+      "insured": 34,
+      "insuranceScope": 34,
+      "medianBond": 15000
+    },
+    {
+      "id": "septic",
+      "name": "Septic, Sewer & Water",
+      "count": 25,
+      "bonded": 11,
+      "insured": 25,
+      "insuranceScope": 25,
+      "medianBond": 15000
+    },
+    {
+      "id": "abatement",
+      "name": "Asbestos, Lead & Pest",
+      "count": 12,
+      "bonded": 4,
+      "insured": 12,
+      "insuranceScope": 12,
+      "medianBond": 15000
+    },
+    {
+      "id": "pools",
+      "name": "Pools, Spas & Hot Tubs",
+      "count": 8,
+      "bonded": 4,
+      "insured": 8,
+      "insuranceScope": 8,
+      "medianBond": 15000
+    }
+  ],
+  "cities": [
+    {
+      "city": "SEATTLE",
+      "count": 3775
+    },
+    {
+      "city": "AUBURN",
+      "count": 1612
+    },
+    {
+      "city": "KENT",
+      "count": 1515
+    },
+    {
+      "city": "RENTON",
+      "count": 1267
+    },
+    {
+      "city": "FEDERAL WAY",
+      "count": 1041
+    },
+    {
+      "city": "BELLEVUE",
+      "count": 975
+    },
+    {
+      "city": "BOTHELL",
+      "count": 844
+    },
+    {
+      "city": "KIRKLAND",
+      "count": 744
+    },
+    {
+      "city": "REDMOND",
+      "count": 543
+    },
+    {
+      "city": "WOODINVILLE",
+      "count": 518
+    },
+    {
+      "city": "MAPLE VALLEY",
+      "count": 349
+    },
+    {
+      "city": "ISSAQUAH",
+      "count": 319
+    },
+    {
+      "city": "SHORELINE",
+      "count": 319
+    },
+    {
+      "city": "ENUMCLAW",
+      "count": 313
+    },
+    {
+      "city": "BURIEN",
+      "count": 265
+    },
+    {
+      "city": "TUKWILA",
+      "count": 260
+    },
+    {
+      "city": "COVINGTON",
+      "count": 226
+    },
+    {
+      "city": "DES MOINES",
+      "count": 223
+    },
+    {
+      "city": "KENMORE",
+      "count": 191
+    },
+    {
+      "city": "MILTON",
+      "count": 171
+    },
+    {
+      "city": "NORTH BEND",
+      "count": 152
+    },
+    {
+      "city": "SAMMAMISH",
+      "count": 147
+    },
+    {
+      "city": "SEATAC",
+      "count": 144
+    },
+    {
+      "city": "VASHON",
+      "count": 132
+    },
+    {
+      "city": "DUVALL",
+      "count": 127
+    },
+    {
+      "city": "PACIFIC",
+      "count": 116
+    },
+    {
+      "city": "MERCER ISLAND",
+      "count": 108
+    },
+    {
+      "city": "SNOQUALMIE",
+      "count": 98
+    },
+    {
+      "city": "BLACK DIAMOND",
+      "count": 94
+    },
+    {
+      "city": "FALL CITY",
+      "count": 88
+    },
+    {
+      "city": "CARNATION",
+      "count": 87
+    },
+    {
+      "city": "RAVENSDALE",
+      "count": 77
+    },
+    {
+      "city": "NEWCASTLE",
+      "count": 75
+    },
+    {
+      "city": "LAKE FOREST PARK",
+      "count": 58
+    },
+    {
+      "city": "NORMANDY PARK",
+      "count": 46
+    },
+    {
+      "city": "ALGONA",
+      "count": 42
+    },
+    {
+      "city": "HOBART",
+      "count": 25
+    },
+    {
+      "city": "MEDINA",
+      "count": 14
+    },
+    {
+      "city": "CLYDE HILL",
+      "count": 7
+    },
+    {
+      "city": "PRESTON",
+      "count": 7
+    },
+    {
+      "city": "SNOQUALMIE PASS",
+      "count": 5
+    },
+    {
+      "city": "SKYKOMISH",
+      "count": 2
+    },
+    {
+      "city": "YARROW POINT",
+      "count": 1
+    }
+  ]
+}

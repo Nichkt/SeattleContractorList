@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>King County contracting by the numbers — registrations, bonds, and insurance</title><meta name="description" content="17,122 active contractor registrations in King County and 2,237 suspended ones, plus what the state&#39;s bond and insurance files leave out. Rebuilt weekly."><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://nichkt.github.io/SeattleContractorList/numbers/"><meta property="og:type" content="website"><meta property="og:title" content="King County contracting by the numbers — registrations, bonds, and insurance"><meta property="og:description" content="17,122 active contractor registrations in King County and 2,237 suspended ones, plus what the state&#39;s bond and insurance files leave out. Rebuilt weekly."><meta property="og:url" content="https://nichkt.github.io/SeattleContractorList/numbers/"><meta name="twitter:card" content="summary"><link rel="preconnect" href="https://data.wa.gov"><link rel="stylesheet" href="../assets/styles.css"><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "King County Contractors",
+      "item": "https://nichkt.github.io/SeattleContractorList/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "The numbers",
+      "item": "https://nichkt.github.io/SeattleContractorList/numbers/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Where do these numbers come from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three files Washington's Department of Labor &amp; Industries publishes as open data: the contractor registry, the bond file, and the insurance file. This page is rebuilt from them every week. No survey, no estimate, no scraping — the joins and the arithmetic are the only things we add."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does it say 56% have no published bond instead of \"unbonded\"?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because the data does not support the stronger claim. The published bond file has no row at all for 56% of active King County registrations, and that share sits between 40% and 48% for every licence cohort from 2010 to today. Real lapses would move around by year; a flat line across sixteen years describes the file. Washington also permits an assigned savings account in place of a surety bond, which would not appear in a bond file. So we report what is published and say no more."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is insurance reported for only some trades?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The insurance file holds about 290 rows for electrical contractors statewide, against 1,081 active electrical registrations in King County alone. A coverage rate computed on that would say something about the file, not about electricians. Insurance figures here cover construction and plumbing registrations, which the file does carry properly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use these figures?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, freely. They come from public records. A link back is appreciated and lets people check the working. Want a cut we do not publish? By city, by trade, by year? The source files are linked at the foot of every page. The join is three lines of SQL."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "King County contractor registration, bond, and insurance figures",
+  "description": "Weekly aggregate of Washington State L&I contractor registry, bond, and insurance files, scoped to King County.",
+  "url": "https://nichkt.github.io/SeattleContractorList/numbers/",
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "isBasedOn": [
+    "https://data.wa.gov/Labor/L-I-Contractor-License-Data-General/m8qx-ubtq",
+    "https://data.wa.gov/Labor/L-I-Contractor-License-Data-Bond/bzff-4fmt",
+    "https://data.wa.gov/Labor/L-I-Contractor-License-Data-Insurance/ciwg-agsx"
+  ],
+  "dateModified": "2026-08-18",
+  "creator": {
+    "@type": "Organization",
+    "name": "King County Contractor Directory"
+  }
+}
+</script>
+</head><body><svg class="sprite" aria-hidden="true" focusable="false"><defs><symbol id="i-yes" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></symbol><symbol id="i-no" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol></defs></svg><a class="skip" href="#main">Skip to content</a><header class="site"><div class="wrap site__inner"><a class="brand" href="../"><svg viewBox="0 0 24 24" aria-hidden="true" class="brand__mark"><path d="M3 21h18M5 21V9l7-6 7 6v12M9.5 21v-6h5v6"/></svg><span><strong>King County Contractors</strong><em>Licensed · Bonded · Insured</em></span></a><nav class="site__nav"><a href="../verify/">Check a contractor</a><a href="../bond-calculator/">Bond calculator</a><a href="../numbers/">The numbers</a><a href="../certifications.html">Certifications</a><a href="../about.html">How this works</a><button id="themeToggle" class="iconbtn" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></button></nav></div></header><main id="main"><section class="hero hero--tight"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="https://nichkt.github.io/SeattleContractorList/">King County Contractors</a><span class="crumbs__sep">/</span><span aria-current="page">The numbers</span></nav><h1>King County contracting, by the numbers</h1><p class="hero__lede">
+      Nobody publishes this. The state releases the raw files and leaves it there. These are
+      the county's figures, rebuilt from those files every week, with the caveats stated
+      plainly instead of buried.
+    </p><p class="hero__note">Built Tue Aug 18 2026 from <span class="mono">data.wa.gov</span>.</p></div></section><section class="wrap section"><div class="tiles"><div class="tile"><span class="tile__n">17,122</span><span class="tile__label">Active registrations</span><span class="tile__note">With a King County address</span></div><div class="tile"><span class="tile__n">2,237</span><span class="tile__label">Currently suspended</span><span class="tile__note">Still findable online, not allowed to work</span></div><div class="tile"><span class="tile__n">100%</span><span class="tile__label">Carry current insurance</span><span class="tile__note">Of 16,021 construction &amp; plumbing registrations</span></div><div class="tile"><span class="tile__n">26</span><span class="tile__label">Bonds paid against</span><span class="tile__note">A claim was made and the surety paid</span></div></div></section><section class="wrap section"><h2 class="section__title">Two out of three are general contractors</h2><p class="section__sub">
+    11,751 of the county's 17,122 active registrations
+    (69%) are general contractors. That one category is larger than all 26 other trades combined, which
+        is why it sits here rather than on the chart — on the same scale everything else
+        would be a smudge.
+  </p><h3 class="chart__title">Active registrations by trade, general contractors excluded</h3><div class="chart"><div class="chart__row"><span class="chart__label">Electrical</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--brand)"
+              title="Electrical: 1,081"></span></span><span class="chart__value">1,081</span></div><div class="chart__row"><span class="chart__label">Painting &amp; Wallcovering</span><span class="chart__track"><span class="chart__bar" style="width:62.07%;background:var(--brand)"
+              title="Painting &amp; Wallcovering: 671"></span></span><span class="chart__value">671</span></div><div class="chart__row"><span class="chart__label">Flooring &amp; Countertops</span><span class="chart__track"><span class="chart__bar" style="width:51.99%;background:var(--brand)"
+              title="Flooring &amp; Countertops: 562"></span></span><span class="chart__value">562</span></div><div class="chart__row"><span class="chart__label">Landscaping &amp; Tree Care</span><span class="chart__track"><span class="chart__bar" style="width:49.40%;background:var(--brand)"
+              title="Landscaping &amp; Tree Care: 534"></span></span><span class="chart__value">534</span></div><div class="chart__row"><span class="chart__label">Plumbing</span><span class="chart__track"><span class="chart__bar" style="width:41.54%;background:var(--brand)"
+              title="Plumbing: 449"></span></span><span class="chart__value">449</span></div><div class="chart__row"><span class="chart__label">Tile, Stone &amp; Masonry Tile</span><span class="chart__track"><span class="chart__bar" style="width:32.93%;background:var(--brand)"
+              title="Tile, Stone &amp; Masonry Tile: 356"></span></span><span class="chart__value">356</span></div><div class="chart__row"><span class="chart__label">Siding, Gutters &amp; Windows</span><span class="chart__track"><span class="chart__bar" style="width:25.90%;background:var(--brand)"
+              title="Siding, Gutters &amp; Windows: 280"></span></span><span class="chart__value">280</span></div><div class="chart__row"><span class="chart__label">Concrete, Masonry &amp; Paving</span><span class="chart__track"><span class="chart__bar" style="width:19.06%;background:var(--brand)"
+              title="Concrete, Masonry &amp; Paving: 206"></span></span><span class="chart__value">206</span></div><div class="chart__row"><span class="chart__label">Kitchen &amp; Bath / Remodeling</span><span class="chart__track"><span class="chart__bar" style="width:15.17%;background:var(--brand)"
+              title="Kitchen &amp; Bath / Remodeling: 164"></span></span><span class="chart__value">164</span></div><div class="chart__row"><span class="chart__label">HVAC &amp; Refrigeration</span><span class="chart__track"><span class="chart__bar" style="width:13.23%;background:var(--brand)"
+              title="HVAC &amp; Refrigeration: 143"></span></span><span class="chart__value">143</span></div><div class="chart__row"><span class="chart__label">Handyman &amp; Maintenance</span><span class="chart__track"><span class="chart__bar" style="width:10.27%;background:var(--brand)"
+              title="Handyman &amp; Maintenance: 111"></span></span><span class="chart__value">111</span></div><div class="chart__row"><span class="chart__label">Solar &amp; Low Voltage</span><span class="chart__track"><span class="chart__bar" style="width:9.81%;background:var(--brand)"
+              title="Solar &amp; Low Voltage: 106"></span></span><span class="chart__value">106</span></div><div class="chart__row"><span class="chart__label">Drywall, Insulation &amp; Plaster</span><span class="chart__track"><span class="chart__bar" style="width:8.97%;background:var(--brand)"
+              title="Drywall, Insulation &amp; Plaster: 97"></span></span><span class="chart__value">97</span></div><div class="chart__row"><span class="chart__label">Roofing</span><span class="chart__track"><span class="chart__bar" style="width:8.60%;background:var(--brand)"
+              title="Roofing: 93"></span></span><span class="chart__value">93</span></div><div class="chart__row"><span class="chart__label">Welding &amp; Metal Fabrication</span><span class="chart__track"><span class="chart__bar" style="width:8.60%;background:var(--brand)"
+              title="Welding &amp; Metal Fabrication: 93"></span></span><span class="chart__value">93</span></div><div class="chart__row"><span class="chart__label">Pressure Washing &amp; Cleanup</span><span class="chart__track"><span class="chart__bar" style="width:7.03%;background:var(--brand)"
+              title="Pressure Washing &amp; Cleanup: 76"></span></span><span class="chart__value">76</span></div><div class="chart__row"><span class="chart__label">Fire Protection &amp; Security</span><span class="chart__track"><span class="chart__bar" style="width:6.11%;background:var(--brand)"
+              title="Fire Protection &amp; Security: 66"></span></span><span class="chart__value">66</span></div><div class="chart__row"><span class="chart__label">Excavation &amp; Demolition</span><span class="chart__track"><span class="chart__bar" style="width:5.09%;background:var(--brand)"
+              title="Excavation &amp; Demolition: 55"></span></span><span class="chart__value">55</span></div><div class="chart__row"><span class="chart__label">Carpentry &amp; Framing</span><span class="chart__track"><span class="chart__bar" style="width:4.63%;background:var(--brand)"
+              title="Carpentry &amp; Framing: 50"></span></span><span class="chart__value">50</span></div><div class="chart__row"><span class="chart__label">Garage Doors &amp; Gates</span><span class="chart__track"><span class="chart__bar" style="width:4.63%;background:var(--brand)"
+              title="Garage Doors &amp; Gates: 50"></span></span><span class="chart__value">50</span></div><div class="chart__row"><span class="chart__label">Fencing &amp; Decking</span><span class="chart__track"><span class="chart__bar" style="width:3.61%;background:var(--brand)"
+              title="Fencing &amp; Decking: 39"></span></span><span class="chart__value">39</span></div><div class="chart__row"><span class="chart__label">Signs &amp; Awnings</span><span class="chart__track"><span class="chart__bar" style="width:3.61%;background:var(--brand)"
+              title="Signs &amp; Awnings: 39"></span></span><span class="chart__value">39</span></div><div class="chart__row"><span class="chart__label">Appliances &amp; Equipment</span><span class="chart__track"><span class="chart__bar" style="width:3.15%;background:var(--brand)"
+              title="Appliances &amp; Equipment: 34"></span></span><span class="chart__value">34</span></div><div class="chart__row"><span class="chart__label">Septic, Sewer &amp; Water</span><span class="chart__track"><span class="chart__bar" style="width:2.31%;background:var(--brand)"
+              title="Septic, Sewer &amp; Water: 25"></span></span><span class="chart__value">25</span></div><div class="chart__row"><span class="chart__label">Asbestos, Lead &amp; Pest</span><span class="chart__track"><span class="chart__bar" style="width:1.11%;background:var(--brand)"
+              title="Asbestos, Lead &amp; Pest: 12"></span></span><span class="chart__value">12</span></div><div class="chart__row"><span class="chart__label">Pools, Spas &amp; Hot Tubs</span><span class="chart__track"><span class="chart__bar" style="width:0.74%;background:var(--brand)"
+              title="Pools, Spas &amp; Hot Tubs: 8"></span></span><span class="chart__value">8</span></div></div><details class="datatable"><summary>See this as a table</summary><table><caption>Active King County registrations by trade</caption><thead><tr><th scope="col">Trade</th><th scope="col">Active</th><th scope="col">Bond published</th><th scope="col">Insurance published</th></tr></thead><tbody><tr><th scope="row">General Contractors</th><td>11,751</td><td>5,190</td><td>11,731</td></tr><tr><th scope="row">Electrical</th><td>1,081</td><td>503</td><td>—</td></tr><tr><th scope="row">Painting &amp; Wallcovering</th><td>671</td><td>290</td><td>671</td></tr><tr><th scope="row">Flooring &amp; Countertops</th><td>562</td><td>249</td><td>560</td></tr><tr><th scope="row">Landscaping &amp; Tree Care</th><td>534</td><td>230</td><td>532</td></tr><tr><th scope="row">Plumbing</th><td>449</td><td>205</td><td>447</td></tr><tr><th scope="row">Tile, Stone &amp; Masonry Tile</th><td>356</td><td>124</td><td>356</td></tr><tr><th scope="row">Siding, Gutters &amp; Windows</th><td>280</td><td>117</td><td>280</td></tr><tr><th scope="row">Concrete, Masonry &amp; Paving</th><td>206</td><td>104</td><td>206</td></tr><tr><th scope="row">Kitchen &amp; Bath / Remodeling</th><td>164</td><td>59</td><td>163</td></tr><tr><th scope="row">HVAC &amp; Refrigeration</th><td>143</td><td>78</td><td>143</td></tr><tr><th scope="row">Handyman &amp; Maintenance</th><td>111</td><td>52</td><td>111</td></tr><tr><th scope="row">Solar &amp; Low Voltage</th><td>106</td><td>49</td><td>—</td></tr><tr><th scope="row">Drywall, Insulation &amp; Plaster</th><td>97</td><td>45</td><td>97</td></tr><tr><th scope="row">Roofing</th><td>93</td><td>41</td><td>93</td></tr><tr><th scope="row">Welding &amp; Metal Fabrication</th><td>93</td><td>30</td><td>92</td></tr><tr><th scope="row">Pressure Washing &amp; Cleanup</th><td>76</td><td>31</td><td>76</td></tr><tr><th scope="row">Fire Protection &amp; Security</th><td>66</td><td>34</td><td>66</td></tr><tr><th scope="row">Excavation &amp; Demolition</th><td>55</td><td>24</td><td>55</td></tr><tr><th scope="row">Carpentry &amp; Framing</th><td>50</td><td>20</td><td>49</td></tr><tr><th scope="row">Garage Doors &amp; Gates</th><td>50</td><td>29</td><td>50</td></tr><tr><th scope="row">Fencing &amp; Decking</th><td>39</td><td>18</td><td>39</td></tr><tr><th scope="row">Signs &amp; Awnings</th><td>39</td><td>15</td><td>39</td></tr><tr><th scope="row">Appliances &amp; Equipment</th><td>34</td><td>20</td><td>34</td></tr><tr><th scope="row">Septic, Sewer &amp; Water</th><td>25</td><td>11</td><td>25</td></tr><tr><th scope="row">Asbestos, Lead &amp; Pest</th><td>12</td><td>4</td><td>12</td></tr><tr><th scope="row">Pools, Spas &amp; Hot Tubs</th><td>8</td><td>4</td><td>8</td></tr></tbody></table></details></section><section class="wrap section"><h2 class="section__title">Who carries insurance</h2><p class="section__sub">
+    Share of construction and plumbing registrations with a current liability policy on file.
+    Trades with fewer than 25 such registrations are left out — a rate on twelve businesses
+    tells you nothing.
+  </p><h3 class="chart__title">Current liability insurance on file, by trade</h3><div class="chart"><div class="chart__row"><span class="chart__label">Painting &amp; Wallcovering</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Painting &amp; Wallcovering: 100% of 671"></span></span><span class="chart__value">100% of 671</span></div><div class="chart__row"><span class="chart__label">Tile, Stone &amp; Masonry Tile</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Tile, Stone &amp; Masonry Tile: 100% of 356"></span></span><span class="chart__value">100% of 356</span></div><div class="chart__row"><span class="chart__label">Siding, Gutters &amp; Windows</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Siding, Gutters &amp; Windows: 100% of 280"></span></span><span class="chart__value">100% of 280</span></div><div class="chart__row"><span class="chart__label">Concrete, Masonry &amp; Paving</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Concrete, Masonry &amp; Paving: 100% of 206"></span></span><span class="chart__value">100% of 206</span></div><div class="chart__row"><span class="chart__label">HVAC &amp; Refrigeration</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="HVAC &amp; Refrigeration: 100% of 143"></span></span><span class="chart__value">100% of 143</span></div><div class="chart__row"><span class="chart__label">Handyman &amp; Maintenance</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Handyman &amp; Maintenance: 100% of 111"></span></span><span class="chart__value">100% of 111</span></div><div class="chart__row"><span class="chart__label">Drywall, Insulation &amp; Plaster</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Drywall, Insulation &amp; Plaster: 100% of 97"></span></span><span class="chart__value">100% of 97</span></div><div class="chart__row"><span class="chart__label">Roofing</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Roofing: 100% of 93"></span></span><span class="chart__value">100% of 93</span></div><div class="chart__row"><span class="chart__label">Pressure Washing &amp; Cleanup</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Pressure Washing &amp; Cleanup: 100% of 76"></span></span><span class="chart__value">100% of 76</span></div><div class="chart__row"><span class="chart__label">Fire Protection &amp; Security</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Fire Protection &amp; Security: 100% of 66"></span></span><span class="chart__value">100% of 66</span></div><div class="chart__row"><span class="chart__label">Excavation &amp; Demolition</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Excavation &amp; Demolition: 100% of 55"></span></span><span class="chart__value">100% of 55</span></div><div class="chart__row"><span class="chart__label">Garage Doors &amp; Gates</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Garage Doors &amp; Gates: 100% of 50"></span></span><span class="chart__value">100% of 50</span></div><div class="chart__row"><span class="chart__label">Fencing &amp; Decking</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Fencing &amp; Decking: 100% of 39"></span></span><span class="chart__value">100% of 39</span></div><div class="chart__row"><span class="chart__label">Signs &amp; Awnings</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Signs &amp; Awnings: 100% of 39"></span></span><span class="chart__value">100% of 39</span></div><div class="chart__row"><span class="chart__label">Appliances &amp; Equipment</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Appliances &amp; Equipment: 100% of 34"></span></span><span class="chart__value">100% of 34</span></div><div class="chart__row"><span class="chart__label">Septic, Sewer &amp; Water</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--yes)"
+              title="Septic, Sewer &amp; Water: 100% of 25"></span></span><span class="chart__value">100% of 25</span></div><div class="chart__row"><span class="chart__label">General Contractors</span><span class="chart__track"><span class="chart__bar" style="width:99.83%;background:var(--yes)"
+              title="General Contractors: 100% of 11,751"></span></span><span class="chart__value">100% of 11,751</span></div><div class="chart__row"><span class="chart__label">Flooring &amp; Countertops</span><span class="chart__track"><span class="chart__bar" style="width:99.64%;background:var(--yes)"
+              title="Flooring &amp; Countertops: 100% of 562"></span></span><span class="chart__value">100% of 562</span></div><div class="chart__row"><span class="chart__label">Landscaping &amp; Tree Care</span><span class="chart__track"><span class="chart__bar" style="width:99.63%;background:var(--yes)"
+              title="Landscaping &amp; Tree Care: 100% of 534"></span></span><span class="chart__value">100% of 534</span></div><div class="chart__row"><span class="chart__label">Plumbing</span><span class="chart__track"><span class="chart__bar" style="width:99.55%;background:var(--yes)"
+              title="Plumbing: 100% of 449"></span></span><span class="chart__value">100% of 449</span></div><div class="chart__row"><span class="chart__label">Kitchen &amp; Bath / Remodeling</span><span class="chart__track"><span class="chart__bar" style="width:99.39%;background:var(--yes)"
+              title="Kitchen &amp; Bath / Remodeling: 99% of 164"></span></span><span class="chart__value">99% of 164</span></div><div class="chart__row"><span class="chart__label">Welding &amp; Metal Fabrication</span><span class="chart__track"><span class="chart__bar" style="width:98.92%;background:var(--yes)"
+              title="Welding &amp; Metal Fabrication: 99% of 93"></span></span><span class="chart__value">99% of 93</span></div><div class="chart__row"><span class="chart__label">Carpentry &amp; Framing</span><span class="chart__track"><span class="chart__bar" style="width:98.00%;background:var(--yes)"
+              title="Carpentry &amp; Framing: 98% of 50"></span></span><span class="chart__value">98% of 50</span></div></div><details class="datatable"><summary>See this as a table</summary><table><caption>Insurance coverage by trade</caption><thead><tr><th scope="col">Trade</th><th scope="col">In scope</th><th scope="col">Insured</th><th scope="col">Rate</th></tr></thead><tbody><tr><th scope="row">Painting &amp; Wallcovering</th><td>671</td><td>671</td><td>100.0%</td></tr><tr><th scope="row">Tile, Stone &amp; Masonry Tile</th><td>356</td><td>356</td><td>100.0%</td></tr><tr><th scope="row">Siding, Gutters &amp; Windows</th><td>280</td><td>280</td><td>100.0%</td></tr><tr><th scope="row">Concrete, Masonry &amp; Paving</th><td>206</td><td>206</td><td>100.0%</td></tr><tr><th scope="row">HVAC &amp; Refrigeration</th><td>143</td><td>143</td><td>100.0%</td></tr><tr><th scope="row">Handyman &amp; Maintenance</th><td>111</td><td>111</td><td>100.0%</td></tr><tr><th scope="row">Drywall, Insulation &amp; Plaster</th><td>97</td><td>97</td><td>100.0%</td></tr><tr><th scope="row">Roofing</th><td>93</td><td>93</td><td>100.0%</td></tr><tr><th scope="row">Pressure Washing &amp; Cleanup</th><td>76</td><td>76</td><td>100.0%</td></tr><tr><th scope="row">Fire Protection &amp; Security</th><td>66</td><td>66</td><td>100.0%</td></tr><tr><th scope="row">Excavation &amp; Demolition</th><td>55</td><td>55</td><td>100.0%</td></tr><tr><th scope="row">Garage Doors &amp; Gates</th><td>50</td><td>50</td><td>100.0%</td></tr><tr><th scope="row">Fencing &amp; Decking</th><td>39</td><td>39</td><td>100.0%</td></tr><tr><th scope="row">Signs &amp; Awnings</th><td>39</td><td>39</td><td>100.0%</td></tr><tr><th scope="row">Appliances &amp; Equipment</th><td>34</td><td>34</td><td>100.0%</td></tr><tr><th scope="row">Septic, Sewer &amp; Water</th><td>25</td><td>25</td><td>100.0%</td></tr><tr><th scope="row">General Contractors</th><td>11,751</td><td>11,731</td><td>99.8%</td></tr><tr><th scope="row">Flooring &amp; Countertops</th><td>562</td><td>560</td><td>99.6%</td></tr><tr><th scope="row">Landscaping &amp; Tree Care</th><td>534</td><td>532</td><td>99.6%</td></tr><tr><th scope="row">Plumbing</th><td>449</td><td>447</td><td>99.6%</td></tr><tr><th scope="row">Kitchen &amp; Bath / Remodeling</th><td>164</td><td>163</td><td>99.4%</td></tr><tr><th scope="row">Welding &amp; Metal Fabrication</th><td>93</td><td>92</td><td>98.9%</td></tr><tr><th scope="row">Carpentry &amp; Framing</th><td>50</td><td>49</td><td>98.0%</td></tr></tbody></table></details></section><section class="wrap section"><h2 class="section__title">When today's contractors registered</h2><p class="section__sub">
+    Active registrations by the year they took effect. This is a picture of who is working
+    now, not of how many registered each year — the ones who quit or lapsed are not here,
+    which is why the recent years look busier.
+  </p><h3 class="chart__title">Active registrations by year of registration</h3><div class="chart"><div class="chart__row"><span class="chart__label">2006</span><span class="chart__track"><span class="chart__bar" style="width:11.98%;background:var(--brand)"
+              title="2006: 234"></span></span><span class="chart__value">234</span></div><div class="chart__row"><span class="chart__label">2007</span><span class="chart__track"><span class="chart__bar" style="width:12.95%;background:var(--brand)"
+              title="2007: 253"></span></span><span class="chart__value">253</span></div><div class="chart__row"><span class="chart__label">2008</span><span class="chart__track"><span class="chart__bar" style="width:14.64%;background:var(--brand)"
+              title="2008: 286"></span></span><span class="chart__value">286</span></div><div class="chart__row"><span class="chart__label">2009</span><span class="chart__track"><span class="chart__bar" style="width:13.31%;background:var(--brand)"
+              title="2009: 260"></span></span><span class="chart__value">260</span></div><div class="chart__row"><span class="chart__label">2010</span><span class="chart__track"><span class="chart__bar" style="width:15.97%;background:var(--brand)"
+              title="2010: 312"></span></span><span class="chart__value">312</span></div><div class="chart__row"><span class="chart__label">2011</span><span class="chart__track"><span class="chart__bar" style="width:14.64%;background:var(--brand)"
+              title="2011: 286"></span></span><span class="chart__value">286</span></div><div class="chart__row"><span class="chart__label">2012</span><span class="chart__track"><span class="chart__bar" style="width:14.84%;background:var(--brand)"
+              title="2012: 290"></span></span><span class="chart__value">290</span></div><div class="chart__row"><span class="chart__label">2013</span><span class="chart__track"><span class="chart__bar" style="width:16.94%;background:var(--brand)"
+              title="2013: 331"></span></span><span class="chart__value">331</span></div><div class="chart__row"><span class="chart__label">2014</span><span class="chart__track"><span class="chart__bar" style="width:20.78%;background:var(--brand)"
+              title="2014: 406"></span></span><span class="chart__value">406</span></div><div class="chart__row"><span class="chart__label">2015</span><span class="chart__track"><span class="chart__bar" style="width:23.95%;background:var(--brand)"
+              title="2015: 468"></span></span><span class="chart__value">468</span></div><div class="chart__row"><span class="chart__label">2016</span><span class="chart__track"><span class="chart__bar" style="width:27.02%;background:var(--brand)"
+              title="2016: 528"></span></span><span class="chart__value">528</span></div><div class="chart__row"><span class="chart__label">2017</span><span class="chart__track"><span class="chart__bar" style="width:29.68%;background:var(--brand)"
+              title="2017: 580"></span></span><span class="chart__value">580</span></div><div class="chart__row"><span class="chart__label">2018</span><span class="chart__track"><span class="chart__bar" style="width:38.79%;background:var(--brand)"
+              title="2018: 758"></span></span><span class="chart__value">758</span></div><div class="chart__row"><span class="chart__label">2019</span><span class="chart__track"><span class="chart__bar" style="width:41.25%;background:var(--brand)"
+              title="2019: 806"></span></span><span class="chart__value">806</span></div><div class="chart__row"><span class="chart__label">2020</span><span class="chart__track"><span class="chart__bar" style="width:33.93%;background:var(--brand)"
+              title="2020: 663"></span></span><span class="chart__value">663</span></div><div class="chart__row"><span class="chart__label">2021</span><span class="chart__track"><span class="chart__bar" style="width:51.43%;background:var(--brand)"
+              title="2021: 1,005"></span></span><span class="chart__value">1,005</span></div><div class="chart__row"><span class="chart__label">2022</span><span class="chart__track"><span class="chart__bar" style="width:59.52%;background:var(--brand)"
+              title="2022: 1,163"></span></span><span class="chart__value">1,163</span></div><div class="chart__row"><span class="chart__label">2023</span><span class="chart__track"><span class="chart__bar" style="width:69.34%;background:var(--brand)"
+              title="2023: 1,355"></span></span><span class="chart__value">1,355</span></div><div class="chart__row"><span class="chart__label">2024</span><span class="chart__track"><span class="chart__bar" style="width:76.92%;background:var(--brand)"
+              title="2024: 1,503"></span></span><span class="chart__value">1,503</span></div><div class="chart__row"><span class="chart__label">2025</span><span class="chart__track"><span class="chart__bar" style="width:100.00%;background:var(--brand)"
+              title="2025: 1,954"></span></span><span class="chart__value">1,954</span></div><div class="chart__row"><span class="chart__label">2026</span><span class="chart__track"><span class="chart__bar" style="width:82.80%;background:var(--brand)"
+              title="2026: 1,618"></span></span><span class="chart__value">1,618</span></div></div><details class="datatable"><summary>See this as a table</summary><table><caption>Active registrations by effective year</caption><thead><tr><th scope="col">Year</th><th scope="col">Active registrations</th></tr></thead><tbody><tr><th scope="row">2006</th><td>234</td></tr><tr><th scope="row">2007</th><td>253</td></tr><tr><th scope="row">2008</th><td>286</td></tr><tr><th scope="row">2009</th><td>260</td></tr><tr><th scope="row">2010</th><td>312</td></tr><tr><th scope="row">2011</th><td>286</td></tr><tr><th scope="row">2012</th><td>290</td></tr><tr><th scope="row">2013</th><td>331</td></tr><tr><th scope="row">2014</th><td>406</td></tr><tr><th scope="row">2015</th><td>468</td></tr><tr><th scope="row">2016</th><td>528</td></tr><tr><th scope="row">2017</th><td>580</td></tr><tr><th scope="row">2018</th><td>758</td></tr><tr><th scope="row">2019</th><td>806</td></tr><tr><th scope="row">2020</th><td>663</td></tr><tr><th scope="row">2021</th><td>1,005</td></tr><tr><th scope="row">2022</th><td>1,163</td></tr><tr><th scope="row">2023</th><td>1,355</td></tr><tr><th scope="row">2024</th><td>1,503</td></tr><tr><th scope="row">2025</th><td>1,954</td></tr><tr><th scope="row">2026</th><td>1,618</td></tr></tbody></table></details></section><section class="wrap section"><div class="callout"><h2>What the bonds look like</h2><p>
+      Since July 1, 2024 the law asks $30,000 of a general contractor and
+      $15,000 of a specialty contractor. Among King County registrations
+      with a published bond, the median is $30,000, the middle half runs from
+      $15,000 to $30,000, and the largest is
+      $150,000. 120 contractors — 2% of
+      those with a bond on file — post more than the law requires.
+    </p><p>
+      Work out what that covers on your own job with the
+      <a href="https://nichkt.github.io/SeattleContractorList/bond-calculator/">bond calculator</a>.
+    </p></div></section><section class="wrap section"><h2 class="section__title">Questions people ask</h2><div class="faq"><details class="faq__item"><summary>Where do these numbers come from?</summary><div class="faq__a"><p>Three files Washington's Department of Labor &amp; Industries publishes as open
+          data: the contractor registry, the bond file, and the insurance file. This page is
+          rebuilt from them every week. No survey, no estimate, no scraping — the joins and
+          the arithmetic are the only things we add.</p></div></details><details class="faq__item"><summary>Why does it say 56% have no published bond instead of &quot;unbonded&quot;?</summary><div class="faq__a"><p>Because the data does not support the stronger claim. The published bond file has
+          no row at all for 56% of active King County registrations, and that
+          share sits between 40% and 48% for every licence cohort from 2010 to today. Real
+          lapses would move around by year; a flat line across sixteen years describes the file.
+          Washington also permits an assigned savings account in place of a surety bond, which
+          would not appear in a bond file. So we report what is published and say no more.</p></div></details><details class="faq__item"><summary>Why is insurance reported for only some trades?</summary><div class="faq__a"><p>The insurance file holds about 290 rows for electrical contractors statewide,
+          against 1,081 active electrical
+          registrations in King County alone. A coverage rate computed on that would say
+          something about the file, not about electricians. Insurance figures here cover
+          construction and plumbing registrations, which the file does carry properly.</p></div></details><details class="faq__item"><summary>Can I use these figures?</summary><div class="faq__a"><p>Yes, freely. They come from public records. A link back is appreciated and lets
+          people check the working. Want a cut we do not publish? By city, by trade, by year?
+          The source files are linked at the foot of every page. The join is three lines of
+          SQL.</p></div></details></div></section></main><footer class="site-foot"><div class="wrap"><p><strong>We are not the government and do not speak for it.</strong> This is an
+      independent site built on public records. It is not affiliated with Washington State
+      L&amp;I or King County. Every listing comes straight from the state registry. A
+      listing here is not a recommendation. It means the paperwork is in order.
+    </p><p class="muted small">
+      Data: <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-General/m8qx-ubtq" target="_blank" rel="noopener">L&amp;I Contractor License Data — General</a>,
+      <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Bond/bzff-4fmt" target="_blank" rel="noopener">Bond</a>, and
+      <a href="https://data.wa.gov/Labor/L-I-Contractor-License-Data-Insurance/ciwg-agsx" target="_blank" rel="noopener">Insurance</a>,
+      published by the Washington State Department of Labor &amp; Industries.
+      Check any contractor yourself at <a href="https://secure.lni.wa.gov/verify/" target="_blank" rel="noopener">secure.lni.wa.gov/verify</a>.
+      &copy; <span id="year">2026</span>.
+    </p></div></footer>
+<script src="../assets/theme.js"></script>
+</body></html>
