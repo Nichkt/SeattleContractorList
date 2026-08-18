@@ -259,17 +259,20 @@ function respond(route, body) {
 
   check('unverified website falls back to a scoped search',
     siteHref.startsWith('https://www.google.com/search?q=') &&
-    decodeURIComponent(siteHref).includes('Alpha Tile Works Llc Seattle WA'), siteHref);
+    decodeURIComponent(siteHref).includes('Alpha Tile Works LLC Seattle WA'), siteHref);
   check('an unconfirmed website is labelled "Find site", never presented as theirs',
     (await alphaLinks.nth(0).innerText()).trim().toLowerCase().includes('find site'),
     await alphaLinks.nth(0).innerText());
   check('Google link scopes the search to the business and city',
     gHref.startsWith('https://www.google.com/maps/search/') &&
-    decodeURIComponent(gHref).includes('Alpha Tile Works Llc Seattle WA'), gHref);
+    decodeURIComponent(gHref).includes('Alpha Tile Works LLC Seattle WA'), gHref);
   check('Yelp link scopes the search to the business and city',
     yHref.startsWith('https://www.yelp.com/search') &&
-    decodeURIComponent(yHref).includes('Alpha Tile Works Llc') &&
+    decodeURIComponent(yHref).includes('Alpha Tile Works LLC') &&
     decodeURIComponent(yHref).includes('Seattle, WA'), yHref);
+  check('company suffixes keep their capitals, and possessives keep their lowercase s',
+    decodeURIComponent(siteHref).includes('LLC') &&
+    !decodeURIComponent(siteHref).includes('Llc'), siteHref);
   check('outbound links open safely in a new tab',
     (await alphaLinks.nth(1).getAttribute('rel')).includes('noopener') &&
     (await alphaLinks.nth(1).getAttribute('target')) === '_blank', '');
