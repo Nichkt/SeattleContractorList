@@ -471,7 +471,11 @@ html.dark .card__review:hover { color: var(--brand); }
 
 /* --------------------------------------------------------------- category */
 
-.cat { position: relative; }
+/* The trade cards became real links so crawlers can follow them and people
+   can open them in a new tab. They should not start looking like body text. */
+.cat { position: relative; text-decoration: none; color: inherit; }
+.cat, .cat * { text-decoration: none; }
+.cat:hover .cat__name { color: var(--brand); }
 .cat__n {
   position: absolute; top: .7rem; right: .8rem;
   font-size: .74rem; font-variant-numeric: tabular-nums;
