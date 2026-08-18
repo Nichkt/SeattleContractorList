@@ -286,9 +286,17 @@ function respond(route, body) {
     (await page.locator('#sortSelect').inputValue()) === 'name',
     await page.locator('#sortSelect').inputValue());
 
-  check('unreviewed businesses say so instead of showing a fake score',
-    (await page.locator('.rating--none').count()) > 0 &&
-    (await page.locator('.rating--none').first().innerText()).includes('Not yet rated'), '');
+  // With no reviews anywhere, "Not yet rated" is the same non-fact on every
+  // card, so it is suppressed rather than repeated thousands of times.
+  check('with zero reviews, no rating placeholder clutters the cards',
+    (await page.locator('.rating--none').count()) === 0,
+    'got ' + (await page.locator('.rating--none').count()));
+  check('the invitation to review survives as a quiet link',
+    (await page.locator('.card__review').count()) > 0 &&
+    (await page.locator('.card__review').first().getAttribute('href')).includes('review.html?ubi='),
+    await page.locator('.card__review').first().getAttribute('href'));
+  check('no score is ever invented for an unreviewed business',
+    (await page.locator('.rating__score').count()) === 0, '');
 
   // Seed a local review and confirm it scores live on the directory.
   await page.evaluate(() => {
@@ -311,6 +319,14 @@ function respond(route, body) {
     (await alphaRated.locator('.rating__prov').count()) === 1, '');
   check('no award is granted off one review',
     (await alphaRated.locator('.award').count()) === 0, '');
+
+  // Bravo has no reviews, but Alpha does — so now "Not yet rated" carries
+  // information and should reappear on the unrated card.
+  const bravoRated = page.locator('.card', { hasText: 'Bravo Tile' });
+  check('once any business is rated, unrated ones say "Not yet rated" again',
+    (await bravoRated.locator('.rating--none').count()) === 1 &&
+    (await bravoRated.locator('.rating--none').innerText()).includes('Not yet rated'),
+    await bravoRated.locator('.rating--none').count() + '');
 
   await alphaRated.locator('.rating__more summary').click();
   const breakdown = await alphaRated.locator('.axes').innerText();
