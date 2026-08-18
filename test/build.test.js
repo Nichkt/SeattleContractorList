@@ -139,6 +139,13 @@ console.log('\nClaims the data supports');
   const numbers = fs.readFileSync(path.join(ROOT, 'numbers/index.html'), 'utf8');
   ok('the numbers page states the bond-file caveat', /flat|describes the file|property of the file/i.test(numbers));
   ok('insurance scope is disclosed', /construction and plumbing/i.test(numbers));
+
+  /* A tile reading "100%" is a claim about every named business on the site.
+     It may only appear when the underlying figure is exactly 100. */
+  const { pct: fmtPct } = require('../build/lib/format.js');
+  ok('99.8% never rounds up to a claimed 100%', fmtPct(99.82) === '99.8%', fmtPct(99.82));
+  ok('a true 100% still reads 100%', fmtPct(100) === '100%', fmtPct(100));
+  ok('a non-zero share never rounds down to 0%', fmtPct(0.04) === '0.1%', fmtPct(0.04));
 }
 
 /* ------------------------------------------------------------- pagination */
