@@ -56,7 +56,16 @@ function fmtPhone(v) {
 const slug = (s) => String(s).toLowerCase().trim()
   .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
-const pct = (n, digits = 0) => n.toFixed(digits) + '%';
+/* Never round a percentage up to 100% unless it really is 100%, and never
+   down to 0% unless it really is 0%. On this site the tile that reads "100%
+   carry current insurance" is a claim about named businesses, and 99.8% is
+   twenty-nine companies that do not. */
+function pct(n, digits = 0) {
+  const rounded = Number(n.toFixed(digits));
+  if (rounded >= 100 && n < 100) return (Math.floor(n * 10) / 10).toFixed(1) + '%';
+  if (rounded <= 0 && n > 0) return (Math.ceil(n * 10) / 10).toFixed(1) + '%';
+  return n.toFixed(digits) + '%';
+}
 const num = (n) => Number(n).toLocaleString('en-US');
 
 module.exports = { esc, titleCase, fmtDate, fmtMoney, fmtPhone, slug, pct, num };
